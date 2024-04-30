@@ -8,6 +8,16 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oluwatunmiisheii/fx-notify-web.git"
+  },
+  "author": "Adenuga Oluwatunmise",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oluwatunmiisheii/fx-notify-web/issues"
+  },
+  "homepage": "https://github.com/oluwatunmiisheii/fx-notify-web#readme",
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
