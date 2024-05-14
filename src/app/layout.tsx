@@ -16,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <div className="flex flex-col justify-between w-full h-full min-h-screen">
       <body className={inter.className}>{children}</body>
+
+      </div>
     </html>
   );
 }
