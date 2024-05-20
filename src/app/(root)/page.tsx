@@ -16,9 +16,7 @@ export default function Home() {
   return (
     <>
       <Container>
-        <h1 className="mb-1 font-semibold text-lg">
-          Best Exchange Rate Finder
-        </h1>
+        <h1 className="mb-1 font-semibold text-lg">Exchange Rate Finder</h1>
         <p className="text-muted-foreground font-normal tracking-normal text-base">
           We help you find the best exchange rates from different providers in a
           single place so you can make an informed decision on where to convert
