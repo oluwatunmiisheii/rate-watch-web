@@ -9,57 +9,36 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table/table'
+import { cn } from '@/lib/utils'
 import { Trash } from 'lucide-react'
 
-const invoices = [
+const alerts = [
   {
-    invoice: 'INV001',
-    paymentStatus: 'Paid',
-    totalAmount: '$250.00',
-    paymentMethod: 'Credit Card',
+    id: 'INV001',
+    currencyFrom: 'USD',
+    currencyTo: 'NGN',
   },
   {
-    invoice: 'INV002',
-    paymentStatus: 'Pending',
-    totalAmount: '$150.00',
-    paymentMethod: 'PayPal',
+    id: 'INV002',
+    currencyFrom: 'EUR',
+    currencyTo: 'NGN',
   },
   {
-    invoice: 'INV003',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$350.00',
-    paymentMethod: 'Bank Transfer',
+    id: 'INV003',
+    currencyFrom: 'GBP',
+    currencyTo: 'NGN',
   },
   {
-    invoice: 'INV004',
-    paymentStatus: 'Paid',
-    totalAmount: '$450.00',
-    paymentMethod: 'Credit Card',
-  },
-  {
-    invoice: 'INV005',
-    paymentStatus: 'Paid',
-    totalAmount: '$550.00',
-    paymentMethod: 'PayPal',
-  },
-  {
-    invoice: 'INV006',
-    paymentStatus: 'Pending',
-    totalAmount: '$200.00',
-    paymentMethod: 'Bank Transfer',
-  },
-  {
-    invoice: 'INV007',
-    paymentStatus: 'Unpaid',
-    totalAmount: '$300.00',
-    paymentMethod: 'Credit Card',
+    id: 'INV004',
+    currencyFrom: 'CAD',
+    currencyTo: 'NGN',
   },
 ]
 
 export function RateAlerts() {
   return (
     <Table>
-      <TableCaption>A list of your alerts</TableCaption>
+      <TableCaption className="sr-only">A list of your alerts</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Alert</TableHead>
@@ -67,9 +46,38 @@ export function RateAlerts() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
+        {alerts.map((alert) => (
+          <TableRow key={alert.id}>
+            <TableCell className="font-medium relative">
+              <div className="relative">
+                <div className="np-theme-personal inline-flex border rounded-full">
+                  <div
+                    className={cn(
+                      'currency-flag currency-flag-lg',
+                      `currency-flag-${alert.currencyFrom.toLowerCase()}`,
+                    )}
+                  />
+                </div>
+
+                <div className="absolute bottom-[4px] left-[20px]">
+                  <div className="np-theme-personal flex bg-white rounded-full items-center justify-center p-0.5 border">
+                    <div
+                      className={cn(
+                        'currency-flag currency-flag-sm',
+                        `currency-flag-${alert.currencyTo.toLowerCase()}`,
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-muted-foreground mt-1 font-normal">
+                Notify me when {''}
+                <span className="font-semibold text-foreground">1 USD</span> is
+                greater than or equal to {''}
+                <span className="font-semibold text-foreground">500 NGN</span>
+              </p>
+            </TableCell>
             <TableCell className="text-right">
               <Button
                 size="sm"

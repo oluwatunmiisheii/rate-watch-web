@@ -84,23 +84,27 @@ export function SearchResult({
               </div>
               <div className="flex items-center space-x-3">
                 <div className="flex items-center">
-                  <i
-                    className={cn(
-                      'mr-2 currency-flag',
-                      `currency-flag-${currencyFrom.toLowerCase()}`,
-                    )}
-                  />
+                  <div className="np-theme-personal flex items-center justify-center border mr-2 rounded-full">
+                    <div
+                      className={cn(
+                        'currency-flag',
+                        `currency-flag-${currencyFrom.toLowerCase()}`,
+                      )}
+                    />
+                  </div>
                   {currencyFrom}
                 </div>
                 <MoveRight className="size-5" />
 
-                <div className="flex items-center">
-                  <i
-                    className={cn(
-                      'mr-2 currency-flag',
-                      `currency-flag-${currencyTo.toLowerCase()}`,
-                    )}
-                  />
+                <div className="flex items-center justify-center">
+                  <div className="np-theme-personal flex items-center justify-center border mr-2 rounded-full">
+                    <div
+                      className={cn(
+                        'currency-flag',
+                        `currency-flag-${currencyTo.toLowerCase()}`,
+                      )}
+                    />
+                  </div>
                   {currencyTo}
                 </div>
               </div>

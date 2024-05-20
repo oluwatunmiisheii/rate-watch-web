@@ -25,17 +25,20 @@ export default function Home() {
           your money to get the best value for it in your local currency or any
           other currency you want to convert to.
         </p>
+
         <div className="div space-y-4 flex items-center flex-col mt-10 border bg-zinc-50 shadow rounded-md relative overflow-hidden">
           <div className="py-12 px-8 w-full">
-            <p>Currency From</p>
             <CurrencySelect
               selectedCurrency={currencyFrom}
               onCurrencySelect={setCurrencyFrom}
+              labelProps={{
+                className: 'bg-zinc-50',
+                children: 'To',
+              }}
             />
-            {/* <div className="font-semibold text-lg self-start h-16 pb-8" /> */}
           </div>
 
-          <div className="absolute top-[35%]">
+          <div className="absolute top-[33%]">
             <Button
               variant="outline"
               className="rounded-full size-10 p-0 "
@@ -51,10 +54,13 @@ export default function Home() {
           </div>
 
           <div className="bg-white w-full px-8 py-12">
-            <p>Currency To</p>
             <CurrencySelect
               selectedCurrency={currencyTo}
               onCurrencySelect={setCurrencyTo}
+              labelProps={{
+                className: 'bg-white',
+                children: 'To',
+              }}
             />
             <div className="w-full mt-10">
               <Button
@@ -69,23 +75,25 @@ export default function Home() {
         </div>
       </Container>
 
-      <div className="bg-zinc-50 mt-8">
-        <Container>
-          <div className="py-6 flex justify-between items-baseline">
-            <div>
-              <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
-              <p className="text-sm text-slate-500 mt-2">
-                This are the list of exchange rate alerts you have set up for
-                your favorite currencies
-              </p>
-            </div>
-            <Button variant="outline" size="sm">
-              Create new alert
-            </Button>
+      <Container
+        containerProps={{
+          className: 'mt-8 bg-zinc-50',
+        }}
+      >
+        <div className="py-6 flex justify-between items-baseline">
+          <div>
+            <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
+            <p className="text-sm text-slate-500 mt-2">
+              This are the list of exchange rate alerts you have set up for your
+              favorite currencies
+            </p>
           </div>
-          <RateAlerts />
-        </Container>
-      </div>
+          <Button variant="outline" size="sm">
+            Create new alert
+          </Button>
+        </div>
+        <RateAlerts />
+      </Container>
 
       <SearchResult
         open={showResult}

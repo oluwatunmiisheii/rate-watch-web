@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover/popover'
+import { twMerge } from 'tailwind-merge'
 
 const currencies = [
   {
@@ -47,11 +48,13 @@ const currencies = [
 interface CurrencySelectProps {
   selectedCurrency: string
   onCurrencySelect: (value: string) => void
+  labelProps: JSX.IntrinsicElements['p']
 }
 
 export const CurrencySelect = ({
   selectedCurrency,
   onCurrencySelect,
+  labelProps,
 }: CurrencySelectProps) => {
   const [open, setOpen] = React.useState(false)
 
@@ -62,73 +65,87 @@ export const CurrencySelect = ({
   }, [selectedCurrency])
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between h-16 border-gray-300"
-        >
-          {selectedCurrency ? (
-            <span className="flex items-center">
-              <i
-                className={cn('mr-2 currency-flag', selectedCurrencyInfo?.icon)}
-              />
-              {selectedCurrency}
-              <span className="mx-3">-</span>
-              <span className="text-sm text-zinc-500 font-normal">
-                {selectedCurrencyInfo?.label}
-              </span>
-            </span>
-          ) : (
-            'Select currency...'
-          )}
-          <ChevronsDown
-            className={cn(
-              'ml-2 size-5 shrink-0 opacity-50 transition-transform duration-200 ease-in-out',
-              open ? 'transform rotate-180' : '',
-            )}
-          />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[400px] max-w-sm p-0">
-        <Command>
-          <CommandInput placeholder="Search currency..." />
-          <CommandEmpty>No currency found.</CommandEmpty>
-          <CommandList>
-            {currencies.map(({ currencyCode, icon, label }) => (
-              <CommandItem
-                className="cursor-pointer"
-                key={currencyCode}
-                value={currencyCode}
-                onSelect={(currentValue) => {
-                  onCurrencySelect(
-                    currentValue === selectedCurrency ? '' : currentValue,
-                  )
-                  setOpen(false)
-                }}
-              >
-                <Check
-                  className={cn(
-                    'mr-2 h-4 w-4',
-                    selectedCurrency === currencyCode
-                      ? 'opacity-100'
-                      : 'opacity-0',
-                  )}
-                />
-                <span className="sr-only">Currency icon</span>
-                <i className={cn('mr-2 currency-flag', icon)} />
-                {currencyCode}
+    <div className="relative">
+      <p
+        className={twMerge(
+          'absolute text-sm top-[-9px] left-[18px]',
+          labelProps.className,
+        )}
+      >
+        Currency {labelProps.children}
+      </p>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className="w-full justify-between h-16 border-gray-300"
+          >
+            {selectedCurrency ? (
+              <div className="flex items-center">
+                <div className="np-theme-personal border rounded-full flex justify-center items-center mr-2">
+                  <div
+                    className={cn('currency-flag', selectedCurrencyInfo?.icon)}
+                  />
+                </div>
+                {selectedCurrency}
                 <span className="mx-3">-</span>
-                <span className="text-sm  text-zinc-500 font-normal">
-                  {label}
+                <span className="text-sm text-zinc-500 font-normal">
+                  {selectedCurrencyInfo?.label}
                 </span>
-              </CommandItem>
-            ))}
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+              </div>
+            ) : (
+              'Select currency...'
+            )}
+            <ChevronsDown
+              className={cn(
+                'ml-2 size-5 shrink-0 opacity-50 transition-transform duration-200 ease-in-out',
+                open ? 'transform rotate-180' : '',
+              )}
+            />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-[400px] max-w-sm p-0">
+          <Command>
+            <CommandInput placeholder="Search currency..." />
+            <CommandEmpty>No currency found.</CommandEmpty>
+            <CommandList>
+              {currencies.map(({ currencyCode, icon, label }) => (
+                <CommandItem
+                  className="cursor-pointer"
+                  key={currencyCode}
+                  value={currencyCode}
+                  onSelect={(currentValue) => {
+                    onCurrencySelect(
+                      currentValue === selectedCurrency ? '' : currentValue,
+                    )
+                    setOpen(false)
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      'mr-2 h-4 w-4',
+                      selectedCurrency === currencyCode
+                        ? 'opacity-100'
+                        : 'opacity-0',
+                    )}
+                  />
+                  <span className="sr-only">Currency icon</span>
+                  <div className="np-theme-personal mr-2">
+                    <div className={cn('currency-flag', icon)} />
+                  </div>
+                  {currencyCode}
+                  <span className="mx-3">-</span>
+                  <span className="text-sm  text-zinc-500 font-normal">
+                    {label}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </div>
   )
 }
