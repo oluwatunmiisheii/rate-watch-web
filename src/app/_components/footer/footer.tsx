@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container/container'
-import { Cookie, Mail } from 'lucide-react'
+import { Cookie, Smile } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import NextLink from 'next/link'
@@ -7,17 +7,17 @@ import NextLink from 'next/link'
 export const Footer = () => {
   return (
     <Container>
-      <footer className="flex text-sm flex-row justify-between sm:items-center py-4">
-        <div className="flex gap-4 flex-row">
+      <footer className="flex text-sm flex-col sm:flex-row justify-between sm:items-center py-4 gap-4">
+        <div className="flex space-x-6 flex-row">
           <NextLink
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-1"
             href="https://nextjs.authjs.dev"
           >
-            <span>Suggest Provider</span>
-            <span className="sr-only">Mail icon</span>
-            <Mail className="size-4" />
+            <span>Suggest a Provider</span>
+            <span className="sr-only">Smile icon</span>
+            <Smile className="size-4" />
           </NextLink>
           <NextLink
             className="inline-flex items-center space-x-1"

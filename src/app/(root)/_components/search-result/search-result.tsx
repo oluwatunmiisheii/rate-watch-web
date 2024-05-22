@@ -136,7 +136,7 @@ export function SearchResult({
             </DrawerClose>
           </DrawerHeader>
 
-          <ScrollArea className="px-4 pb-0 h-[350px] md:h-[400px]">
+          <ScrollArea className="px-4 pb-0 h-[300px] md:h-[400px]">
             <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {Array.from({ length: 20 }).map((_, i) => (
