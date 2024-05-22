@@ -4,8 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Notifications } from './notifications/notifications'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button/button'
+import { UserWidget } from './user-widget/user-widget'
 
 export const Header = () => {
   const [isAuthenticated] = React.useState(true)
@@ -33,11 +33,7 @@ export const Header = () => {
           {isAuthenticated ? (
             <>
               <Notifications />
-              <Avatar>
-                <AvatarFallback className="bg-zinc-50 border border-zinc-300">
-                  CN
-                </AvatarFallback>
-              </Avatar>
+              <UserWidget />
             </>
           ) : (
             <Button>Sign In</Button>

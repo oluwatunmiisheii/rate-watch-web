@@ -78,7 +78,7 @@ export default function Home() {
           className: 'mt-8 bg-zinc-50',
         }}
       >
-        <div className="py-6 flex justify-between items-baseline">
+        <div className="py-6 flex justify-between items-baseline flex-col sm:flex-row space-y-2">
           <div>
             <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
             <p className="text-sm text-slate-500 mt-2">

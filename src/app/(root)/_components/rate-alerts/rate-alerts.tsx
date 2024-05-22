@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table/table'
 import { cn } from '@/lib/utils'
-import { Trash } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 
 const alerts = [
   {
@@ -83,7 +83,7 @@ export function RateAlerts() {
                 variant="outline"
                 className="bg-transparent border-0 hover:bg-transparent"
               >
-                <Trash className="size-[18px]" />
+                <Trash2 className="size-[18px]" />
                 <span className="sr-only">Delete</span>
               </Button>
             </TableCell>
