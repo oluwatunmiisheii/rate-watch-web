@@ -15,7 +15,7 @@ export const Footer = () => {
             className="inline-flex items-center space-x-1"
             href="https://nextjs.authjs.dev"
           >
-            <span>Contact Me!</span>
+            <span>Suggest Provider</span>
             <span className="sr-only">Mail icon</span>
             <Mail className="size-4" />
           </NextLink>
