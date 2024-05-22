@@ -86,9 +86,7 @@ export default function Home() {
               favorite currencies
             </p>
           </div>
-          <Button variant="outline" size="sm">
-            Create new alert
-          </Button>
+          <Button size="sm">Create new alert</Button>
         </div>
         <RateAlerts />
       </Container>

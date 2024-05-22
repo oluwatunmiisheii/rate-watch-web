@@ -50,7 +50,7 @@ const ResultCard = ({ currencyTo }: { currencyTo: string }) => {
         height={100}
       ></Image>
       <div>
-        <p className="text-muted-foreground text-right">Rate</p>
+        <p className="text-muted-foreground text-right text-sm">Rate</p>
         <p className="font-semibold">1, 100 {currencyTo}</p>
       </div>
     </div>
@@ -77,9 +77,11 @@ export function SearchResult({
               <div className="border-b mb-6 pb-2">
                 <h3 className="mb-1">Disclaimer!!</h3>
                 <p className="text-muted-foreground font-normal tracking-normal text-base">
-                  Rates are gotten from the websites of the providers at a
-                  particular time. Users should still check the websites before
-                  going ahead to convert their money
+                  Rates are gotten from the websites of the providers shown
+                  below. As exchange rates are constantly changing, the rates
+                  shown here might no longer be applicable when initiating a new
+                  transaction. We however do our best to keep the rates updated
+                  as much as possible.
                 </p>
               </div>
               <div className="flex items-center space-x-3">
@@ -128,8 +130,8 @@ export function SearchResult({
             </DrawerClose>
           </DrawerHeader>
 
-          <ScrollArea className="px-4 pb-0 h-[50vh]">
-            <div className="mx-auto w-full max-w-3xl pb-6">
+          <ScrollArea className="px-4 pb-0 max-h-[50dvh] overflow-y-auto">
+            <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-2 gap-6">
                 {Array.from({ length: 20 }).map((_, i) => (
                   <ResultCard key={i} currencyTo={currencyTo} />
@@ -139,7 +141,7 @@ export function SearchResult({
           </ScrollArea>
 
           <DrawerFooter className="bg-zinc-50 border-t border-zinc-100">
-            <div className="mx-auto w-full max-w-3xl py-8 px-0">
+            <div className="mx-auto w-full max-w-3xl py-4 px-0">
               <div className="flex justify-between space-x-4">
                 <Button className="flex-1" size="lg">
                   Setup rate watch

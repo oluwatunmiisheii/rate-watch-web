@@ -83,7 +83,7 @@ export function RateAlerts() {
                 variant="outline"
                 className="bg-transparent border-0 hover:bg-transparent"
               >
-                <Trash className="size-5" />
+                <Trash className="size-[18px]" />
                 <span className="sr-only">Delete</span>
               </Button>
             </TableCell>
