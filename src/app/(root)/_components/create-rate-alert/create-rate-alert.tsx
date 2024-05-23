@@ -7,7 +7,7 @@ import {
   SheetPortal,
   SheetTitle,
 } from '@/components/ui/sheet/sheet'
-import { ArrowUpDown, Scroll, X } from 'lucide-react'
+import { ArrowUpDown } from 'lucide-react'
 import { CurrencySelect } from '../currency-select/currency-select'
 import { Input } from '@/components/ui/input/input'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
@@ -36,7 +36,7 @@ export const CreateRateAlert = ({
       }}
     >
       <SheetPortal>
-        <SheetContent className="sm:max-w-0 sm:min-w-full">
+        <SheetContent className="w-full sm:max-w-0 sm:min-w-full">
           <SheetHeader className="mx-auto w-full max-w-3xl">
             <SheetTitle asChild>
               <div>
@@ -52,7 +52,7 @@ export const CreateRateAlert = ({
             </SheetTitle>
           </SheetHeader>
 
-          <ScrollArea className="overflow-y-auto">
+          <ScrollArea className="overflow-y-auto h-[80vh]">
             <div className="mx-auto w-full max-w-3xl py-8">
               <div className="flex flex-col items-center space-y-4 w-full">
                 <CurrencySelect
@@ -143,7 +143,7 @@ export const CreateRateAlert = ({
           </ScrollArea>
 
           <SheetFooter className="bg-zinc-50 border-t border-zinc-100 absolute bottom-0 w-full left-0">
-            <div className="mx-auto w-full max-w-sm py-4 px-0">
+            <div className="mx-auto w-full max-w-sm py-4 px-4 sm:px-0">
               <div className="flex justify-between space-x-4">
                 <Button className="flex-1" size="lg">
                   Create alert
