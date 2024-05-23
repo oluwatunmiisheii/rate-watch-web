@@ -7,13 +7,18 @@ import {
   SheetPortal,
   SheetTitle,
 } from '@/components/ui/sheet/sheet'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, Terminal } from 'lucide-react'
 import { CurrencySelect } from '../currency-select/currency-select'
 import { Input } from '@/components/ui/input/input'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 import { Switch } from '@/components/ui/switch/switch'
 import { Label } from '@/components/ui/label/label'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui/alert/alert'
 
 interface CreateRateAlertProps {
   open: boolean
@@ -52,14 +57,14 @@ export const CreateRateAlert = ({
             </SheetTitle>
           </SheetHeader>
 
-          <ScrollArea className="overflow-y-auto h-[80vh]">
+          <ScrollArea className="overflow-y-auto h-[75vh]">
             <div className="mx-auto w-full max-w-3xl py-8">
               <div className="flex flex-col items-center space-y-4 w-full">
                 <CurrencySelect
-                  selectedCurrency={''}
+                  selectedCurrency={currencyFrom}
                   onCurrencySelect={() => {}} // eslint-disable-line
                   labelProps={{
-                    className: 'bg-zinc-50',
+                    className: 'bg-white',
                     children: 'From',
                   }}
                 />
@@ -73,19 +78,33 @@ export const CreateRateAlert = ({
                 </Button>
 
                 <CurrencySelect
-                  selectedCurrency={''}
+                  selectedCurrency={currencyTo}
                   onCurrencySelect={() => {}} // eslint-disable-line
                   labelProps={{
-                    className: 'bg-zinc-50',
+                    className: 'bg-white',
                     children: 'To',
                   }}
                 />
               </div>
 
+              <Alert className="my-8" variant="secondary">
+                <Terminal className="h-4 w-4" />
+                <AlertTitle>Heads up!</AlertTitle>
+                <AlertDescription>
+                  <a
+                    href="google.com"
+                    className="border-b-2 border-dotted border-slate-900 font-semibold"
+                  >
+                    Nala
+                  </a>{' '}
+                  is offering the best rate at 1 USD to 412 NGN.
+                </AlertDescription>
+              </Alert>
+
               <div className="flex flex-col space-y-6 mt-6">
                 <div>
                   <h5>Daily Updates</h5>
-                  <div className="flex items-center justify-between space-x-4 mt-1">
+                  <div className="flex items-center justify-between space-x-4 mt-0.5">
                     <Label
                       htmlFor="daily-updates"
                       className="font-normal text-muted-foreground tracking-normal leading-5 text-sm"
@@ -98,7 +117,7 @@ export const CreateRateAlert = ({
                 </div>
                 <div>
                   <h5>Threshold Updates</h5>
-                  <div className="flex items-center justify-between space-x-4 mt-1">
+                  <div className="flex items-center justify-between space-x-4 mt-0.5">
                     <Label
                       htmlFor="threshold-updates"
                       className="font-normal text-muted-foreground tracking-normal leading-5 text-sm"
@@ -116,7 +135,7 @@ export const CreateRateAlert = ({
 
               <div className="mb-8">
                 <h5>Desired Rates</h5>
-                <div className="flex space-x-12 items-center mt-1">
+                <div className="flex space-x-12 items-center mt-0.5">
                   <div className="flex-shrink-0">
                     <div className="flex items-center">
                       <CurrencyIcon

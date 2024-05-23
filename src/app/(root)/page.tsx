@@ -38,7 +38,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="absolute top-[33%]">
+          <div className="absolute top-[32%]">
             <Button
               variant="outline"
               className="rounded-full size-10 p-0 "
@@ -88,7 +88,9 @@ export default function Home() {
               favorite currencies
             </p>
           </div>
-          <Button size="sm">Create new alert</Button>
+          <Button size="sm" onClick={() => setShowCreateRateAlert(true)}>
+            Create new alert
+          </Button>
         </div>
         <RateAlerts />
       </Container>

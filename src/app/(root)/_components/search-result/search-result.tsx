@@ -87,11 +87,10 @@ export function SearchResult({
                 <div className="border-b mb-6 pb-2 text-left">
                   <h3 className="mb-1">Disclaimer!!</h3>
                   <p className="text-muted-foreground font-normal tracking-normal text-base">
-                    Rates are gotten from the websites of the providers shown
-                    below. As exchange rates are constantly changing, the rates
-                    shown here might no longer be applicable when initiating a
-                    new transaction. We however do our best to keep the rates
-                    updated as much as possible.
+                    Exchange rates are gathered from various providers&apos;
+                    websites. Rates fluctuate frequently and may change by the
+                    time you initiate a transaction. We do our best to keep them
+                    updated.
                   </p>
                 </div>
                 <div className="flex items-center space-x-3">
