@@ -1,18 +1,16 @@
 import { Button } from '@/components/ui/button/button'
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerPortal,
-  DrawerTitle,
-} from '@/components/ui/drawer/drawer'
-import { ArrowLeftRight, X } from 'lucide-react'
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetPortal,
+  SheetTitle,
+} from '@/components/ui/sheet/sheet'
+import { ArrowUpDown, X } from 'lucide-react'
 import { CurrencySelect } from '../currency-select/currency-select'
 import { Input } from '@/components/ui/input/input'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
-import { Separator } from '@/components/ui/separator/separator'
 import { Switch } from '@/components/ui/switch/switch'
 import { Label } from '@/components/ui/label/label'
 
@@ -30,16 +28,16 @@ export const CreateRateAlert = ({
   onClose,
 }: CreateRateAlertProps) => {
   return (
-    <Drawer
+    <Sheet
       open={open}
       onOpenChange={(open) => {
         !open && onClose()
       }}
     >
-      <DrawerPortal>
-        <DrawerContent>
-          <DrawerHeader className="mx-auto w-full max-w-3xl">
-            <DrawerTitle asChild>
+      <SheetPortal>
+        <SheetContent>
+          <SheetHeader className="mx-auto w-full max-w-3xl">
+            <SheetTitle asChild>
               <div>
                 <div className="border-b mb-2 pb-2 text-left">
                   <h3 className="mb-1">Rate watch</h3>
@@ -50,17 +48,11 @@ export const CreateRateAlert = ({
                   </p>
                 </div>
               </div>
-            </DrawerTitle>
-            <DrawerClose asChild>
-              <Button variant="ghost" className="absolute right-5 top-5">
-                <span className="sr-only">Close</span>
-                <X className="size-5" />
-              </Button>
-            </DrawerClose>
-          </DrawerHeader>
+            </SheetTitle>
+          </SheetHeader>
 
           <div className="mx-auto w-full max-w-3xl py-3 px-4">
-            <div className="flex items-center space-x-4 w-full">
+            <div className="flex flex-col items-center space-y-4 w-full">
               <CurrencySelect
                 selectedCurrency={''}
                 onCurrencySelect={() => {}} // eslint-disable-line
@@ -75,7 +67,7 @@ export const CreateRateAlert = ({
                 className="rounded-full size-10 p-0 flex-shrink-0"
               >
                 <span className="sr-only">Click me</span>
-                <ArrowLeftRight className="size-5" />
+                <ArrowUpDown className="size-5" />
               </Button>
 
               <CurrencySelect
@@ -147,7 +139,7 @@ export const CreateRateAlert = ({
             </div>
           </div>
 
-          <DrawerFooter className="bg-zinc-50 border-t border-zinc-100">
+          <SheetFooter className="bg-zinc-50 border-t border-zinc-100">
             <div className="mx-auto w-full max-w-sm py-4 px-0">
               <div className="flex justify-between space-x-4">
                 <Button className="flex-1" size="lg">
@@ -155,9 +147,9 @@ export const CreateRateAlert = ({
                 </Button>
               </div>
             </div>
-          </DrawerFooter>
-        </DrawerContent>
-      </DrawerPortal>
-    </Drawer>
+          </SheetFooter>
+        </SheetContent>
+      </SheetPortal>
+    </Sheet>
   )
 }
