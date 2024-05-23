@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ExternalLink, InfoIcon, MoveRight, X } from 'lucide-react'
+import { InfoIcon, MoveRight, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button/button'
 import {
@@ -12,7 +12,6 @@ import {
   DrawerPortal,
   DrawerTitle,
 } from '@/components/ui/drawer/drawer'
-import { cn } from '@/lib/utils'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
 
 import {
@@ -23,12 +22,14 @@ import {
 } from '@/components/ui/tooltip/tooltip'
 import Image from 'next/image'
 import Link from 'next/link'
+import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 
 interface SearchResultProps {
   open: boolean
   onClose: () => void
   currencyFrom: string
   currencyTo: string
+  createRateAlert: () => void
 }
 
 const logos = [
@@ -69,6 +70,7 @@ export function SearchResult({
   onClose,
   currencyFrom,
   currencyTo,
+  createRateAlert,
 }: SearchResultProps) {
   return (
     <Drawer
@@ -94,27 +96,20 @@ export function SearchResult({
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center">
-                    <div className="np-theme-personal flex items-center justify-center border mr-2 rounded-full">
-                      <div
-                        className={cn(
-                          'currency-flag',
-                          `currency-flag-${currencyFrom.toLowerCase()}`,
-                        )}
-                      />
-                    </div>
+                    <CurrencyIcon
+                      currency={currencyFrom}
+                      className="flex items-center justify-center border mr-2 rounded-full"
+                    />
                     {currencyFrom}
                   </div>
+
                   <MoveRight className="size-5" />
 
                   <div className="flex items-center justify-center">
-                    <div className="np-theme-personal flex items-center justify-center border mr-2 rounded-full">
-                      <div
-                        className={cn(
-                          'currency-flag',
-                          `currency-flag-${currencyTo.toLowerCase()}`,
-                        )}
-                      />
-                    </div>
+                    <CurrencyIcon
+                      currency={currencyTo}
+                      className="flex items-center justify-center border mr-2 rounded-full"
+                    />
                     {currencyTo}
                   </div>
                 </div>
@@ -149,7 +144,11 @@ export function SearchResult({
           <DrawerFooter className="bg-zinc-50 border-t border-zinc-100">
             <div className="mx-auto w-full max-w-sm py-4 px-0">
               <div className="flex justify-between space-x-4">
-                <Button className="flex-1" size="lg">
+                <Button
+                  className="flex-1"
+                  size="lg"
+                  onClick={() => createRateAlert()}
+                >
                   Setup rate watch
                 </Button>
                 <TooltipProvider>

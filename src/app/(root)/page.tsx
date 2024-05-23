@@ -7,11 +7,13 @@ import { useState } from 'react'
 import { SearchResult } from './_components/search-result/search-result'
 import { Container } from '@/components/ui/container/container'
 import { RateAlerts } from './_components/rate-alerts/rate-alerts'
+import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
 
 export default function Home() {
   const [currencyFrom, setCurrencyFrom] = useState('USD')
   const [currencyTo, setCurrencyTo] = useState('NGN')
   const [showResult, setShowResult] = useState(false)
+  const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
 
   return (
     <>
@@ -94,6 +96,17 @@ export default function Home() {
       <SearchResult
         open={showResult}
         onClose={() => setShowResult(false)}
+        currencyFrom={currencyFrom}
+        currencyTo={currencyTo}
+        createRateAlert={() => {
+          setShowResult(false)
+          setShowCreateRateAlert(true)
+        }}
+      />
+
+      <CreateRateAlert
+        open={showCreateRateAlert}
+        onClose={() => setShowCreateRateAlert(false)}
         currencyFrom={currencyFrom}
         currencyTo={currencyTo}
       />

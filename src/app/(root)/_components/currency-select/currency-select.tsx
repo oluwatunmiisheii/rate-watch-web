@@ -16,30 +16,26 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover/popover'
 import { twMerge } from 'tailwind-merge'
+import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 
 const currencies = [
   {
-    icon: 'currency-flag-usd',
     currencyCode: 'USD',
     label: 'US dollar',
   },
   {
-    icon: 'currency-flag-gbp',
     currencyCode: 'GBP',
     label: 'British pound',
   },
   {
-    icon: 'currency-flag-cad',
     currencyCode: 'CAD',
     label: 'Canadian dollar',
   },
   {
-    icon: 'currency-flag-eur',
     currencyCode: 'EUR',
     label: 'Euro',
   },
   {
-    icon: 'currency-flag-ngn',
     currencyCode: 'NGN',
     label: 'Nigerian naira',
   },
@@ -65,7 +61,7 @@ export const CurrencySelect = ({
   }, [selectedCurrency])
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <p
         className={twMerge(
           'absolute text-sm top-[-9px] left-[18px]',
@@ -84,11 +80,10 @@ export const CurrencySelect = ({
           >
             {selectedCurrency ? (
               <div className="flex items-center">
-                <div className="np-theme-personal border rounded-full flex justify-center items-center mr-2">
-                  <div
-                    className={cn('currency-flag', selectedCurrencyInfo?.icon)}
-                  />
-                </div>
+                <CurrencyIcon
+                  currency={selectedCurrencyInfo?.currencyCode ?? ''}
+                  className="border rounded-full flex justify-center items-center mr-2"
+                />
                 {selectedCurrency}
                 <span className="mx-3">-</span>
                 <span className="text-sm text-zinc-500 font-normal">
@@ -111,9 +106,9 @@ export const CurrencySelect = ({
             <CommandInput placeholder="Search currency..." />
             <CommandEmpty>No currency found.</CommandEmpty>
             <CommandList>
-              {currencies.map(({ currencyCode, icon, label }) => (
+              {currencies.map(({ currencyCode, label }) => (
                 <CommandItem
-                  className="cursor-pointer"
+                  className="cursor-pointer flex items-center"
                   key={currencyCode}
                   value={currencyCode}
                   onSelect={(currentValue) => {
@@ -132,9 +127,7 @@ export const CurrencySelect = ({
                     )}
                   />
                   <span className="sr-only">Currency icon</span>
-                  <div className="np-theme-personal mr-2">
-                    <div className={cn('currency-flag', icon)} />
-                  </div>
+                  <CurrencyIcon currency={currencyCode} className="mr-2" />
                   {currencyCode}
                   <span className="mx-3">-</span>
                   <span className="text-sm  text-zinc-500 font-normal">
