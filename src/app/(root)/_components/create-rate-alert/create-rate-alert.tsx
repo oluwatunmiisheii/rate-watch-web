@@ -57,7 +57,12 @@ export const CreateRateAlert = ({
             </SheetTitle>
           </SheetHeader>
 
-          <ScrollArea className="overflow-y-auto h-[75vh]">
+          <ScrollArea
+            className="overflow-y-auto h-[78vh] pb-12"
+            scrollbarProps={{
+              className: 'w-0',
+            }}
+          >
             <div className="mx-auto w-full max-w-3xl py-8">
               <div className="flex flex-col items-center space-y-4 w-full">
                 <CurrencySelect
