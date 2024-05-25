@@ -71,7 +71,7 @@ export function SearchResult({
   currencyFrom,
   currencyTo,
   createRateAlert,
-}: SearchResultProps) {
+}: Readonly<SearchResultProps>) {
   return (
     <Drawer
       open={open}
@@ -80,7 +80,7 @@ export function SearchResult({
       }}
     >
       <DrawerPortal>
-        <DrawerContent>
+        <DrawerContent className="flex flex-col h-full">
           <DrawerHeader className="mx-auto w-full max-w-3xl md:px-0">
             <DrawerTitle asChild>
               <div>
@@ -130,7 +130,7 @@ export function SearchResult({
             </DrawerClose>
           </DrawerHeader>
 
-          <ScrollArea className="px-4 pb-0 h-[300px] md:h-[400px]">
+          <ScrollArea className="px-4 pb-0 flex-1">
             <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {Array.from({ length: 20 }).map((_, i) => (

@@ -41,7 +41,7 @@ export const CreateRateAlert = ({
       }}
     >
       <SheetPortal>
-        <SheetContent className="w-full sm:max-w-0 sm:min-w-full">
+        <SheetContent className="w-full sm:max-w-0 sm:min-w-full flex flex-col">
           <SheetHeader className="mx-auto w-full max-w-3xl">
             <SheetTitle asChild>
               <div>
@@ -58,7 +58,7 @@ export const CreateRateAlert = ({
           </SheetHeader>
 
           <ScrollArea
-            className="overflow-y-auto h-[78vh] pb-12"
+            className="overflow-y-auto flex-1 pb-12"
             scrollbarProps={{
               className: 'w-0',
             }}
@@ -106,7 +106,7 @@ export const CreateRateAlert = ({
                 </AlertDescription>
               </Alert>
 
-              <div className="flex flex-col space-y-6 mt-6">
+              <div className="flex flex-col space-y-6 mt-6 pb-16">
                 <div>
                   <h5>Daily Updates</h5>
                   <div className="flex items-center justify-between space-x-4 mt-0.5">
@@ -134,31 +134,27 @@ export const CreateRateAlert = ({
                   </div>
                 </div>
                 <div>
-                  <h5></h5>
-                </div>
-              </div>
-
-              <div className="mb-8">
-                <h5>Desired Rates</h5>
-                <div className="flex space-x-12 items-center mt-0.5">
-                  <div className="flex-shrink-0">
-                    <div className="flex items-center">
-                      <CurrencyIcon
-                        currency={currencyFrom}
-                        className="mr-2 flex items-center"
-                      />
-                      <h4>1 {currencyFrom} =</h4>
+                  <h5>Desired Rates</h5>
+                  <div className="flex space-x-12 items-center mt-0.5">
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center">
+                        <CurrencyIcon
+                          currency={currencyFrom}
+                          className="mr-2 flex items-center"
+                        />
+                        <h4>1 {currencyFrom} =</h4>
+                      </div>
                     </div>
-                  </div>
-                  <div className="relative flex-1">
-                    <Input
-                      type="text"
-                      pattern="^[0-9]*[.]{0,1}[0-9]*$"
-                      aria-label="rate-amount"
-                    />
-                    <div className="absolute top-1/3 right-6 flex items-center">
-                      <CurrencyIcon currency={currencyTo} size="sm" />
-                      <span className="text-xs pl-2">{currencyTo}</span>
+                    <div className="relative flex-1">
+                      <Input
+                        type="text"
+                        pattern="^[0-9]*[.]{0,1}[0-9]*$"
+                        aria-label="rate-amount"
+                      />
+                      <div className="absolute top-1/3 right-6 flex items-center">
+                        <CurrencyIcon currency={currencyTo} size="sm" />
+                        <span className="text-xs pl-2">{currencyTo}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -179,4 +175,8 @@ export const CreateRateAlert = ({
       </SheetPortal>
     </Sheet>
   )
+}
+
+const handleClick = (message: string) => (event: any) => {
+  console.log(message, event)
 }

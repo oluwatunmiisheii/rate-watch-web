@@ -28,7 +28,7 @@ export const Header = () => {
           aria-label="Main"
           data-orientation="horizontal"
           dir="ltr"
-          className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-auto space-x-6"
+          className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-auto space-x-3 md:space-x-3"
         >
           {isAuthenticated ? (
             <>

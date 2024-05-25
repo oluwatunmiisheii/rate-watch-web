@@ -29,7 +29,6 @@ export const UserWidget = () => {
           <DropdownMenuItem className="focus:bg-transparent">
             <Button variant="outline" size="sm" className="w-full">
               Logout
-              <span className="sr-only">Logout</span>
             </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
