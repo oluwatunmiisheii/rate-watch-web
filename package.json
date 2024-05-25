@@ -36,10 +36,12 @@
     "currency-flags": "^4.0.7",
     "lucide-react": "^0.378.0",
     "next": "14.2.3",
+    "next-auth": "^5.0.0-beta.18",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^9.0.1",
     "vaul": "^0.9.1"
   },
   "devDependencies": {
@@ -48,6 +50,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",

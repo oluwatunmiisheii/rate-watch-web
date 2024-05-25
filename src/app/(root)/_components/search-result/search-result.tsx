@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { InfoIcon, MoveRight, X } from 'lucide-react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '@/components/ui/button/button'
 import {
@@ -134,7 +135,7 @@ export function SearchResult({
             <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {Array.from({ length: 20 }).map((_, i) => (
-                  <ResultCard key={i} currencyTo={currencyTo} />
+                  <ResultCard key={uuidv4()} currencyTo={currencyTo} />
                 ))}
               </div>
             </div>
