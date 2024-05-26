@@ -1,14 +1,12 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Notifications } from './notifications/notifications'
 import { Button } from '@/components/ui/button/button'
 import { UserWidget } from './user-widget/user-widget'
+import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
 
-export const Header = () => {
-  const [isAuthenticated] = React.useState(true)
+export const Header = async () => {
   return (
     <header className="sticky flex justify-center border-b">
       <div className="flex items-center justify-between w-full h-16 max-w-3xl px-4 mx-auto sm:px-6">
@@ -30,14 +28,15 @@ export const Header = () => {
           dir="ltr"
           className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-auto space-x-3 md:space-x-3"
         >
-          {isAuthenticated ? (
-            <>
-              <Notifications />
-              <UserWidget />
-            </>
-          ) : (
-            <Button>Sign In</Button>
-          )}
+          <SignedIn>
+            <Notifications />
+            <UserWidget />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton>
+              <Button>Sign In</Button>
+            </SignInButton>
+          </SignedOut>
         </nav>
       </div>
     </header>
