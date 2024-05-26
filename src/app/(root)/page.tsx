@@ -8,6 +8,7 @@ import { SearchResult } from './_components/search-result/search-result'
 import { Container } from '@/components/ui/container/container'
 import { RateAlerts } from './_components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
+import { SignedIn } from '@clerk/nextjs'
 
 export default function Home() {
   const [currencyFrom, setCurrencyFrom] = useState('USD')
@@ -75,25 +76,27 @@ export default function Home() {
         </div>
       </Container>
 
-      <Container
-        containerProps={{
-          className: 'mt-8 bg-zinc-50',
-        }}
-      >
-        <div className="py-6 flex justify-between items-baseline flex-col sm:flex-row space-y-2">
-          <div>
-            <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
-            <p className="text-sm text-slate-500 mt-2">
-              This are the list of exchange rate alerts you have set up for your
-              favorite currencies
-            </p>
+      <SignedIn>
+        <Container
+          containerProps={{
+            className: 'mt-8 bg-zinc-50',
+          }}
+        >
+          <div className="py-6 flex justify-between items-baseline flex-col sm:flex-row space-y-2">
+            <div>
+              <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
+              <p className="text-sm text-slate-500 mt-2">
+                This are the list of exchange rate alerts you have set up for
+                your favorite currencies
+              </p>
+            </div>
+            <Button size="sm" onClick={() => setShowCreateRateAlert(true)}>
+              Create new alert
+            </Button>
           </div>
-          <Button size="sm" onClick={() => setShowCreateRateAlert(true)}>
-            Create new alert
-          </Button>
-        </div>
-        <RateAlerts />
-      </Container>
+          <RateAlerts />
+        </Container>
+      </SignedIn>
 
       <SearchResult
         open={showResult}
