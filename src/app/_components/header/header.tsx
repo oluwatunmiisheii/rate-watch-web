@@ -1,14 +1,15 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Notifications } from './notifications/notifications'
 import { Button } from '@/components/ui/button/button'
 import { UserWidget } from './user-widget/user-widget'
+import { signIn, auth, signOut } from 'auth'
 
-export const Header = () => {
-  const [isAuthenticated] = React.useState(true)
+export const Header = async () => {
+  const session = await auth()
+  console.log('🚀 ~ Header ~ session:', session)
+  const isAuthenticated = false
   return (
     <header className="sticky flex justify-center border-b">
       <div className="flex items-center justify-between w-full h-16 max-w-3xl px-4 mx-auto sm:px-6">
@@ -30,13 +31,20 @@ export const Header = () => {
           dir="ltr"
           className="relative z-10 flex max-w-max flex-1 items-center justify-center ml-auto space-x-3 md:space-x-3"
         >
-          {isAuthenticated ? (
+          {session ? (
             <>
               <Notifications />
               <UserWidget />
             </>
           ) : (
-            <Button>Sign In</Button>
+            <form
+              action={async () => {
+                'use server'
+                await signIn()
+              }}
+            >
+              <Button variant="outline">Sign In</Button>
+            </form>
           )}
         </nav>
       </div>

@@ -8,14 +8,23 @@ import {
 } from '@/components/ui/dropdown-menu/dropdown-menu'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button/button'
+import { signOut, auth } from 'auth'
 
-export const UserWidget = () => {
+const getInitials = (name: string) => {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+}
+
+export const UserWidget = async () => {
+  const session = await auth()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-gray-600">
         <Avatar>
-          <AvatarFallback className="bg-zinc-50 border border-zinc-300">
-            OA
+          <AvatarFallback className="bg-zinc-50 border border-zinc-300 uppercase">
+            {getInitials(session?.user?.name ?? '')}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -23,13 +32,26 @@ export const UserWidget = () => {
         <DropdownMenuContent align="center" className="mt-2 max-w-56 py-3">
           <DropdownMenuItem className="focus:bg-transparent">
             <p className="text-ellipsis overflow-hidden text-sm">
-              Oluwatunmiseadenuga@gmail.com
+              {session?.user?.email}
             </p>
           </DropdownMenuItem>
           <DropdownMenuItem className="focus:bg-transparent">
-            <Button variant="outline" size="sm" className="w-full">
-              Logout
-            </Button>
+            <form
+              className="w-full"
+              action={async () => {
+                'use server'
+                await signOut()
+              }}
+            >
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                type="submit"
+              >
+                Logout
+              </Button>
+            </form>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenuPortal>
