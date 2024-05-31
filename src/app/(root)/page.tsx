@@ -10,12 +10,6 @@ import { RateAlerts } from './_components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
 import { SignedIn, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs/tabs'
 
 export default function Home() {
   const user = useUser()
