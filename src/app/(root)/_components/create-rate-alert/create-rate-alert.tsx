@@ -19,20 +19,33 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert/alert'
+import { useState } from 'react'
 
 interface CreateRateAlertProps {
   open: boolean
   onClose: () => void
-  currencyFrom: string
-  currencyTo: string
+  sourceCurrency: string
+  targetCurrency: string
+  onCurrencySelect: (value: string, type: 'source' | 'target') => void
+  onSwapCurrency: () => void
+  onCreateAlert: (payload: {
+    alertTypes: string[]
+    targetAmount?: number | undefined
+  }) => void
 }
 
 export const CreateRateAlert = ({
-  currencyFrom = 'USD',
-  currencyTo = 'NGN',
+  sourceCurrency = 'USD',
+  targetCurrency = 'NGN',
   open,
   onClose,
+  onCurrencySelect,
+  onSwapCurrency,
+  onCreateAlert,
 }: CreateRateAlertProps) => {
+  const [alertTypes, setAlertTypes] = useState<string[]>([])
+  const [targetAmount, setTargetAmount] = useState<number | undefined>()
+
   return (
     <Sheet
       open={open}
@@ -63,11 +76,13 @@ export const CreateRateAlert = ({
               className: 'w-0',
             }}
           >
-            <form className="mx-auto w-full max-w-3xl py-8">
+            <div className="mx-auto w-full max-w-3xl py-8">
               <div className="flex flex-col items-center space-y-4 w-full">
                 <CurrencySelect
-                  selectedCurrency={currencyFrom}
-                  onCurrencySelect={() => {}} // eslint-disable-line
+                  selectedCurrency={sourceCurrency}
+                  onCurrencySelect={(currency) =>
+                    onCurrencySelect(currency, 'source')
+                  }
                   labelProps={{
                     className: 'bg-white',
                     children: 'From',
@@ -77,14 +92,18 @@ export const CreateRateAlert = ({
                 <Button
                   variant="outline"
                   className="rounded-full size-10 p-0 flex-shrink-0"
+                  onClick={onSwapCurrency}
+                  type="button"
                 >
                   <span className="sr-only">Click me</span>
                   <ArrowUpDown className="size-5" />
                 </Button>
 
                 <CurrencySelect
-                  selectedCurrency={currencyTo}
-                  onCurrencySelect={() => {}} // eslint-disable-line
+                  selectedCurrency={targetCurrency}
+                  onCurrencySelect={(currency) =>
+                    onCurrencySelect(currency, 'target')
+                  }
                   labelProps={{
                     className: 'bg-white',
                     children: 'To',
@@ -139,10 +158,10 @@ export const CreateRateAlert = ({
                     <div className="flex-shrink-0">
                       <div className="flex items-center">
                         <CurrencyIcon
-                          currency={currencyFrom}
+                          currency={sourceCurrency}
                           className="mr-2 flex items-center"
                         />
-                        <h4>1 {currencyFrom} =</h4>
+                        <h4>1 {sourceCurrency} =</h4>
                       </div>
                     </div>
                     <div className="relative flex-1">
@@ -152,20 +171,30 @@ export const CreateRateAlert = ({
                         aria-label="rate-amount"
                       />
                       <div className="absolute top-1/3 right-6 flex items-center">
-                        <CurrencyIcon currency={currencyTo} size="sm" />
-                        <span className="text-xs pl-2">{currencyTo}</span>
+                        <CurrencyIcon currency={targetCurrency} size="sm" />
+                        <span className="text-xs pl-2">{targetCurrency}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
+            </div>
           </ScrollArea>
 
           <SheetFooter className="bg-zinc-50 border-t border-zinc-100 absolute bottom-0 w-full left-0">
             <div className="mx-auto w-full max-w-sm py-4 px-4 sm:px-0">
               <div className="flex justify-between space-x-4">
-                <Button className="flex-1" size="lg" type="submit">
+                <Button
+                  className="flex-1"
+                  size="lg"
+                  type="button"
+                  onClick={() =>
+                    onCreateAlert({
+                      alertTypes,
+                      targetAmount,
+                    })
+                  }
+                >
                   Create alert
                 </Button>
               </div>
@@ -175,8 +204,4 @@ export const CreateRateAlert = ({
       </SheetPortal>
     </Sheet>
   )
-}
-
-const handleClick = (message: string) => (event: any) => {
-  console.log(message, event)
 }

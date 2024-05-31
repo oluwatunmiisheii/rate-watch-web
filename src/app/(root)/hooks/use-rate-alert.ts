@@ -1,25 +1,40 @@
-import { useAuth } from '@clerk/nextjs'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 
-export const useRateAlert = (sessionId: string | null | undefined) => {
-  const { data, isLoading, error, refetch } = useQuery({
+export const useRateAlert = (email?: string) => {
+  const getRateAlerts = useQuery({
     queryKey: ['rate-alerts'],
     queryFn: async () => {
-      const response = await fetch(
-        '/api/rate-alert?email=oluwatunmiseadenuga@gmail.com',
-      )
+      const response = await fetch(`/api/rate-alert?email=${email}`)
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
       return response.json()
     },
-    enabled: !!sessionId,
+    enabled: !!email,
+  })
+
+  const createAlert = useMutation({
+    mutationKey: ['create-rate-alert'],
+    mutationFn: async (data: any) => {
+      const response = await fetch('/api/rate-alert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    },
+    onSuccess: () => {
+      getRateAlerts.refetch()
+    },
   })
 
   return {
-    refetch,
-    data,
-    isLoading,
-    error,
+    getRateAlerts,
+    createAlert,
   }
 }

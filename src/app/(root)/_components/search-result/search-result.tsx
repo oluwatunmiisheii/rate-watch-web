@@ -28,8 +28,8 @@ import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 interface SearchResultProps {
   open: boolean
   onClose: () => void
-  currencyFrom: string
-  currencyTo: string
+  sourceCurrency: string
+  targetCurrency: string
   createRateAlert: () => void
 }
 
@@ -69,8 +69,8 @@ const ResultCard = ({ currencyTo }: { currencyTo: string }) => {
 export function SearchResult({
   open,
   onClose,
-  currencyFrom,
-  currencyTo,
+  sourceCurrency,
+  targetCurrency,
   createRateAlert,
 }: Readonly<SearchResultProps>) {
   return (
@@ -97,20 +97,20 @@ export function SearchResult({
                 <div className="flex items-center space-x-3">
                   <div className="flex items-center">
                     <CurrencyIcon
-                      currency={currencyFrom}
+                      currency={sourceCurrency}
                       className="flex items-center justify-center border mr-2 rounded-full"
                     />
-                    {currencyFrom}
+                    {sourceCurrency}
                   </div>
 
                   <MoveRight className="size-5" />
 
                   <div className="flex items-center justify-center">
                     <CurrencyIcon
-                      currency={currencyTo}
+                      currency={targetCurrency}
                       className="flex items-center justify-center border mr-2 rounded-full"
                     />
-                    {currencyTo}
+                    {targetCurrency}
                   </div>
                 </div>
               </div>
@@ -118,10 +118,12 @@ export function SearchResult({
             <DrawerDescription className="text-left">
               Showing the mid market exchange rate from{' '}
               <span className="text-gray-900 font-semibold">
-                {currencyFrom}
+                {sourceCurrency}
               </span>{' '}
               to{' '}
-              <span className="text-gray-900 font-semibold">{currencyTo}</span>
+              <span className="text-gray-900 font-semibold">
+                {targetCurrency}
+              </span>
             </DrawerDescription>
             <DrawerClose asChild>
               <Button variant="ghost" className="absolute right-5 top-5">
@@ -134,8 +136,8 @@ export function SearchResult({
           <ScrollArea className="px-4 pb-0 flex-1">
             <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <ResultCard key={uuidv4()} currencyTo={currencyTo} />
+                {Array.from({ length: 20 }).map((_, _i) => (
+                  <ResultCard key={uuidv4()} currencyTo={targetCurrency} />
                 ))}
               </div>
             </div>

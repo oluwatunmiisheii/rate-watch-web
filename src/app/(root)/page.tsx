@@ -8,7 +8,7 @@ import { SearchResult } from './_components/search-result/search-result'
 import { Container } from '@/components/ui/container/container'
 import { RateAlerts } from './_components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
-import { SignedIn, useAuth } from '@clerk/nextjs'
+import { SignedIn, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
 import {
   Tabs,
@@ -18,10 +18,12 @@ import {
 } from '@/components/ui/tabs/tabs'
 
 export default function Home() {
-  const { sessionId } = useAuth()
-  const { refetch, data, isLoading, error } = useRateAlert(sessionId)
-  const [currencyFrom, setCurrencyFrom] = useState('USD')
-  const [currencyTo, setCurrencyTo] = useState('NGN')
+  const user = useUser()
+  const { getRateAlerts, createAlert } = useRateAlert(
+    user.user?.primaryEmailAddress?.emailAddress,
+  )
+  const [targetCurrency, setTargetCurrency] = useState('USD')
+  const [sourceCurrency, setSourceCurrency] = useState('NGN')
   const [showResult, setShowResult] = useState(false)
   const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
 
@@ -39,8 +41,8 @@ export default function Home() {
         <div className="div space-y-4 flex items-center flex-col mt-10 border bg-zinc-50 shadow rounded-md relative overflow-hidden">
           <div className="py-12 px-8 w-full">
             <CurrencySelect
-              selectedCurrency={currencyFrom}
-              onCurrencySelect={setCurrencyFrom}
+              selectedCurrency={sourceCurrency}
+              onCurrencySelect={setSourceCurrency}
               labelProps={{
                 className: 'bg-zinc-50',
                 children: 'To',
@@ -53,9 +55,9 @@ export default function Home() {
               variant="outline"
               className="rounded-full size-10 p-0 "
               onClick={() => {
-                const temp = currencyFrom
-                setCurrencyFrom(currencyTo)
-                setCurrencyTo(temp)
+                const temp = sourceCurrency
+                setSourceCurrency(targetCurrency)
+                setTargetCurrency(temp)
               }}
             >
               <span className="sr-only">Click me</span>
@@ -65,8 +67,8 @@ export default function Home() {
 
           <div className="bg-white w-full px-8 py-12">
             <CurrencySelect
-              selectedCurrency={currencyTo}
-              onCurrencySelect={setCurrencyTo}
+              selectedCurrency={targetCurrency}
+              onCurrencySelect={setTargetCurrency}
               labelProps={{
                 className: 'bg-white',
                 children: 'To',
@@ -104,20 +106,20 @@ export default function Home() {
             </TabsList>
             <TabsContent value="threshold">
               <RateAlerts
-                alerts={(data?.data?.items ?? [])?.filter(
+                alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
                   (alert: any) => alert.type === 'threshold',
                 )}
                 title={'Threshold'}
-                isLoading={isLoading}
+                isLoading={getRateAlerts.isLoading}
               />
             </TabsContent>
             <TabsContent value="daily">
               <RateAlerts
-                alerts={(data?.data?.items ?? [])?.filter(
+                alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
                   (alert: any) => alert.type === 'scheduled',
                 )}
                 title={'Daily'}
-                isLoading={isLoading}
+                isLoading={getRateAlerts.isLoading}
               />
             </TabsContent>
           </Tabs>
@@ -136,8 +138,8 @@ export default function Home() {
       <SearchResult
         open={showResult}
         onClose={() => setShowResult(false)}
-        currencyFrom={currencyFrom}
-        currencyTo={currencyTo}
+        sourceCurrency={sourceCurrency}
+        targetCurrency={targetCurrency}
         createRateAlert={() => {
           setShowResult(false)
           setShowCreateRateAlert(true)
@@ -147,8 +149,26 @@ export default function Home() {
       <CreateRateAlert
         open={showCreateRateAlert}
         onClose={() => setShowCreateRateAlert(false)}
-        currencyFrom={currencyFrom}
-        currencyTo={currencyTo}
+        sourceCurrency={sourceCurrency}
+        targetCurrency={targetCurrency}
+        onCurrencySelect={(currency, type) => {
+          type === 'source'
+            ? setSourceCurrency(currency)
+            : setTargetCurrency(currency)
+        }}
+        onSwapCurrency={() => {
+          const temp = sourceCurrency
+          setSourceCurrency(targetCurrency)
+          setTargetCurrency(temp)
+        }}
+        onCreateAlert={(payload) =>
+          createAlert.mutate({
+            ...payload,
+            sourceCurrency,
+            targetCurrency,
+            email: user.user?.primaryEmailAddress?.emailAddress,
+          })
+        }
       />
     </>
   )

@@ -1,8 +1,11 @@
 const BASE_URL = process.env.API_BASE_URL
+import { auth } from '@clerk/nextjs/server'
 
 export async function GET(request: Request) {
+  auth().protect()
   const { searchParams } = new URL(request.url)
   const email = searchParams.get('email')
+
   if (!email) {
     return new Response(null, {
       status: 400,
@@ -32,6 +35,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(req: Request) {
+  auth().protect()
   const body = await req.json()
   let url = `${BASE_URL}/rate-alerts`
 
