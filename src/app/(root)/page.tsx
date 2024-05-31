@@ -8,9 +8,18 @@ import { SearchResult } from './_components/search-result/search-result'
 import { Container } from '@/components/ui/container/container'
 import { RateAlerts } from './_components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
-import { SignedIn } from '@clerk/nextjs'
+import { SignedIn, useAuth } from '@clerk/nextjs'
+import { useRateAlert } from './hooks/use-rate-alert'
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs/tabs'
 
 export default function Home() {
+  const { sessionId } = useAuth()
+  const { refetch, data, isLoading, error } = useRateAlert(sessionId)
   const [currencyFrom, setCurrencyFrom] = useState('USD')
   const [currencyTo, setCurrencyTo] = useState('NGN')
   const [showResult, setShowResult] = useState(false)
@@ -19,8 +28,8 @@ export default function Home() {
   return (
     <>
       <Container>
-        <h1 className="mb-1 font-semibold text-lg">Exchange Rate Finder</h1>
-        <p className="text-muted-foreground font-normal tracking-normal text-base">
+        <h1 className="mb-1 font-semibold text-lg">Exchange Rate Watch</h1>
+        <p className="text-muted-foreground text-base">
           We help you find the best exchange rates from different providers in a
           single place so you can make an informed decision on where to convert
           your money to get the best value for it in your local currency or any
@@ -82,19 +91,45 @@ export default function Home() {
             className: 'mt-8 bg-zinc-50',
           }}
         >
-          <div className="py-6 flex justify-between items-baseline flex-col sm:flex-row space-y-2">
-            <div>
-              <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
-              <p className="text-sm text-slate-500 mt-2">
-                This are the list of exchange rate alerts you have set up for
-                your favorite currencies
-              </p>
-            </div>
+          <div className="py-6 flex justify-between items-baseline  space-y-2">
+            <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
             <Button size="sm" onClick={() => setShowCreateRateAlert(true)}>
               Create new alert
             </Button>
           </div>
-          <RateAlerts />
+          <Tabs defaultValue="threshold">
+            <TabsList className="grid w-full grid-cols-2 bg-zinc-100">
+              <TabsTrigger value="threshold">Threshold</TabsTrigger>
+              <TabsTrigger value="daily">Daily</TabsTrigger>
+            </TabsList>
+            <TabsContent value="threshold">
+              <RateAlerts
+                alerts={(data?.data?.items ?? [])?.filter(
+                  (alert: any) => alert.type === 'threshold',
+                )}
+                title={'Threshold'}
+                isLoading={isLoading}
+              />
+            </TabsContent>
+            <TabsContent value="daily">
+              <RateAlerts
+                alerts={(data?.data?.items ?? [])?.filter(
+                  (alert: any) => alert.type === 'scheduled',
+                )}
+                title={'Daily'}
+                isLoading={isLoading}
+              />
+            </TabsContent>
+          </Tabs>
+          <p className="text-muted-foreground text-sm mt-12">
+            Rate watch help you keep track of the exchange rate between two
+            currencies. Exchange rate changes frequently and the current rate
+            might not be available for long. By creating a rate alert, you can
+            get notified when the rate changes to a value you are interested in.{' '}
+            <span className="text-black border-b border-black border-dotted">
+              Terms of use
+            </span>
+          </p>
         </Container>
       </SignedIn>
 

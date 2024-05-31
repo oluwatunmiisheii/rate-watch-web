@@ -4,6 +4,7 @@ import { Header } from './_components/header/header'
 import './globals.css'
 import { Footer } from './_components/footer/footer'
 import { ClerkProvider } from '@clerk/nextjs'
+import { Providers } from '@/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,7 +29,9 @@ export default function RootLayout({
         <body className={inter.className}>
           <div className="flex flex-col justify-between w-full h-full min-h-screen">
             <Header />
-            <main className="flex-auto">{children}</main>
+            <main className="flex-auto">
+              <Providers>{children}</Providers>
+            </main>
             <Footer />
           </div>
         </body>

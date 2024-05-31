@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button/button'
 import { UserWidget } from './user-widget/user-widget'
 import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
 
-export const Header = async () => {
+export const Header = () => {
   return (
     <header className="sticky flex justify-center border-b">
       <div className="flex items-center justify-between w-full h-16 max-w-3xl px-4 mx-auto sm:px-6">

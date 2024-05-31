@@ -9,7 +9,7 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button/button'
 import { SignOutButton } from '@clerk/nextjs'
-import { currentUser, getAuth } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
 
 export const UserWidget = async () => {
   const user = await currentUser()

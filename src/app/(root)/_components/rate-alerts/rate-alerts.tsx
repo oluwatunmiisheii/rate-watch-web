@@ -9,87 +9,91 @@ import {
   TableRow,
 } from '@/components/ui/table/table'
 import { cn } from '@/lib/utils'
-import { Trash2 } from 'lucide-react'
+import { MoveRight, Trash2 } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton/skeleton'
 
-const alerts = [
-  {
-    id: 'INV001',
-    currencyFrom: 'USD',
-    currencyTo: 'NGN',
-  },
-  {
-    id: 'INV002',
-    currencyFrom: 'EUR',
-    currencyTo: 'NGN',
-  },
-  {
-    id: 'INV003',
-    currencyFrom: 'GBP',
-    currencyTo: 'NGN',
-  },
-  {
-    id: 'INV004',
-    currencyFrom: 'CAD',
-    currencyTo: 'NGN',
-  },
-]
-
-export function RateAlerts() {
+export function RateAlerts({
+  alerts = [],
+  title,
+  isLoading,
+}: {
+  alerts: any[]
+  title: string
+  isLoading: boolean
+}) {
   return (
-    <Table>
-      <TableCaption className="sr-only">A list of your alerts</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Alert</TableHead>
-          <TableHead className="text-right">Delete</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {alerts.map((alert) => (
-          <TableRow key={alert.id}>
-            <TableCell className="font-medium relative">
-              <div className="relative">
-                <div className="np-theme-personal inline-flex border rounded-full">
-                  <div
-                    className={cn(
-                      'currency-flag currency-flag-lg',
-                      `currency-flag-${alert.currencyFrom.toLowerCase()}`,
-                    )}
-                  />
-                </div>
-
-                <div className="absolute bottom-[4px] left-[20px]">
-                  <div className="np-theme-personal flex bg-white rounded-full items-center justify-center p-0.5 border">
-                    <div
-                      className={cn(
-                        'currency-flag currency-flag-sm',
-                        `currency-flag-${alert.currencyTo.toLowerCase()}`,
-                      )}
-                    />
+    <>
+      {isLoading ? (
+        <Skeleton className="h-32 w-full bg-zinc-100 shadow" />
+      ) : (
+        <Table>
+          <TableCaption className="sr-only">A list of your alerts</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead colSpan={2}>{title} alerts</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {alerts.map((alert) => (
+              <TableRow key={alert._id}>
+                <TableCell className="font-medium relative">
+                  <div className="flex items-center space-x-4">
+                    <div className="relative">
+                      <div className="np-theme-personal inline-flex border rounded-full">
+                        <div
+                          className={cn(
+                            'currency-flag currency-flag-lg',
+                            `currency-flag-${alert.source_currency.toLowerCase()}`,
+                          )}
+                        />
+                      </div>
+                      <div className="absolute bottom-[4px] left-[20px]">
+                        <div className="np-theme-personal flex bg-white rounded-full items-center justify-center p-0.5 border">
+                          <div
+                            className={cn(
+                              'currency-flag currency-flag-sm',
+                              `currency-flag-${alert.target_currency.toLowerCase()}`,
+                            )}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <span>{alert.source_currency}</span>
+                      <span className="px-1 inline-block">
+                        <MoveRight size={14} />
+                      </span>
+                      <span>{alert.target_currency}</span>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <p className="text-muted-foreground mt-1 font-normal">
-                Notify me when {''}
-                <span className="font-semibold text-foreground">1 USD</span> is
-                greater than or equal to {''}
-                <span className="font-semibold text-foreground">500 NGN</span>
-              </p>
-            </TableCell>
-            <TableCell className="text-right">
-              <Button
-                size="sm"
-                variant="outline"
-                className="bg-transparent border-0 hover:bg-transparent"
-              >
-                <Trash2 className="size-[18px]" />
-                <span className="sr-only">Delete</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+                  {alert.type === 'threshold' ? (
+                    <p className="text-muted-foreground mt-1 font-normal">
+                      Notify me when {''}1 {alert.source_currency} {''}
+                      is greater than or equal to {''}
+                      {alert.target_amount} {alert.target_currency}
+                    </p>
+                  ) : (
+                    <p className="text-muted-foreground mt-1 font-normal">
+                      Notify me of the best {alert.source_currency} to{' '}
+                      {alert.target_currency} exchange rate
+                    </p>
+                  )}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="bg-transparent border-0 hover:bg-transparent"
+                  >
+                    <Trash2 className="size-[18px]" />
+                    <span className="sr-only">Delete</span>
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
   )
 }

@@ -63,7 +63,7 @@ export const CreateRateAlert = ({
               className: 'w-0',
             }}
           >
-            <div className="mx-auto w-full max-w-3xl py-8">
+            <form className="mx-auto w-full max-w-3xl py-8">
               <div className="flex flex-col items-center space-y-4 w-full">
                 <CurrencySelect
                   selectedCurrency={currencyFrom}
@@ -159,13 +159,13 @@ export const CreateRateAlert = ({
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </ScrollArea>
 
           <SheetFooter className="bg-zinc-50 border-t border-zinc-100 absolute bottom-0 w-full left-0">
             <div className="mx-auto w-full max-w-sm py-4 px-4 sm:px-0">
               <div className="flex justify-between space-x-4">
-                <Button className="flex-1" size="lg">
+                <Button className="flex-1" size="lg" type="submit">
                   Create alert
                 </Button>
               </div>

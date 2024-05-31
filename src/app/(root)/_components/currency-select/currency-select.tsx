@@ -77,6 +77,7 @@ export const CurrencySelect = ({
             role="combobox"
             aria-expanded={open}
             className="w-full justify-between h-14 border-gray-300"
+            type="button"
           >
             {selectedCurrency ? (
               <div className="flex items-center">
