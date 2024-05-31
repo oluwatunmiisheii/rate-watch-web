@@ -9,6 +9,13 @@ export const Footer = () => {
     <Container>
       <footer className="flex text-sm flex-col sm:flex-row justify-between sm:items-center py-4 gap-4">
         <div className="flex space-x-6 flex-row">
+          <Image
+            className="size-5 "
+            src="https://authjs.dev/img/logo-sm.png"
+            alt="Auth.js Logo"
+            width={20}
+            height={20}
+          />
           <NextLink
             target="_blank"
             rel="noopener noreferrer"
@@ -29,14 +36,17 @@ export const Footer = () => {
           </NextLink>
         </div>
         <div className="flex gap-2 justify-start items-center">
-          <Image
-            className="size-5"
-            src="https://authjs.dev/img/logo-sm.png"
-            alt="Auth.js Logo"
-            width={20}
-            height={20}
-          />
-          <p className="inline-flex">© {new Date().getFullYear()} Fx Notify</p>
+          <p className="inline-flex items-center">
+            Made with <span className="sr-only mx-2">Love</span> ❤️ by
+            <NextLink
+              href="#"
+              target="_blank"
+              className="pl-1 border-b border-dotted border-slate-900 font-semibold"
+            >
+              Wilson Adenuga
+            </NextLink>
+          </p>
+          {/* © {new Date().getFullYear()} Fx Notify */}
         </div>
       </footer>
     </Container>

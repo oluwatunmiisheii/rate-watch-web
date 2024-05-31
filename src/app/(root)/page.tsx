@@ -162,12 +162,16 @@ export default function Home() {
           setTargetCurrency(temp)
         }}
         onCreateAlert={(payload) =>
-          createAlert.mutate({
-            ...payload,
-            sourceCurrency,
-            targetCurrency,
-            email: user.user?.primaryEmailAddress?.emailAddress,
-          })
+          createAlert
+            .mutateAsync({
+              ...payload,
+              sourceCurrency,
+              targetCurrency,
+              email: user.user?.primaryEmailAddress?.emailAddress,
+            })
+            .then(() => {
+              setShowCreateRateAlert(false)
+            })
         }
       />
     </>
