@@ -41,7 +41,7 @@ export const Footer = () => {
             <NextLink
               href="#"
               target="_blank"
-              className="pl-1 border-b border-dotted border-slate-900 font-semibold"
+              className="pl-1 border-b border-dotted border-slate-900 font-semibold relative"
             >
               Wilson Adenuga
             </NextLink>
