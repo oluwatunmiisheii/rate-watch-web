@@ -99,39 +99,33 @@ export default function Home() {
               Create new alert
             </Button>
           </div>
-          <Tabs defaultValue="threshold">
-            <TabsList className="grid w-full grid-cols-2 bg-zinc-100">
-              <TabsTrigger value="threshold">Threshold</TabsTrigger>
-              <TabsTrigger value="daily">Daily</TabsTrigger>
-            </TabsList>
-            <TabsContent value="threshold">
-              <RateAlerts
-                alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
-                  (alert: any) => alert.type === 'threshold',
-                )}
-                title={'Threshold'}
-                isLoading={getRateAlerts.isLoading}
-              />
-            </TabsContent>
-            <TabsContent value="daily">
-              <RateAlerts
-                alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
-                  (alert: any) => alert.type === 'scheduled',
-                )}
-                title={'Daily'}
-                isLoading={getRateAlerts.isLoading}
-              />
-            </TabsContent>
-          </Tabs>
-          <p className="text-muted-foreground text-sm mt-12">
-            Rate watch help you keep track of the exchange rate between two
-            currencies. Exchange rate changes frequently and the current rate
-            might not be available for long. By creating a rate alert, you can
-            get notified when the rate changes to a value you are interested in.{' '}
-            <span className="text-black border-b border-black border-dotted">
-              Terms of use
-            </span>
-          </p>
+
+          <div className="space-y-4">
+            <RateAlerts
+              alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
+                (alert: any) => alert.type === 'scheduled',
+              )}
+              title={'Daily'}
+              isLoading={getRateAlerts.isLoading}
+            />
+            <RateAlerts
+              alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
+                (alert: any) => alert.type === 'threshold',
+              )}
+              title={'Threshold'}
+              isLoading={getRateAlerts.isLoading}
+            />
+            <p className="text-muted-foreground text-sm pt-8">
+              Rate watch help you keep track of the exchange rate between two
+              currencies. Exchange rate changes frequently and the current rate
+              might not be available for long. By creating a rate alert, you can
+              get notified when the rate changes to a value you are interested
+              in.{' '}
+              <span className="text-black border-b border-black border-dotted">
+                Terms of use
+              </span>
+            </p>
+          </div>
         </Container>
       </SignedIn>
 
