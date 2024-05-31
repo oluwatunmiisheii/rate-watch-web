@@ -46,7 +46,6 @@ export const Footer = () => {
               Wilson Adenuga
             </NextLink>
           </p>
-          {/* © {new Date().getFullYear()} Fx Notify */}
         </div>
       </footer>
     </Container>
