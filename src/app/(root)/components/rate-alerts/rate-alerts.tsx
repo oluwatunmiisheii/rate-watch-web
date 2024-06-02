@@ -1,95 +1,63 @@
 import { Button } from '@/components/ui/button/button'
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table/table'
-import { cn } from '@/lib/utils'
-import { MoveRight, Trash2 } from 'lucide-react'
+import { Container } from '@/components/ui/container/container'
+import { Skeleton } from '@/components/ui/skeleton/skeleton'
 
-export function RateAlerts({
-  alerts,
-  title,
-  onSelectAlert,
-}: Readonly<{
-  alerts: any[]
-  title: string
+import React from 'react'
+import { RateAlertTable } from './rate-alert-table/rate-alert-table'
+
+interface RateAlertsProps {
+  alerts: {
+    daily: any[]
+    threshold: any[]
+  }
+  isLoading: boolean
   onSelectAlert: (id: string) => void
-}>) {
+  openCreateRateAlertModal: () => void
+}
+
+export const RateAlerts = ({
+  alerts,
+  isLoading,
+  onSelectAlert,
+  openCreateRateAlertModal,
+}: RateAlertsProps) => {
   return (
-    <Table>
-      <TableCaption className="sr-only">A list of your alerts</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead colSpan={2}>
-            <span className="capitalize">{title}</span> alerts
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {alerts.map((alert) => (
-          <TableRow key={alert._id}>
-            <TableCell className="font-medium relative">
-              <div className="flex items-center space-x-4">
-                <div className="relative">
-                  <div className="np-theme-personal inline-flex border rounded-full">
-                    <div
-                      className={cn(
-                        'currency-flag currency-flag-lg',
-                        `currency-flag-${alert.source_currency.toLowerCase()}`,
-                      )}
-                    />
-                  </div>
-                  <div className="absolute bottom-[4px] left-[20px]">
-                    <div className="np-theme-personal flex bg-white rounded-full items-center justify-center p-0.5 border">
-                      <div
-                        className={cn(
-                          'currency-flag currency-flag-sm',
-                          `currency-flag-${alert.target_currency.toLowerCase()}`,
-                        )}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <span>{alert.source_currency}</span>
-                  <span className="px-1 inline-block">
-                    <MoveRight size={14} />
-                  </span>
-                  <span>{alert.target_currency}</span>
-                </div>
-              </div>
-              {alert.type === 'threshold' ? (
-                <p className="text-muted-foreground mt-1 font-normal">
-                  Notify me when {''}1 {alert.source_currency} {''}
-                  is = to {''}
-                  {alert.target_amount} {alert.target_currency} or better
-                </p>
-              ) : (
-                <p className="text-muted-foreground mt-1 font-normal">
-                  Notify me of the best {alert.source_currency} to{' '}
-                  {alert.target_currency} rate
-                </p>
-              )}
-            </TableCell>
-            <TableCell className="text-right">
-              <Button
-                size="sm"
-                variant="outline"
-                className="bg-transparent border-0 hover:bg-transparent"
-                onClick={() => onSelectAlert(alert._id)}
-              >
-                <Trash2 className="size-[18px]" />
-                <span className="sr-only">Delete</span>
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <Container
+      containerProps={{
+        className: 'mt-8 bg-zinc-50',
+      }}
+    >
+      <div className="py-6 flex justify-between items-baseline  space-y-2">
+        <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
+        <Button size="sm" onClick={openCreateRateAlertModal}>
+          Create new alert
+        </Button>
+      </div>
+
+      <div className="space-y-4">
+        {isLoading ? (
+          <Skeleton className="h-32 w-full bg-zinc-100 shadow" />
+        ) : (
+          (['daily', 'threshold'] as const).map((type) => (
+            <RateAlertTable
+              key={type}
+              alerts={alerts[type]}
+              title={type}
+              onSelectAlert={onSelectAlert}
+            />
+          ))
+        )}
+
+        <p className="text-muted-foreground text-sm pt-8">
+          Rate watch help you keep track of the exchange rate between two
+          currencies. Exchange rate changes frequently and the current rate
+          might not be available for long. By creating a rate alert, you can get
+          notified when the rate changes to a value you are interested in.{' '}
+          <span className="text-black border-b border-black border-dotted">
+            Terms of use
+          </span>
+        </p>
+      </div>
+    </Container>
   )
 }

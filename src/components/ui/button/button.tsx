@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
+import CircleLoader from 'react-spinners/ClipLoader'
 
 import { cn } from '@/lib/utils'
 
@@ -25,6 +26,9 @@ const buttonVariants = cva(
         lg: 'h-11 rounded-md px-8',
         icon: 'h-10 w-10',
       },
+      isLoading: {
+        true: 'opacity-60 pointer-events-none',
+      },
     },
     defaultVariants: {
       variant: 'default',
@@ -37,17 +41,34 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  isLoading?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      isLoading,
+      children,
+      asChild = false,
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : 'button'
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className, isLoading }))}
         ref={ref}
         {...props}
-      />
+      >
+        {isLoading && (
+          <CircleLoader size={18} color="currentColor" className="mr-1" />
+        )}
+        {children}
+      </Comp>
     )
   },
 )

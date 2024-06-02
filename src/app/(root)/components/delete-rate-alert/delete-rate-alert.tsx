@@ -21,14 +21,16 @@ import {
 
 interface DeleteRateAlertProps {
   open: boolean
-  onClose: () => void
-  onDelete: () => void
+  onClose(): void
+  onDelete(): void
+  status: 'pending' | 'idle' | 'error' | 'success'
 }
 
 export function DeleteRateAlert({
   open,
   onClose,
   onDelete,
+  status,
 }: DeleteRateAlertProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
@@ -49,7 +51,9 @@ export function DeleteRateAlert({
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col justify-end gap-2">
-            <Button onClick={onDelete}>Delete</Button>
+            <Button onClick={onDelete} isLoading={status === 'pending'}>
+              Delete
+            </Button>
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
@@ -75,7 +79,9 @@ export function DeleteRateAlert({
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter className="pt-2">
-          <Button onClick={onDelete}>Delete</Button>
+          <Button onClick={onDelete} isLoading={status === 'pending'}>
+            Delete
+          </Button>
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>
           </DrawerClose>
