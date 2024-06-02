@@ -5,6 +5,7 @@ import './globals.css'
 import { Footer } from './_components/footer/footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from '@/providers'
+import { Toaster } from '@/components/ui/sonner/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             <main className="flex-auto">
               <Providers>{children}</Providers>
             </main>
+            <Toaster richColors position="top-right" />
             <Footer />
           </div>
         </body>

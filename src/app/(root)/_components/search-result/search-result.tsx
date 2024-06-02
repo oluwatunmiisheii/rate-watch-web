@@ -1,18 +1,8 @@
 import * as React from 'react'
-import { InfoIcon, MoveRight, X } from 'lucide-react'
+import { InfoIcon, MoveRight } from 'lucide-react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '@/components/ui/button/button'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerPortal,
-  DrawerTitle,
-} from '@/components/ui/drawer/drawer'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
 
 import {
@@ -24,6 +14,15 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetPortal,
+  SheetTitle,
+  SheetFooter,
+} from '@/components/ui/sheet/sheet'
 
 interface SearchResultProps {
   open: boolean
@@ -74,16 +73,19 @@ export function SearchResult({
   createRateAlert,
 }: Readonly<SearchResultProps>) {
   return (
-    <Drawer
+    <Sheet
       open={open}
       onOpenChange={(open) => {
         !open && onClose()
       }}
     >
-      <DrawerPortal>
-        <DrawerContent className="flex flex-col h-full">
-          <DrawerHeader className="mx-auto w-full max-w-3xl md:px-0">
-            <DrawerTitle asChild>
+      <SheetPortal>
+        <SheetContent
+          className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full"
+          side="bottom"
+        >
+          <SheetHeader className="mx-auto w-full max-w-3xl md:px-0">
+            <SheetTitle asChild>
               <div>
                 <div className="border-b mb-6 pb-2 text-left">
                   <h3 className="mb-1">Disclaimer!!</h3>
@@ -114,8 +116,8 @@ export function SearchResult({
                   </div>
                 </div>
               </div>
-            </DrawerTitle>
-            <DrawerDescription className="text-left">
+            </SheetTitle>
+            <SheetDescription className="text-left">
               Showing the mid market exchange rate from{' '}
               <span className="text-gray-900 font-semibold">
                 {sourceCurrency}
@@ -124,14 +126,8 @@ export function SearchResult({
               <span className="text-gray-900 font-semibold">
                 {targetCurrency}
               </span>
-            </DrawerDescription>
-            <DrawerClose asChild>
-              <Button variant="ghost" className="absolute right-5 top-5">
-                <span className="sr-only">Close</span>
-                <X className="size-5" />
-              </Button>
-            </DrawerClose>
-          </DrawerHeader>
+            </SheetDescription>
+          </SheetHeader>
 
           <ScrollArea className="px-4 pb-0 flex-1">
             <div className="mx-auto w-full max-w-3xl py-3">
@@ -143,7 +139,7 @@ export function SearchResult({
             </div>
           </ScrollArea>
 
-          <DrawerFooter className="bg-zinc-50 border-t border-zinc-100">
+          <SheetFooter className="bg-zinc-50 border-t border-zinc-100">
             <div className="mx-auto w-full max-w-sm py-4 px-0">
               <div className="flex justify-between space-x-4">
                 <Button
@@ -171,9 +167,9 @@ export function SearchResult({
                 </TooltipProvider>
               </div>
             </div>
-          </DrawerFooter>
-        </DrawerContent>
-      </DrawerPortal>
-    </Drawer>
+          </SheetFooter>
+        </SheetContent>
+      </SheetPortal>
+    </Sheet>
   )
 }

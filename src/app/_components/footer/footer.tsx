@@ -37,11 +37,13 @@ export const Footer = () => {
         </div>
         <div className="flex gap-2 justify-start items-center">
           <p className="inline-flex items-center">
-            Built with <span className="sr-only mx-2">Love</span> ❤️ by
+            Built with
+            <span className="pl-1"></span>
+            <span className="sr-only">Love</span> ❤️ by
             <NextLink
               href="#"
               target="_blank"
-              className="pl-1 border-b border-dotted border-slate-900 font-semibold relative"
+              className=" ml-1 border-b border-dotted border-slate-900 font-semibold relative"
             >
               Wilson Adenuga
             </NextLink>

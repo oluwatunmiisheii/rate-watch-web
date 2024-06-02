@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui/button/button'
 import {
   Sheet,
@@ -19,7 +20,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert/alert'
-import { useState } from 'react'
+import { validateNumberInput } from '@/lib/utils'
 
 interface CreateRateAlertProps {
   open: boolean
@@ -30,7 +31,7 @@ interface CreateRateAlertProps {
   onSwapCurrency: () => void
   onCreateAlert: (payload: {
     alertTypes: string[]
-    targetAmount?: number | undefined
+    targetAmount: string | undefined
   }) => void
 }
 
@@ -44,7 +45,25 @@ export const CreateRateAlert = ({
   onCreateAlert,
 }: CreateRateAlertProps) => {
   const [alertTypes, setAlertTypes] = useState<string[]>([])
-  const [targetAmount, setTargetAmount] = useState<number | undefined>()
+  const [targetAmount, setTargetAmount] = useState<string>('')
+
+  const updateAlertTypes = (checked: boolean, type: string) => {
+    if (checked) {
+      setAlertTypes([...alertTypes, type])
+    } else {
+      setAlertTypes(alertTypes.filter((item) => item !== type))
+    }
+  }
+
+  const updateTargetAmount = (value: string) => {
+    // if (value === '' || !value) {
+    //   setTargetAmount('')
+    //   return
+    // }
+    // const sanitizedValue = validateNumberInput(value)
+
+    setTargetAmount(value)
+  }
 
   return (
     <Sheet
@@ -54,8 +73,11 @@ export const CreateRateAlert = ({
       }}
     >
       <SheetPortal>
-        <SheetContent className="w-full sm:max-w-0 sm:min-w-full flex flex-col">
-          <SheetHeader className="mx-auto w-full max-w-3xl">
+        <SheetContent
+          className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full"
+          side="bottom"
+        >
+          <SheetHeader className="mx-auto w-full max-w-3xl pt-6">
             <SheetTitle asChild>
               <div>
                 <div className="border-b mb-2 pb-2 text-left">
@@ -136,7 +158,12 @@ export const CreateRateAlert = ({
                       Get daily updates on the exchange rate between the
                       currencies you selected.
                     </Label>
-                    <Switch id="daily-updates" />
+                    <Switch
+                      id="daily-updates"
+                      onCheckedChange={(checked) =>
+                        updateAlertTypes(checked, 'scheduled')
+                      }
+                    />
                   </div>
                 </div>
                 <div>
@@ -149,34 +176,50 @@ export const CreateRateAlert = ({
                       Get notified when the exchange rate reaches a certain
                       threshold.
                     </Label>
-                    <Switch id="threshold-updates" />
+                    <Switch
+                      id="threshold-updates"
+                      onCheckedChange={(checked) =>
+                        updateAlertTypes(checked, 'threshold')
+                      }
+                    />
                   </div>
                 </div>
-                <div>
-                  <h5>Desired Rates</h5>
-                  <div className="flex space-x-12 items-center mt-0.5">
-                    <div className="flex-shrink-0">
-                      <div className="flex items-center">
-                        <CurrencyIcon
-                          currency={sourceCurrency}
-                          className="mr-2 flex items-center"
+
+                {alertTypes.includes('threshold') && (
+                  <div>
+                    <h5>Desired Rates</h5>
+                    <div className="flex space-x-12 items-center mt-0.5">
+                      <div className="flex-shrink-0">
+                        <div className="flex items-center">
+                          <CurrencyIcon
+                            currency={sourceCurrency}
+                            className="mr-2 flex items-center"
+                          />
+                          <h4>1 {sourceCurrency} =</h4>
+                        </div>
+                      </div>
+                      <div className="relative flex-1">
+                        <Input
+                          type="text"
+                          placeholder="0.00"
+                          onBlur={() => updateTargetAmount(targetAmount)}
+                          onChange={(e) => updateTargetAmount(e.target.value)}
+                          onPaste={(e) =>
+                            updateTargetAmount(
+                              e.clipboardData.getData('text/plain'),
+                            )
+                          }
+                          aria-label="target-amount"
+                          value={targetAmount}
                         />
-                        <h4>1 {sourceCurrency} =</h4>
-                      </div>
-                    </div>
-                    <div className="relative flex-1">
-                      <Input
-                        type="text"
-                        pattern="^[0-9]*[.]{0,1}[0-9]*$"
-                        aria-label="rate-amount"
-                      />
-                      <div className="absolute top-1/3 right-6 flex items-center">
-                        <CurrencyIcon currency={targetCurrency} size="sm" />
-                        <span className="text-xs pl-2">{targetCurrency}</span>
+                        <div className="absolute top-1/3 right-6 flex items-center">
+                          <CurrencyIcon currency={targetCurrency} size="sm" />
+                          <span className="text-xs pl-2">{targetCurrency}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </ScrollArea>

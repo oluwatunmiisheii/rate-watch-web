@@ -13,52 +13,86 @@ export async function GET(request: Request) {
     })
   }
 
-  let url = `${BASE_URL}/v1/rate-watch?email=${email}`
+  let url = `${BASE_URL}/v1/rate-alerts?email=${email}`
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    cache: 'no-store',
-  })
-
-  if (!response.ok) {
-    return new Response(null, {
-      status: response?.status || 500,
-      statusText: response?.statusText || 'Internal Server Error',
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
-  }
+    const resp = await response.json()
 
-  const data = await response.json()
-  return Response.json(data)
+    if (!response.ok) {
+      return Response.json(resp, { status: response.status })
+    }
+
+    return Response.json(resp, { status: 200 })
+  } catch (error) {
+    return Response.json({ message: 'Internal Server Error' }, { status: 500 })
+  }
 }
 
 export async function POST(req: Request) {
   auth().protect()
   const body = await req.json()
-  let url = `${BASE_URL}/rate-alerts`
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
+  let url = `${BASE_URL}/v1/rate-alerts`
 
-  if (!response.ok) {
-    return new Response(null, {
-      status: response?.status || 500,
-      statusText: response?.statusText || 'Internal Server Error',
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: body.email,
+        types: body.alertTypes,
+        source_currency: body.sourceCurrency,
+        target_currency: body.targetCurrency,
+        target_amount: body.targetAmount,
+      }),
     })
+
+    const res = await response.json()
+
+    if (!response.ok) {
+      return Response.json(res, { status: response.status })
+    }
+
+    return Response.json(res, { status: 201 })
+  } catch (error) {
+    return Response.json({ message: 'Internal Server Error' }, { status: 500 })
+  }
+}
+
+export async function DELETE(req: Request) {
+  auth().protect()
+  const { searchParams } = new URL(req.url)
+  const id = searchParams.get('id')
+
+  if (!id) {
+    Response.json({ message: 'Bad Request' }, { status: 400 })
   }
 
-  const data = await response.json()
-  return new Response(JSON.stringify(data), {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    status: 200,
-  })
+  let url = `${BASE_URL}/v1/rate-alerts/${id}`
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const resp = await response.json()
+
+    if (!response.ok) {
+      return Response.json(resp, { status: response.status })
+    }
+
+    return Response.json(resp, { status: 200 })
+  } catch (error) {
+    return Response.json({ message: 'Internal Server Error' }, { status: 500 })
+  }
 }

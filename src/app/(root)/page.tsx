@@ -10,6 +10,7 @@ import { RateAlerts } from './_components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
 import { SignedIn, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
+import { Skeleton } from '@/components/ui/skeleton/skeleton'
 
 export default function Home() {
   const user = useUser()
@@ -95,20 +96,18 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            <RateAlerts
-              alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
-                (alert: any) => alert.type === 'scheduled',
-              )}
-              title={'Daily'}
-              isLoading={getRateAlerts.isLoading}
-            />
-            <RateAlerts
-              alerts={(getRateAlerts.data?.data?.items ?? [])?.filter(
-                (alert: any) => alert.type === 'threshold',
-              )}
-              title={'Threshold'}
-              isLoading={getRateAlerts.isLoading}
-            />
+            {getRateAlerts.isLoading ? (
+              <Skeleton className="h-32 w-full bg-zinc-100 shadow" />
+            ) : (
+              ['daily', 'threshold'].map((type) => (
+                <RateAlerts
+                  key={type}
+                  alerts={getRateAlerts.data?.data?.[type] ?? []}
+                  title={type}
+                />
+              ))
+            )}
+
             <p className="text-muted-foreground text-sm pt-8">
               Rate watch help you keep track of the exchange rate between two
               currencies. Exchange rate changes frequently and the current rate

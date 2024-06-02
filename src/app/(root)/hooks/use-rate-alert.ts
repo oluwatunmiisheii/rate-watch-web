@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 export const useRateAlert = (email?: string) => {
   const getRateAlerts = useQuery({
@@ -30,6 +31,7 @@ export const useRateAlert = (email?: string) => {
     },
     onSuccess: () => {
       getRateAlerts.refetch()
+      toast.success('Rate alert created successfully')
     },
   })
 
