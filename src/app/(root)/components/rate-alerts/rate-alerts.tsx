@@ -14,9 +14,11 @@ import { MoveRight, Trash2 } from 'lucide-react'
 export function RateAlerts({
   alerts,
   title,
+  onSelectAlert,
 }: Readonly<{
   alerts: any[]
   title: string
+  onSelectAlert: (id: string) => void
 }>) {
   return (
     <Table>
@@ -79,6 +81,7 @@ export function RateAlerts({
                 size="sm"
                 variant="outline"
                 className="bg-transparent border-0 hover:bg-transparent"
+                onClick={() => onSelectAlert(alert._id)}
               >
                 <Trash2 className="size-[18px]" />
                 <span className="sr-only">Delete</span>

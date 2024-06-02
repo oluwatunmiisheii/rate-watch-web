@@ -35,8 +35,26 @@ export const useRateAlert = (email?: string) => {
     },
   })
 
+  const deleteRateAlert = useMutation({
+    mutationKey: ['delete-rate-alert'],
+    mutationFn: async (id: string) => {
+      const response = await fetch(`/api/rate-alert?id=${id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      return response.json()
+    },
+    onSuccess: () => {
+      getRateAlerts.refetch()
+      toast.success('Rate alert deleted successfully')
+    },
+  })
+
   return {
     getRateAlerts,
     createAlert,
+    deleteRateAlert,
   }
 }

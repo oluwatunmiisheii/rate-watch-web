@@ -85,6 +85,7 @@ export async function DELETE(req: Request) {
         'Content-Type': 'application/json',
       },
     })
+
     const resp = await response.json()
 
     if (!response.ok) {

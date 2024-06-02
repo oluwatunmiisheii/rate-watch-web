@@ -1,26 +1,28 @@
 'use client'
 
 import { ArrowDownUp } from 'lucide-react'
-import { CurrencySelect } from './_components/currency-select/currency-select'
+import { CurrencySelect } from './components/currency-select/currency-select'
 import { Button } from '@/components/ui/button/button'
 import { useState } from 'react'
-import { SearchResult } from './_components/search-result/search-result'
+import { SearchResult } from './components/search-result/search-result'
 import { Container } from '@/components/ui/container/container'
-import { RateAlerts } from './_components/rate-alerts/rate-alerts'
-import { CreateRateAlert } from './_components/create-rate-alert/create-rate-alert'
+import { RateAlerts } from './components/rate-alerts/rate-alerts'
+import { CreateRateAlert } from './components/create-rate-alert/create-rate-alert'
 import { SignedIn, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
 import { Skeleton } from '@/components/ui/skeleton/skeleton'
+import { DeleteRateAlert } from './components/delete-rate-alert/delete-rate-alert'
 
 export default function Home() {
   const user = useUser()
-  const { getRateAlerts, createAlert } = useRateAlert(
+  const { getRateAlerts, createAlert, deleteRateAlert } = useRateAlert(
     user.user?.primaryEmailAddress?.emailAddress,
   )
   const [targetCurrency, setTargetCurrency] = useState('USD')
   const [sourceCurrency, setSourceCurrency] = useState('NGN')
   const [showResult, setShowResult] = useState(false)
   const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
+  const [selectedAlert, setSelectedAlert] = useState<string | null>(null)
 
   return (
     <>
@@ -104,6 +106,7 @@ export default function Home() {
                   key={type}
                   alerts={getRateAlerts.data?.data?.[type] ?? []}
                   title={type}
+                  onSelectAlert={(id) => setSelectedAlert(id)}
                 />
               ))
             )}
@@ -148,8 +151,8 @@ export default function Home() {
           setSourceCurrency(targetCurrency)
           setTargetCurrency(temp)
         }}
-        onCreateAlert={(payload) =>
-          createAlert
+        onCreateAlert={(payload) => {
+          return createAlert
             .mutateAsync({
               ...payload,
               sourceCurrency,
@@ -159,7 +162,19 @@ export default function Home() {
             .then(() => {
               setShowCreateRateAlert(false)
             })
-        }
+        }}
+      />
+
+      <DeleteRateAlert
+        open={!!selectedAlert}
+        onClose={() => setSelectedAlert(null)}
+        onDelete={() => {
+          if (selectedAlert) {
+            deleteRateAlert.mutateAsync(selectedAlert).then(() => {
+              setSelectedAlert(null)
+            })
+          }
+        }}
       />
     </>
   )
