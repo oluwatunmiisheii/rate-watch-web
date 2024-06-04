@@ -22,14 +22,14 @@ export const RateAlertSearch = ({
   return (
     <Container>
       <h1 className="mb-1 font-semibold text-lg">Exchange Rate Watch</h1>
-      <p className="text-muted-foreground text-base">
+      <p className="text-muted-foreground text-sm sm:text-base">
         We help you find the best exchange rates from different providers in a
         single place so you can make an informed decision on where to convert
         your money to get the best value for it in your local currency or any
         other currency you want to convert to.
       </p>
 
-      <div className="div space-y-4 flex items-center flex-col mt-10 border bg-slate-50 shadow rounded-md relative overflow-hidden">
+      <div className="div space-y-4 flex items-center flex-col mt-6 sm:mt-10 border bg-slate-50 shadow rounded-md relative overflow-hidden">
         <div className="py-12 px-8 w-full">
           <CurrencySelect
             selectedCurrency={sourceCurrency}

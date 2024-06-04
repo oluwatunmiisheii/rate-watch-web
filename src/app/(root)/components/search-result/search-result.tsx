@@ -77,13 +77,13 @@ export function SearchResult({
           className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full px-0 pb-0"
           side="bottom"
         >
-          <SheetHeader className="mx-auto w-full max-w-3xl md:px-0">
+          <SheetHeader className="mx-auto w-full max-w-3xl px-4 md:px-0">
             <SheetTitle asChild>
               <div>
                 <div className="border-b mb-6 pb-2 text-left">
                   <h3 className="mb-1">Disclaimer!!</h3>
-                  <p className="text-muted-foreground font-normal tracking-normal text-base">
-                    Exchange rates are gathered from various providers&apos;
+                  <p className="text-muted-foreground font-normal tracking-normal text-sm sm:text-base">
+                    Exchange rates are gotten from various providers&apos;
                     websites. Rates fluctuate frequently and may change by the
                     time you initiate a transaction. We do our best to keep them
                     updated.
@@ -132,7 +132,7 @@ export function SearchResult({
             </div>
           </ScrollArea>
 
-          <SheetFooter className="bg-zinc-50 border-t border-zinc-100">
+          <SheetFooter className="bg-zinc-50 border-t border-zinc-100 px-4">
             <div className="mx-auto w-full max-w-sm py-4 px-0">
               <div className="flex justify-between space-x-4">
                 <Button
