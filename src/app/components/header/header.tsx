@@ -12,14 +12,12 @@ export const Header = () => {
       <div className="flex items-center justify-between w-full h-16 max-w-3xl px-4 mx-auto sm:px-6">
         <Link href="/" aria-label="Home">
           <Image
-            alt="Home"
-            loading="lazy"
-            width="32"
-            height="32"
-            decoding="async"
-            className="min-w-8"
-            style={{ color: 'transparent' }}
-            src="https://next-auth-example.vercel.app/_next/image?url=%2Flogo.png&w=32&q=75"
+            alt="Rate Watch Logo"
+            width="40"
+            height="20"
+            className="object-contain"
+            quality={100}
+            src="/logo.svg"
           />
         </Link>
         <nav

@@ -9,12 +9,13 @@ export const Footer = () => {
     <Container>
       <footer className="flex text-sm flex-col sm:flex-row justify-between sm:items-center py-4 gap-4">
         <div className="flex space-x-6 flex-row">
-          <Image
-            className="size-5 "
-            src="https://authjs.dev/img/logo-sm.png"
-            alt="Auth.js Logo"
-            width={20}
-            height={20}
+        <Image
+            alt="Rate Watch Logo"
+            width="30"
+            height="20"
+            className="object-contain"
+            quality={100}
+            src="/logo.svg"
           />
           <NextLink
             target="_blank"
@@ -36,9 +37,9 @@ export const Footer = () => {
           </NextLink>
         </div>
         <div className="flex gap-2 justify-start items-center">
-          <p className="inline-flex items-center">
+          <div className="inline-flex items-center">
             Built with
-            <span className="pl-1"></span>
+            <div className="pl-1" />
             <span className="sr-only">Love</span> ❤️ by
             <NextLink
               href="#"
@@ -47,7 +48,7 @@ export const Footer = () => {
             >
               Wilson Adenuga
             </NextLink>
-          </p>
+          </div>
         </div>
       </footer>
     </Container>

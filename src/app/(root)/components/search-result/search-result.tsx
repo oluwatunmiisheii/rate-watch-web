@@ -1,16 +1,9 @@
 import * as React from 'react'
-import { InfoIcon, MoveRight } from 'lucide-react'
+import { MoveRight } from 'lucide-react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { Button } from '@/components/ui/button/button'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip/tooltip'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
@@ -46,15 +39,15 @@ const ResultCard = ({ currencyTo }: { currencyTo: string }) => {
     <Link
       href="https://google.com"
       target="_blank"
-      className="relative rounded-lg border border-gray-300 bg-white px-4 py-6 shadow-sm hover:border-gray-400"
+      className="relative rounded-lg border border-gray-300 bg-white p-4 shadow-sm hover:border-gray-400"
     >
       <div className="flex justify-between items-center">
         <Image
           className="h-6 w-32 object-contain object-left"
           src={logo}
           alt="Instarem."
-          width={100}
-          height={100}
+          width={80}
+          height={80}
         ></Image>
         <div>
           <p className="text-muted-foreground text-right text-sm">Rate</p>
@@ -81,7 +74,7 @@ export function SearchResult({
     >
       <SheetPortal>
         <SheetContent
-          className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full"
+          className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full px-0 pb-0"
           side="bottom"
         >
           <SheetHeader className="mx-auto w-full max-w-3xl md:px-0">
@@ -132,7 +125,7 @@ export function SearchResult({
           <ScrollArea className="px-4 pb-0 flex-1">
             <div className="mx-auto w-full max-w-3xl py-3">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {Array.from({ length: 20 }).map((_, _i) => (
+                {Array.from({ length: 6 }).map((_, _i) => (
                   <ResultCard key={uuidv4()} currencyTo={targetCurrency} />
                 ))}
               </div>
@@ -145,26 +138,10 @@ export function SearchResult({
                 <Button
                   className="flex-1"
                   size="lg"
-                  onClick={() => createRateAlert()}
+                  onClick={createRateAlert}
                 >
                   Setup rate watch
                 </Button>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <span className="sr-only">Learn more</span>
-                      <InfoIcon className="size-5" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Rate watch helps you keep track of the exchange rate of
-                        the currency you are interested in converting. <br />
-                        You will be notified when the rate changes to your
-                        preference.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
               </div>
             </div>
           </SheetFooter>

@@ -4,6 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton/skeleton'
 
 import React from 'react'
 import { RateAlertTable } from './rate-alert-table/rate-alert-table'
+import { Plus } from 'lucide-react'
 
 interface RateAlertsProps {
   alerts: {
@@ -24,12 +25,13 @@ export const RateAlerts = ({
   return (
     <Container
       containerProps={{
-        className: 'mt-8 bg-zinc-50',
+        className: 'mt-8 bg-slate-50',
       }}
     >
       <div className="py-6 flex justify-between items-baseline  space-y-2">
         <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
-        <Button size="sm" onClick={openCreateRateAlertModal}>
+        <Button size="sm" onClick={openCreateRateAlertModal} variant="ghost">
+          <Plus className="size-4 mr-1" />
           Create new alert
         </Button>
       </div>
@@ -53,7 +55,7 @@ export const RateAlerts = ({
           currencies. Exchange rate changes frequently and the current rate
           might not be available for long. By creating a rate alert, you can get
           notified when the rate changes to a value you are interested in.{' '}
-          <span className="text-black border-b border-black border-dotted">
+          <span className="text-[#1D4ED8] border-b border-[#1D4ED8] border-dotted">
             Terms of use
           </span>
         </p>
