@@ -69,7 +69,7 @@ export const RateAlertSearch = () => {
             for it in your local currency or any other currency you want to convert to.
           </p>
         </div>
-        <div className="div space-y-4 flex items-center flex-col mt-6 md:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
+        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
           <div className="py-12 px-8 w-full">
             <CurrencySelect
               selectedCurrency={sourceCurrency}
