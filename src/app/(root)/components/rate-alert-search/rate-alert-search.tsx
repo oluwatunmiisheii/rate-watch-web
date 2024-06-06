@@ -61,16 +61,18 @@ export const RateAlertSearch = () => {
       }}
     >
       <div className="lg:grid grid-cols-12 items-center h-full gap-12">
-        <div className="col-span-12 lg:col-span-5">
-          <h1 className="mb-1 font-semibold text-lg lg:text-4xl text-white">Exchange Rate Watch</h1>
+        <div className="col-span-12 lg:col-span-6">
+          <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl text-white">
+            Find and compare the best exchange rates in one place
+          </h1>
           <p className="text-white/80 text-sm sm:text-base mt-3">
             We help you find the best exchange rates from different providers in a single place so
             you can make an informed decision on where to convert your money to get the best value
             for it in your local currency or any other currency you want to convert to.
           </p>
         </div>
-        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
-          <div className="py-12 px-8 w-full">
+        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-6">
+          <div className="pt-12 pb-8 px-8 w-full">
             <CurrencySelect
               selectedCurrency={sourceCurrency}
               onCurrencySelect={setSourceCurrency}
@@ -81,7 +83,7 @@ export const RateAlertSearch = () => {
             />
           </div>
 
-          <div className="absolute top-[32%]">
+          <div className="absolute top-[30%]">
             <Button
               variant="outline"
               className="rounded-full size-10 p-0 "
