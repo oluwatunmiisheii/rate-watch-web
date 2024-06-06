@@ -47,10 +47,6 @@ export const RateAlertSearch = () => {
       return true
     }
 
-    if (sourceCurrency === initialSourceCurrency && targetCurrency === initialTargetCurrency) {
-      return true
-    }
-
     return false
   }
 
@@ -60,9 +56,9 @@ export const RateAlertSearch = () => {
         className: 'bg-[#14338c] py-4 md:py-12',
       }}
     >
-      <div className="lg:grid grid-cols-12 items-center h-full gap-12">
-        <div className="col-span-12 lg:col-span-6">
-          <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl text-white">
+      <div className="lg:grid grid-cols-12 items-center h-full space-x-20">
+        <div className="col-span-12 lg:col-span-5">
+          <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl lg:leading-12 text-white">
             Find and compare the best exchange rates in one place
           </h1>
           <p className="text-white/80 text-sm sm:text-base mt-3">
@@ -71,7 +67,7 @@ export const RateAlertSearch = () => {
             for it in your local currency or any other currency you want to convert to.
           </p>
         </div>
-        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-6">
+        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
           <div className="pt-12 pb-8 px-8 w-full">
             <CurrencySelect
               selectedCurrency={sourceCurrency}
@@ -110,6 +106,13 @@ export const RateAlertSearch = () => {
             <div className="w-full mt-10">
               <Button
                 onClick={() => {
+                  if (
+                    sourceCurrency === initialSourceCurrency &&
+                    targetCurrency === initialTargetCurrency
+                  ) {
+                    setShowResult(true)
+                  }
+
                   const params = new URLSearchParams()
                   params.append('sourceCurrency', sourceCurrency)
                   params.append('targetCurrency', targetCurrency)
