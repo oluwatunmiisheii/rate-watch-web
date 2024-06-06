@@ -11,12 +11,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-[#1D4ED8] text-white hover:bg-[#1D4ED8]/90',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'text-[#1D4ED8] hover:bg-accent',
         link: 'text-primary underline-offset-4 hover:underline',
       },
@@ -45,28 +42,11 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      isLoading,
-      children,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ className, variant, size, isLoading, children, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
     return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className, isLoading }))}
-        ref={ref}
-        {...props}
-      >
-        {isLoading && (
-          <CircleLoader size={18} color="currentColor" className="mr-1" />
-        )}
+      <Comp className={cn(buttonVariants({ variant, size, className, isLoading }))} ref={ref} {...props}>
+        {isLoading && <CircleLoader size={18} color="currentColor" className="mr-1" />}
         {children}
       </Comp>
     )

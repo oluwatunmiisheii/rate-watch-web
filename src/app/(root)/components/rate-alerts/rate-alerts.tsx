@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton/skeleton'
 import React from 'react'
 import { RateAlertTable } from './rate-alert-table/rate-alert-table'
 import { Plus } from 'lucide-react'
+import { useAppContext } from '@/providers/app.provider'
 
 interface RateAlertsProps {
   alerts: {
@@ -12,11 +13,10 @@ interface RateAlertsProps {
     threshold: any[]
   }
   isLoading: boolean
-  onSelectAlert: (id: string) => void
-  openCreateRateAlertModal: () => void
 }
 
-export const RateAlerts = ({ alerts, isLoading, onSelectAlert, openCreateRateAlertModal }: RateAlertsProps) => {
+export const RateAlerts = ({ alerts, isLoading }: RateAlertsProps) => {
+  const { setSelectedAlert, setShowCreateRateAlert } = useAppContext()
   return (
     <Container
       containerProps={{
@@ -25,7 +25,7 @@ export const RateAlerts = ({ alerts, isLoading, onSelectAlert, openCreateRateAle
     >
       <div className="py-6 flex justify-between items-baseline  space-y-2">
         <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
-        <Button size="sm" onClick={openCreateRateAlertModal} variant="ghost">
+        <Button size="sm" onClick={() => setShowCreateRateAlert(true)} variant="ghost">
           <Plus className="size-4 mr-1" />
           Create new alert
         </Button>
@@ -36,7 +36,7 @@ export const RateAlerts = ({ alerts, isLoading, onSelectAlert, openCreateRateAle
           <Skeleton className="h-32 w-full shadow-sm bg-zinc-100" />
         ) : (
           (['daily', 'threshold'] as const).map((type) => (
-            <RateAlertTable key={type} alerts={alerts[type]} title={type} onSelectAlert={onSelectAlert} />
+            <RateAlertTable key={type} alerts={alerts[type]} title={type} onSelectAlert={setSelectedAlert} />
           ))
         )}
 

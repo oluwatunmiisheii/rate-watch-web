@@ -2,13 +2,7 @@ import * as React from 'react'
 
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { Button } from '@/components/ui/button/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog/dialog'
 import {
   Drawer,
   DrawerClose,
@@ -18,43 +12,48 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer/drawer'
+import { useAppContext } from '@/providers/app.provider'
+import { UseMutationResult } from '@tanstack/react-query'
 
 interface DeleteRateAlertProps {
-  open: boolean
-  onClose(): void
-  onDelete(): void
-  status: 'pending' | 'idle' | 'error' | 'success'
+  deleteRateAlert: UseMutationResult<any, Error, string, unknown>
 }
 
-export function DeleteRateAlert({
-  open,
-  onClose,
-  onDelete,
-  status,
-}: DeleteRateAlertProps) {
+export function DeleteRateAlert({ deleteRateAlert }: Readonly<DeleteRateAlertProps>) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
+
+  const { selectedAlert, setSelectedAlert } = useAppContext()
 
   if (isDesktop) {
     return (
       <Dialog
-        open={open}
+        open={!!selectedAlert}
         onOpenChange={(open) => {
-          !open && onClose()
+          !open && setSelectedAlert(null)
         }}
       >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Delete alert?</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this alert? You’ll no longer
-              receive notifications about this exchange rate.
+              Are you sure you want to delete this alert? You’ll no longer receive notifications about this exchange
+              rate.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col justify-end gap-2">
-            <Button onClick={onDelete} isLoading={status === 'pending'}>
+            <Button
+              onClick={() => {
+                if (selectedAlert) {
+                  deleteRateAlert.mutateAsync(selectedAlert).then(() => {
+                    setSelectedAlert(null)
+                  })
+                }
+              }}
+              isLoading={deleteRateAlert.status === 'pending'}
+            >
               Delete
             </Button>
-            <Button variant="outline" onClick={onClose}>
+            <Button variant="outline" onClick={() => setSelectedAlert(null)}>
               Cancel
             </Button>
           </div>
@@ -65,21 +64,29 @@ export function DeleteRateAlert({
 
   return (
     <Drawer
-      open={open}
+      open={!!selectedAlert}
       onOpenChange={(open) => {
-        !open && onClose()
+        !open && setSelectedAlert(null)
       }}
     >
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>Delete alert?</DrawerTitle>
           <DrawerDescription>
-            Are you sure you want to delete this alert? You’ll no longer receive
-            notifications about this exchange rate.
+            Are you sure you want to delete this alert? You’ll no longer receive notifications about this exchange rate.
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter className="pt-2">
-          <Button onClick={onDelete} isLoading={status === 'pending'}>
+          <Button
+            onClick={() => {
+              if (selectedAlert) {
+                deleteRateAlert.mutateAsync(selectedAlert).then(() => {
+                  setSelectedAlert(null)
+                })
+              }
+            }}
+            isLoading={deleteRateAlert.status === 'pending'}
+          >
             Delete
           </Button>
           <DrawerClose asChild>

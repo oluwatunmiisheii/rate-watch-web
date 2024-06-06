@@ -5,26 +5,19 @@ import { Button } from '@/components/ui/button/button'
 import { ArrowDownUp } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
+import { useAppContext } from '@/providers/app.provider'
 
-interface RateAlertSearchProps {
-  sourceCurrency: string
-  targetCurrency: string
-  setSourceCurrency: (currency: string) => void
-  setTargetCurrency: (currency: string) => void
-  handleResult: (data: any[]) => void
-  initialSourceCurrency: string | null
-  initialTargetCurrency: string | null
-}
-
-export const RateAlertSearch = ({
-  sourceCurrency,
-  targetCurrency,
-  setSourceCurrency,
-  setTargetCurrency,
-  handleResult,
-  initialSourceCurrency,
-  initialTargetCurrency,
-}: RateAlertSearchProps) => {
+export const RateAlertSearch = () => {
+  const {
+    sourceCurrency,
+    initialSourceCurrency,
+    targetCurrency,
+    initialTargetCurrency,
+    setSourceCurrency,
+    setTargetCurrency,
+    setResult,
+    setShowResult,
+  } = useAppContext()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -37,7 +30,8 @@ export const RateAlertSearch = ({
           throw new Error('Network response was not ok')
         }
         const data = await response.json()
-        handleResult(data.data ?? [])
+        setResult(data.data ?? [])
+        setShowResult(true)
         return data
       } catch (error) {
         console.error(error)
