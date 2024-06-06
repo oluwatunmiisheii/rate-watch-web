@@ -58,8 +58,8 @@ export const RateAlertSearch = () => {
     >
       <div className="lg:grid grid-cols-12 items-center h-full lg:space-x-20">
         <div className="col-span-12 lg:col-span-5">
-          <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl lg:leading-12 text-white">
-            Find and compare the best exchange rates in one place
+          <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl lg:leading-[2.7rem] text-white">
+            Find and compare exchange rates in one place
           </h1>
           <p className="text-white/80 text-sm sm:text-base mt-3">
             We help you find the best exchange rates from different providers in a single place so
