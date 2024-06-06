@@ -56,7 +56,7 @@ export const RateAlertSearch = () => {
         className: 'bg-[#14338c] py-4 md:py-12',
       }}
     >
-      <div className="lg:grid grid-cols-12 items-center h-full space-x-20">
+      <div className="lg:grid grid-cols-12 items-center h-full lg:space-x-20">
         <div className="col-span-12 lg:col-span-5">
           <h1 className="mb-1 font-semibold text:xl md:text-2xl lg:text-4xl lg:leading-12 text-white">
             Find and compare the best exchange rates in one place
