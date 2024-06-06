@@ -8,17 +8,23 @@ import { SignedIn, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
 import { DeleteRateAlert } from './components/delete-rate-alert/delete-rate-alert'
 import { RateAlertSearch } from './components/rate-alert-search/rate-alert-search'
+import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
+  const searchParams = useSearchParams()
+  const initialSourceCurrency = searchParams.get('sourceCurrency')
+  const initialTargetCurrency = searchParams.get('targetCurrency')
+
   const user = useUser()
-  const loggedInUserEmail = user.user?.primaryEmailAddress?.emailAddress
-  const { getRateAlerts, createAlert, deleteRateAlert } =
-    useRateAlert(loggedInUserEmail)
-  const [targetCurrency, setTargetCurrency] = useState('USD')
-  const [sourceCurrency, setSourceCurrency] = useState('NGN')
+  const userEmail = user.user?.primaryEmailAddress?.emailAddress
+  const { getRateAlerts, createAlert, deleteRateAlert } = useRateAlert(userEmail)
+
+  const [sourceCurrency, setSourceCurrency] = useState(initialSourceCurrency ?? 'GBP')
+  const [targetCurrency, setTargetCurrency] = useState(initialTargetCurrency ?? 'NGN')
   const [showResult, setShowResult] = useState(false)
   const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
   const [selectedAlert, setSelectedAlert] = useState<string | null>(null)
+  const [result, setResult] = useState<any[]>([])
 
   return (
     <>
@@ -27,7 +33,12 @@ export default function Home() {
         targetCurrency={targetCurrency}
         setSourceCurrency={setSourceCurrency}
         setTargetCurrency={setTargetCurrency}
-        setShowResult={setShowResult}
+        handleResult={(data) => {
+          setResult(data)
+          setShowResult(true)
+        }}
+        initialSourceCurrency={initialSourceCurrency}
+        initialTargetCurrency={initialTargetCurrency}
       />
 
       <SignedIn>
@@ -48,6 +59,7 @@ export default function Home() {
           setShowResult(false)
           setShowCreateRateAlert(true)
         }}
+        result={result}
       />
 
       {showCreateRateAlert && (
@@ -57,9 +69,7 @@ export default function Home() {
           sourceCurrency={sourceCurrency}
           targetCurrency={targetCurrency}
           onCurrencySelect={(currency, type) => {
-            type === 'source'
-              ? setSourceCurrency(currency)
-              : setTargetCurrency(currency)
+            type === 'source' ? setSourceCurrency(currency) : setTargetCurrency(currency)
           }}
           onSwapCurrency={() => {
             const temp = sourceCurrency
@@ -72,7 +82,7 @@ export default function Home() {
                 ...payload,
                 sourceCurrency,
                 targetCurrency,
-                email: loggedInUserEmail,
+                email: userEmail,
               })
               .then(() => {
                 setShowCreateRateAlert(false)

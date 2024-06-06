@@ -16,12 +16,7 @@ interface RateAlertsProps {
   openCreateRateAlertModal: () => void
 }
 
-export const RateAlerts = ({
-  alerts,
-  isLoading,
-  onSelectAlert,
-  openCreateRateAlertModal,
-}: RateAlertsProps) => {
+export const RateAlerts = ({ alerts, isLoading, onSelectAlert, openCreateRateAlertModal }: RateAlertsProps) => {
   return (
     <Container
       containerProps={{
@@ -38,26 +33,18 @@ export const RateAlerts = ({
 
       <div className="space-y-4">
         {isLoading ? (
-          <Skeleton className="h-32 w-full bg-zinc-100 shadow" />
+          <Skeleton className="h-32 w-full shadow-sm bg-zinc-100" />
         ) : (
           (['daily', 'threshold'] as const).map((type) => (
-            <RateAlertTable
-              key={type}
-              alerts={alerts[type]}
-              title={type}
-              onSelectAlert={onSelectAlert}
-            />
+            <RateAlertTable key={type} alerts={alerts[type]} title={type} onSelectAlert={onSelectAlert} />
           ))
         )}
 
         <p className="text-muted-foreground text-sm pt-8">
-          Rate watch help you keep track of the exchange rate between two
-          currencies. Exchange rate changes frequently and the current rate
-          might not be available for long. By creating a rate alert, you can get
-          notified when the rate changes to a value you are interested in.{' '}
-          <span className="text-[#1D4ED8] border-b border-[#1D4ED8] border-dotted">
-            Terms of use
-          </span>
+          Rate watch help you keep track of the exchange rate between two currencies. Exchange rate changes frequently
+          and the current rate might not be available for long. By creating a rate alert, you can get notified when the
+          rate changes to a value you are interested in.{' '}
+          <span className="text-[#1D4ED8] border-b border-[#1D4ED8] border-dotted">Terms of use</span>
         </p>
       </div>
     </Container>

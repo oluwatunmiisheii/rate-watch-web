@@ -3,13 +3,17 @@ import React from 'react'
 import { CurrencySelect } from '../currency-select/currency-select'
 import { Button } from '@/components/ui/button/button'
 import { ArrowDownUp } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface RateAlertSearchProps {
   sourceCurrency: string
   targetCurrency: string
   setSourceCurrency: (currency: string) => void
   setTargetCurrency: (currency: string) => void
-  setShowResult: (show: boolean) => void
+  handleResult: (data: any[]) => void
+  initialSourceCurrency: string | null
+  initialTargetCurrency: string | null
 }
 
 export const RateAlertSearch = ({
@@ -17,16 +21,50 @@ export const RateAlertSearch = ({
   targetCurrency,
   setSourceCurrency,
   setTargetCurrency,
-  setShowResult,
+  handleResult,
+  initialSourceCurrency,
+  initialTargetCurrency,
 }: RateAlertSearchProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const { isLoading } = useQuery({
+    queryKey: ['rates', initialSourceCurrency, initialTargetCurrency],
+    queryFn: async () => {
+      try {
+        const response = await fetch(`/api/rates?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}`)
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const data = await response.json()
+        handleResult(data.data ?? [])
+        return data
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    enabled: !!initialSourceCurrency && !!initialTargetCurrency,
+  })
+
+  const disableSubmitButton = () => {
+    if (sourceCurrency === targetCurrency) {
+      return true
+    }
+
+    if (sourceCurrency === initialSourceCurrency && targetCurrency === initialTargetCurrency) {
+      return true
+    }
+
+    return false
+  }
+
   return (
     <Container>
       <h1 className="mb-1 font-semibold text-lg">Exchange Rate Watch</h1>
       <p className="text-muted-foreground text-sm sm:text-base">
-        We help you find the best exchange rates from different providers in a
-        single place so you can make an informed decision on where to convert
-        your money to get the best value for it in your local currency or any
-        other currency you want to convert to.
+        We help you find the best exchange rates from different providers in a single place so you can make an informed
+        decision on where to convert your money to get the best value for it in your local currency or any other
+        currency you want to convert to.
       </p>
 
       <div className="div space-y-4 flex items-center flex-col mt-6 sm:mt-10 border bg-slate-50 shadow rounded-md relative overflow-hidden">
@@ -67,9 +105,16 @@ export const RateAlertSearch = ({
           />
           <div className="w-full mt-10">
             <Button
-              onClick={() => setShowResult(true)}
+              onClick={() => {
+                const params = new URLSearchParams()
+                params.append('sourceCurrency', sourceCurrency)
+                params.append('targetCurrency', targetCurrency)
+                router.push(`${pathname}?${params.toString()}`)
+              }}
               className="w-full"
               size="lg"
+              isLoading={isLoading}
+              disabled={disableSubmitButton()}
             >
               Find best rates
             </Button>

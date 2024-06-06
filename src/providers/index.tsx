@@ -4,13 +4,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import * as React from 'react'
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental'
-import { useUser } from '@clerk/nextjs'
 
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
         retry: false,
+        retryOnMount: false,
+        refetchOnWindowFocus: false,
       },
     },
   })
@@ -27,15 +28,12 @@ function getQueryClient() {
   }
 }
 
-export function Providers(props: { children: React.ReactNode }) {
-  const { isLoaded, user } = useUser()
+export function Providers(props: Readonly<{ children: React.ReactNode }>) {
   const queryClient = getQueryClient()
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryStreamedHydration>
-        {props.children}
-      </ReactQueryStreamedHydration>
+      <ReactQueryStreamedHydration>{props.children}</ReactQueryStreamedHydration>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
