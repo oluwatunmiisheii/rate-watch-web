@@ -15,6 +15,7 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet/sheet'
 import { useAppContext } from '@/providers/app.provider'
+import { SignedIn } from '@clerk/nextjs'
 
 const ResultCard = ({
   targetCurrency,
@@ -135,22 +136,24 @@ export function SearchResult() {
             </div>
           </ScrollArea>
 
-          <SheetFooter className="bg-slate-100 border-t border-zinc-100 px-4">
-            <div className="mx-auto w-full max-w-sm py-4 px-0">
-              <div className="flex justify-between space-x-4">
-                <Button
-                  className="flex-1"
-                  size="lg"
-                  onClick={() => {
-                    setShowResult(false)
-                    setShowCreateRateAlert(true)
-                  }}
-                >
-                  Setup rate watch
-                </Button>
+          <SignedIn>
+            <SheetFooter className="bg-slate-100 border-t border-zinc-100 px-4">
+              <div className="mx-auto w-full max-w-sm py-4 px-0">
+                <div className="flex justify-between space-x-4">
+                  <Button
+                    className="flex-1"
+                    size="lg"
+                    onClick={() => {
+                      setShowResult(false)
+                      setShowCreateRateAlert(true)
+                    }}
+                  >
+                    Setup rate watch
+                  </Button>
+                </div>
               </div>
-            </div>
-          </SheetFooter>
+            </SheetFooter>
+          </SignedIn>
         </SheetContent>
       </SheetPortal>
     </Sheet>

@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button/button'
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet/sheet'
 import { ArrowUpDown, Terminal } from 'lucide-react'
 import { CurrencySelect } from '../currency-select/currency-select'
-import { Input } from '@/components/ui/input/input'
+import { Input } from '@/components/ui/forms/input/input'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
-import { Switch } from '@/components/ui/switch/switch'
-import { Label } from '@/components/ui/label/label'
+import { Switch } from '@/components/ui/forms/switch/switch'
+import { Label } from '@/components/ui/forms/label/label'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert/alert'
 import { useAppContext } from '@/providers/app.provider'
@@ -50,15 +56,18 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
           !open && setShowCreateRateAlert(false)
         }}
       >
-        <SheetContent className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full" side="bottom">
+        <SheetContent
+          className="w-full sm:max-w-0 sm:min-w-full flex flex-col h-full"
+          side="bottom"
+        >
           <SheetHeader className="mx-auto w-full max-w-3xl pt-6">
             <SheetTitle asChild>
               <div>
                 <div className="border-b mb-2 pb-2 text-left">
                   <h3 className="mb-1">Rate watch</h3>
                   <p className="text-muted-foreground font-normal tracking-normal text-sm leading-5">
-                    Get notified when the exchange rate reaches a certain threshold. You can set the rate you want to be
-                    notified about.
+                    Get notified when the exchange rate reaches a certain threshold. You can set the
+                    rate you want to be notified about.
                   </p>
                 </div>
               </div>
@@ -110,7 +119,10 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>Heads up!</AlertTitle>
                 <AlertDescription>
-                  <a href="google.com" className="border-b-2 border-dotted border-slate-900 font-semibold">
+                  <a
+                    href="google.com"
+                    className="border-b-2 border-dotted border-slate-900 font-semibold"
+                  >
                     Nala
                   </a>{' '}
                   is offering the best rate at 1 USD to 412 NGN.
@@ -127,7 +139,10 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                     >
                       Get daily updates on the exchange rate between the currencies you selected.
                     </Label>
-                    <Switch id="daily-updates" onCheckedChange={(checked) => updateAlertTypes(checked, 'scheduled')} />
+                    <Switch
+                      id="daily-updates"
+                      onCheckedChange={(checked) => updateAlertTypes(checked, 'scheduled')}
+                    />
                   </div>
                 </div>
                 <div>
@@ -152,7 +167,10 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                     <div className="flex space-x-12 items-center mt-0.5">
                       <div className="flex-shrink-0">
                         <div className="flex items-center">
-                          <CurrencyIcon currency={sourceCurrency} className="mr-2 flex items-center" />
+                          <CurrencyIcon
+                            currency={sourceCurrency}
+                            className="mr-2 flex items-center"
+                          />
                           <h4>1 {sourceCurrency} =</h4>
                         </div>
                       </div>
