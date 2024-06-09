@@ -1,8 +1,6 @@
 const BASE_URL = process.env.API_BASE_URL
-import { auth } from '@clerk/nextjs/server'
 
 export async function GET(request: Request) {
-  auth().protect()
   const { searchParams } = new URL(request.url)
   const sourceCurrency = searchParams.get('sourceCurrency')
   const targetCurrency = searchParams.get('targetCurrency')
@@ -19,6 +17,7 @@ export async function GET(request: Request) {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-store',
     })
     const resp = await response.json()
 
