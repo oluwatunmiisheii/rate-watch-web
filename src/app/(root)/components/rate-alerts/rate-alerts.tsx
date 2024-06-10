@@ -20,7 +20,7 @@ export const RateAlerts = ({ alerts, isLoading }: RateAlertsProps) => {
   return (
     <Container
       containerProps={{
-        className: 'mt-8 bg-slate-50',
+        className: 'bg-slate-50',
       }}
     >
       <div className="py-6 flex justify-between items-baseline  space-y-2">
