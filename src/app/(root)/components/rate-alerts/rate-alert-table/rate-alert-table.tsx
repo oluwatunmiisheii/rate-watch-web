@@ -71,20 +71,19 @@ export function RateAlertTable({
                 </p>
               ) : (
                 <p className="text-muted-foreground mt-1 font-normal">
-                  Notify me of the best {alert.source_currency} to{' '}
-                  {alert.target_currency} rate
+                  Notify me of the best {alert.source_currency} to {alert.target_currency} rate
                 </p>
               )}
             </TableCell>
             <TableCell className="text-right">
               <Button
                 size="sm"
-                variant="outline"
+                variant="light"
                 className="bg-transparent border-0 hover:bg-transparent"
                 onClick={() => onSelectAlert(alert._id)}
               >
-                <Trash2 className="size-[18px]" />
                 <span className="sr-only">Delete</span>
+                <Trash2 className="size-[18px]" />
               </Button>
             </TableCell>
           </TableRow>

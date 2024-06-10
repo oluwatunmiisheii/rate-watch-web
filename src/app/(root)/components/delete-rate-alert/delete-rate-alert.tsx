@@ -2,7 +2,13 @@ import * as React from 'react'
 
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { Button } from '@/components/ui/button/button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog/dialog'
 import {
   Drawer,
   DrawerClose,
@@ -36,8 +42,8 @@ export function DeleteRateAlert({ deleteRateAlert }: Readonly<DeleteRateAlertPro
           <DialogHeader>
             <DialogTitle>Delete alert?</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete this alert? You’ll no longer receive notifications about this exchange
-              rate.
+              Are you sure you want to delete this alert? You’ll no longer receive notifications
+              about this exchange rate.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col justify-end gap-2">
@@ -53,7 +59,7 @@ export function DeleteRateAlert({ deleteRateAlert }: Readonly<DeleteRateAlertPro
             >
               Delete
             </Button>
-            <Button variant="outline" onClick={() => setSelectedAlert(null)}>
+            <Button variant="light" onClick={() => setSelectedAlert(null)}>
               Cancel
             </Button>
           </div>
@@ -73,7 +79,8 @@ export function DeleteRateAlert({ deleteRateAlert }: Readonly<DeleteRateAlertPro
         <DrawerHeader className="text-left">
           <DrawerTitle>Delete alert?</DrawerTitle>
           <DrawerDescription>
-            Are you sure you want to delete this alert? You’ll no longer receive notifications about this exchange rate.
+            Are you sure you want to delete this alert? You’ll no longer receive notifications about
+            this exchange rate.
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter className="pt-2">
@@ -90,7 +97,7 @@ export function DeleteRateAlert({ deleteRateAlert }: Readonly<DeleteRateAlertPro
             Delete
           </Button>
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="light">Cancel</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
