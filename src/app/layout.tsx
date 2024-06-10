@@ -6,6 +6,7 @@ import { Footer } from './components/footer/footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from '@/providers'
 import { Toaster } from '@/components/ui/sonner/sonner'
+import { CookieBar } from './components/cookie-bar/cookie-bar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,7 @@ export default function RootLayout({
             <Toaster richColors position="top-right" />
             <Footer />
           </div>
+          <CookieBar />
         </body>
       </html>
     </ClerkProvider>
