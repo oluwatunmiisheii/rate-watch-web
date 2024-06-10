@@ -10,11 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command/command'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover/popover'
 import { twMerge } from 'tailwind-merge'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 
@@ -55,25 +51,18 @@ export const CurrencySelect = ({
   const [open, setOpen] = React.useState(false)
 
   const selectedCurrencyInfo = React.useMemo(() => {
-    return currencies.find(
-      (currency) => currency.currencyCode === selectedCurrency,
-    )
+    return currencies.find((currency) => currency.currencyCode === selectedCurrency)
   }, [selectedCurrency])
 
   return (
     <div className="relative w-full">
-      <p
-        className={twMerge(
-          'absolute text-sm top-[-9px] left-[18px]',
-          labelProps.className,
-        )}
-      >
+      <p className={twMerge('absolute text-sm top-[-9px] left-[18px]', labelProps.className)}>
         Currency {labelProps.children}
       </p>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
+            variant="light"
             role="combobox"
             aria-expanded={open}
             className="w-full justify-between h-14 border-gray-300"
@@ -113,27 +102,21 @@ export const CurrencySelect = ({
                   key={currencyCode}
                   value={currencyCode}
                   onSelect={(currentValue) => {
-                    onCurrencySelect(
-                      currentValue === selectedCurrency ? '' : currentValue,
-                    )
+                    onCurrencySelect(currentValue === selectedCurrency ? '' : currentValue)
                     setOpen(false)
                   }}
                 >
                   <Check
                     className={cn(
                       'mr-2 h-4 w-4',
-                      selectedCurrency === currencyCode
-                        ? 'opacity-100'
-                        : 'opacity-0',
+                      selectedCurrency === currencyCode ? 'opacity-100' : 'opacity-0',
                     )}
                   />
                   <span className="sr-only">Currency icon</span>
                   <CurrencyIcon currency={currencyCode} className="mr-2" />
                   {currencyCode}
                   <span className="mx-3">-</span>
-                  <span className="text-sm  text-zinc-500 font-normal">
-                    {label}
-                  </span>
+                  <span className="text-sm  text-zinc-500 font-normal">{label}</span>
                 </CommandItem>
               ))}
             </CommandList>

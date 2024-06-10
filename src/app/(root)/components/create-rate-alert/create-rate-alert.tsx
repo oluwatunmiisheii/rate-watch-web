@@ -92,7 +92,7 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                 />
 
                 <Button
-                  variant="outline"
+                  variant="light"
                   className="rounded-full size-10 p-0 flex-shrink-0"
                   onClick={() => {
                     const temp = sourceCurrency
