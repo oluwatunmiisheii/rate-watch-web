@@ -18,11 +18,7 @@ interface RateAlertsProps {
 export const RateAlerts = ({ alerts, isLoading }: RateAlertsProps) => {
   const { setSelectedAlert, setShowCreateRateAlert } = useAppContext()
   return (
-    <Container
-      containerProps={{
-        className: 'bg-slate-50',
-      }}
-    >
+    <Container>
       <div className="py-6 flex justify-between items-baseline  space-y-2">
         <h2 className="text-lg font-semibold">Exchange rate alerts</h2>
         <Button size="sm" onClick={() => setShowCreateRateAlert(true)} variant="ghost">

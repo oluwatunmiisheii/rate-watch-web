@@ -3,11 +3,14 @@
 import { SearchResult } from './components/search-result/search-result'
 import { RateAlerts } from './components/rate-alerts/rate-alerts'
 import { CreateRateAlert } from './components/create-rate-alert/create-rate-alert'
-import { SignedIn, useUser } from '@clerk/nextjs'
+import { SignInButton, useUser } from '@clerk/nextjs'
 import { useRateAlert } from './hooks/use-rate-alert'
 import { DeleteRateAlert } from './components/delete-rate-alert/delete-rate-alert'
 import { RateSearch } from './components/rate-search/rate-search'
 import { Container } from '@/components/ui/container/container'
+import EmptyState from '@/components/ui/empty-state/empty-state'
+import { Button } from '@/components/ui/button/button'
+import Image from 'next/image'
 
 export default function Home() {
   const user = useUser()
@@ -16,31 +19,26 @@ export default function Home() {
 
   return (
     <>
-      <Container
-        containerProps={{
-          className: 'bg-[#14338c] py-4 md:py-12',
-        }}
-      >
-        <div className="lg:grid grid-cols-12 items-center h-full lg:space-x-20">
-          <div className="col-span-12 lg:col-span-5">
-            <h1 className="mb-1 font-semibold text-xl md:text-2xl lg:text-4xl lg:leading-[2.7rem] text-white">
-              Find and compare exchange rates in one place
-            </h1>
-            <p className="text-white/80 text-sm sm:text-base mt-3">
-              We help you find the best exchange rates from different providers in a single place so
-              you can make an informed decision on where to convert your money to get the best value
-              for it in your local currency or any other currency you want to convert to.
-            </p>
-          </div>
-          <RateSearch />
-        </div>
-      </Container>
-      <SignedIn>
+      <RateSearch />
+      {user?.isLoaded && user.isSignedIn ? (
         <RateAlerts
           alerts={getRateAlerts.data?.data || { daily: [], threshold: [] }}
           isLoading={getRateAlerts.isLoading}
         />
-      </SignedIn>
+      ) : (
+        <Container className="py-12 md:py-16">
+          <EmptyState
+            title="Sign in to view or create your rate alerts"
+            description="Rate alerts help you keep track of your preferred rates"
+            className="border rounded-lg inset-0 p-4 bg-white shadow-neutral-50 py-12 overflow-hidden"
+            icon={<Image src="/no-content-one.png" width={180} height={180} alt="" />}
+          >
+            <SignInButton>
+              <Button>Sign In</Button>
+            </SignInButton>
+          </EmptyState>
+        </Container>
+      )}
       <SearchResult />
       <CreateRateAlert createAlert={createAlert} email={userEmail} />
       <DeleteRateAlert deleteRateAlert={deleteRateAlert} />
