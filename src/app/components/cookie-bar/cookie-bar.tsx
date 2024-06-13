@@ -62,7 +62,7 @@ export const CookieBar = () => {
                     size="lg"
                     variant="outline"
                     onClick={() => {
-                      setCookies('rw-cookie-consent', 'false', 180)
+                      setCookies('rw-cookie-consent', 'false', 5)
                     }}
                   >
                     Decline
