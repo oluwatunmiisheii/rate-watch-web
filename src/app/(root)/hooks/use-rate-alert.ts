@@ -6,10 +6,14 @@ export const useRateAlert = (email?: string) => {
     queryKey: ['rate-alerts'],
     queryFn: async () => {
       const response = await fetch(`/api/rate-alert?email=${email}`)
+      const jsonRes = await response.json()
+
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        throw new Error('Network response was not ok', {
+          cause: jsonRes,
+        })
       }
-      return response.json()
+      return jsonRes
     },
     enabled: !!email,
   })
@@ -24,14 +28,23 @@ export const useRateAlert = (email?: string) => {
         },
         body: JSON.stringify(data),
       })
+
+      const jsonRes = await response.json()
+
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        throw Error('Network response was not ok', {
+          cause: jsonRes,
+        })
       }
-      return response.json()
+      return jsonRes
     },
     onSuccess: () => {
       getRateAlerts.refetch()
       toast.success('Rate alert created successfully')
+    },
+    onError: (error) => {
+      const message = (error.cause as any)?.message || error?.message || 'An error occurred'
+      toast.error(message)
     },
   })
 
@@ -41,10 +54,15 @@ export const useRateAlert = (email?: string) => {
       const response = await fetch(`/api/rate-alert?id=${id}`, {
         method: 'DELETE',
       })
+
+      const jsonRes = await response.json()
+
       if (!response.ok) {
-        throw new Error('Network response was not ok')
+        throw new Error('Network response was not ok', {
+          cause: jsonRes,
+        })
       }
-      return response.json()
+      return jsonRes
     },
     onSuccess: () => {
       getRateAlerts.refetch()

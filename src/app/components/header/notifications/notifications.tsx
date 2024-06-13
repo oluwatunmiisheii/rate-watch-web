@@ -61,7 +61,7 @@ export const Notifications = () => {
 
   return (
     <DropdownMenu modal>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild disabled>
         <Button
           variant="ghost"
           size="sm"
@@ -113,12 +113,9 @@ export const Notifications = () => {
                 ></path>
               </svg>
               <div className="mt-6">
-                <h2 className=" text-gray-800 text-base font-semibold">
-                  No notifications
-                </h2>
+                <h2 className=" text-gray-800 text-base font-semibold">No notifications</h2>
                 <p className="text-gray-500 text-base mt-2">
-                  We&apos;ll let you know when there will be something to update
-                  you
+                  We&apos;ll let you know when there will be something to update you
                 </p>
               </div>
             </div>
@@ -132,15 +129,9 @@ export const Notifications = () => {
                       className={twMerge(notification.isRead && 'opacity-60')}
                     >
                       <DropdownMenuItem className="block">
-                        <h3 className="text-sm font-medium text-gray-900">
-                          {notification.title}
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          {notification.body}
-                        </p>
-                        <time className="text-sm text-gray-500">
-                          {notification.time}
-                        </time>
+                        <h3 className="text-sm font-medium text-gray-900">{notification.title}</h3>
+                        <p className="text-sm text-gray-500">{notification.body}</p>
+                        <time className="text-sm text-gray-500">{notification.time}</time>
                       </DropdownMenuItem>
                     </li>
                   ))}

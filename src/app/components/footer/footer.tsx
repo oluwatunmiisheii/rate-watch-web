@@ -6,10 +6,15 @@ import NextLink from 'next/link'
 
 export const Footer = () => {
   return (
-    <Container>
+    <Container
+      className="md:py-4"
+      containerProps={{
+        className: 'border-t mt-5',
+      }}
+    >
       <footer className="flex text-sm flex-col sm:flex-row justify-between sm:items-center py-4 gap-4">
         <div className="flex space-x-6 flex-row">
-        <Image
+          <Image
             alt="Rate Watch Logo"
             width="30"
             height="20"
@@ -27,10 +32,7 @@ export const Footer = () => {
             <span className="sr-only">Smile icon</span>
             <Smile className="size-4" />
           </NextLink>
-          <NextLink
-            className="inline-flex items-center space-x-1"
-            href="/policy"
-          >
+          <NextLink className="inline-flex items-center space-x-1" href="/policy">
             <span>Privacy Policy</span>
             <span className="sr-only">Privacy icon</span>
             <Cookie className="size-4" />

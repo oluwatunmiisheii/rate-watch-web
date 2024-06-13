@@ -51,7 +51,7 @@ export async function POST(req: Request) {
         types: body.alertTypes,
         source_currency: body.sourceCurrency,
         target_currency: body.targetCurrency,
-        target_amount: body.targetAmount,
+        target_amount: !isNaN(body.targetAmount) ? body.targetAmount : undefined,
       }),
     })
 

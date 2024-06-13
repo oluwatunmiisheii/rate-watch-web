@@ -35,7 +35,7 @@ export const UserWidget = async () => {
           </DropdownMenuItem>
           <DropdownMenuItem className="focus:bg-transparent">
             <SignOutButton>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button variant="light" size="sm" className="w-full">
                 Logout
               </Button>
             </SignOutButton>

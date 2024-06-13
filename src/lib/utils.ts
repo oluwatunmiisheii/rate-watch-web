@@ -5,16 +5,27 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const validateNumberInput = (input: string) => {
-  if (input.startsWith('.')) {
-    return ''
-  }
+export const validateNumberInput = (input: string): string => {
+  input = input.replace(/^0+/g, '')
+  const formattedInput = input.replace(/[^\d.]/g, '')
+  const parts = formattedInput.split('.')
 
-  const formattedInput = input.replace(/[^0-9.]/g, '')
-
-  if (formattedInput.split('.').length > 2) {
-    return formattedInput.slice(0, -1)
+  if (parts.length > 2) {
+    return parts.slice(0, 2).join('.')
   }
 
   return formattedInput
+}
+
+export const formatNumberWithCommas = (value: string): string => {
+  value = value.replace(/[,\s]/g, '')
+
+  const parts = value.split('.')
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+  if (parts.length > 1) {
+    return parts[1] ? `${parts[0]}.${parts[1]}` : `${parts[0]}.`
+  } else {
+    return parts[0]
+  }
 }
