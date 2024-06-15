@@ -23,16 +23,15 @@ export const Footer = () => {
             src="/logo.svg"
           />
           <NextLink
-            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-1"
-            href="https://nextjs.authjs.dev"
+            href="#"
           >
             <span>Feedbacks</span>
             <span className="sr-only">Smile icon</span>
             <Smile className="size-4" />
           </NextLink>
-          <NextLink className="inline-flex items-center space-x-1" href="/policy">
+          <NextLink className="inline-flex items-center space-x-1" href="#">
             <span>Privacy Policy</span>
             <span className="sr-only">Privacy icon</span>
             <Cookie className="size-4" />
@@ -45,7 +44,6 @@ export const Footer = () => {
             <span className="sr-only">Love</span> ❤️ by
             <NextLink
               href="#"
-              target="_blank"
               className=" ml-1 border-b border-dotted border-slate-900 font-semibold relative"
             >
               Wilson Adenuga
