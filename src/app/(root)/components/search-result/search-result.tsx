@@ -3,7 +3,6 @@ import { MoveRight } from 'lucide-react'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from '@/components/ui/button/button'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
-import Image from 'next/image'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
 import {
   Sheet,
@@ -20,27 +19,26 @@ import { SignedIn } from '@clerk/nextjs'
 const ResultCard = ({
   targetCurrency,
   providerLogo,
-  provider,
   rate,
   bestRate,
 }: {
   targetCurrency: string
   providerLogo: string
-  provider: string
   rate: string
   bestRate: boolean
 }) => {
   return (
     <div className="relative mt-3">
-      <div className="rounded-lg border border-gray-300 bg-white p-4 shadow-sm hover:border-gray-400">
+      <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400">
         <div className="flex justify-between items-center">
-          <Image
-            className="h-6 w-28 object-cover object-left"
-            src={providerLogo}
-            alt={provider}
-            width={80}
-            height={80}
-          ></Image>
+          <div
+            className="bg-center bg-contain bg-no-repeat"
+            style={{
+              backgroundImage: `url(${providerLogo})`,
+              width: '110px',
+              height: '65px',
+            }}
+          ></div>
           <div>
             <p className="text-muted-foreground text-right text-sm">Rate</p>
             <p className="font-semibold">
@@ -86,9 +84,9 @@ export function SearchResult() {
                 <div className="border-b mb-6 pb-2 text-left">
                   <h3 className="mb-1">Disclaimer!!</h3>
                   <p className="text-muted-foreground font-normal tracking-normal text-sm sm:text-base">
-                    Exchange rates are gotten from various providers&apos; websites. Rates fluctuate
-                    frequently and may change by the time you initiate a transaction. We do our best
-                    to keep them updated.
+                    We don&apos;t handle payments. We only show exchange rates from various
+                    providers. Rates can change, so please check the current rate with the provider
+                    before making any transactions.
                   </p>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -127,7 +125,6 @@ export function SearchResult() {
                     key={uuidv4()}
                     targetCurrency={item.target_currency}
                     providerLogo={item.provider_logo}
-                    provider={item.provider}
                     rate={item.rate}
                     bestRate={i === 0}
                   />
