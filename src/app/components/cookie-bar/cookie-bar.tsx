@@ -34,6 +34,7 @@ export const CookieBar = () => {
           className="w-full sm:max-w-0 sm:min-w-full px-0 mb-0 pb-0"
           side="bottom"
           showCloseButton={false}
+          onInteractOutside={(e) => e.preventDefault()}
         >
           <SheetHeader className="mx-auto w-full max-w-3xl px-4 md:px-0 py-8">
             <SheetTitle>You are okay with cookies, right?</SheetTitle>
@@ -57,7 +58,13 @@ export const CookieBar = () => {
                   Accept
                 </Button>
                 <SheetClose>
-                  <Button size="lg" variant="outline">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={() => {
+                      setCookies('rw-cookie-consent', 'false', 5)
+                    }}
+                  >
                     Decline
                   </Button>
                 </SheetClose>
