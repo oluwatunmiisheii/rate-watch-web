@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'currency-flags/dist/currency-flags.css';
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -75,4 +73,48 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.currency-flag {
+  display: inline-block;
+  width: 24px;
+  height: 16px;
+  background-size: cover;
+  background-image: url('/currency-icons/fallback.webp');
+}
+.np-theme-personal .currency-flag {
+  height: 24px;
+}
+.currency-flag-sm {
+  width: 16px;
+  height: 10px;
+}
+.np-theme-personal .currency-flag-sm {
+  height: 16px;
+}
+.currency-flag-lg {
+  width: 36px;
+  height: 24px;
+}
+.np-theme-personal .currency-flag-lg {
+  height: 36px;
+}
+.currency-flag-xl {
+  width: 48px;
+  height: 32px;
+}
+.np-theme-personal .currency-flag.currency-flag-cad {
+  background-image: url('/currency-icons/cad.svg');
+}
+.np-theme-personal .currency-flag.currency-flag-eur {
+  background-image: url('/currency-icons/eur.svg');
+}
+.np-theme-personal .currency-flag.currency-flag-gbp {
+  background-image: url('/currency-icons/gbp.svg');
+}
+.np-theme-personal .currency-flag.currency-flag-ngn {
+  background-image: url('/currency-icons/ngn.svg');
+}
+.np-theme-personal .currency-flag.currency-flag-usd {
+  background-image: url('/currency-icons/usd.svg');
 }
