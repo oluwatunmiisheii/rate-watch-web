@@ -16,8 +16,8 @@ export const UserWidget = async () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-gray-600">
-        <Avatar>
-          <AvatarFallback className="bg-zinc-50 border border-zinc-300 uppercase">
+        <Avatar className="size-9">
+          <AvatarFallback className="bg-zinc-50 border border-zinc-300 uppercase text-sm">
             {user?.firstName?.charAt(0)}
             {user?.lastName?.charAt(0)}
           </AvatarFallback>
