@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none"><script xmlns=""/>
+<clipPath id="mask0_199_9010" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64"><path d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#231D9A"/></clipPath>
+<g clip-path="url(#mask0_199_9010)">
+<rect width="64" height="64" fill="#231D9A"/>
+<path d="M27 27V-1H24V20.5L2.5 6L-4 14.5L10.5 24H-2.5V27H27Z" fill="white"/>
+<path d="M27 37V65H24V43.5L2.5 58L-4 49.5L10.5 40H-2.5V37H27Z" fill="white"/>
+<path d="M37 27V-1H40V20.5L61.5 6L68 14.5L53.5 24H66.5V27H37Z" fill="white"/>
+<path d="M37 37V65H40V43.5L61.5 58L68 49.5L53.5 40H66.5V37H37Z" fill="white"/>
+<path d="M24 24V23.5L3 9.5L-0.5 13.5L15 24H24Z" fill="#F0263C"/>
+<path d="M24 40V40.5L3 54.5L-0.5 50.5L15 40H24Z" fill="#F0263C"/>
+<path d="M40 24V23.5L61 9.5L64.5 13.5L49 24H40Z" fill="#F0263C"/>
+<path d="M40 40V40.5L61 54.5L64.5 50.5L49 40H40Z" fill="#F0263C"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M37 27V-2H27L27 27H-2V37H27L27 66H37V37H66V27H37Z" fill="#F0263C"/>
+</g>
+<script xmlns=""/></svg>

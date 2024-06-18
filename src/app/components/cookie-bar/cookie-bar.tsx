@@ -20,7 +20,7 @@ export const CookieBar = () => {
   const cookieConsent = getFromCookies('rw-cookie-consent')
 
   useEffect(() => {
-    if (cookieConsent === undefined) {
+    if (cookieConsent == undefined) {
       setTimeout(() => {
         setOpen(true)
       }, 1000)
@@ -37,7 +37,7 @@ export const CookieBar = () => {
           onInteractOutside={(e) => e.preventDefault()}
         >
           <SheetHeader className="mx-auto w-full max-w-3xl px-4 md:px-0 py-8">
-            <SheetTitle>You are okay with cookies, right?</SheetTitle>
+            <SheetTitle className="text-left">You are okay with cookies, right?</SheetTitle>
             <SheetDescription className="text-left">
               We use cookies to improve your experience on our site. By using our site you consent
               to cookies. only necessary cookies are used and we won&apos;t turn them on unless you
