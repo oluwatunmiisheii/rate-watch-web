@@ -21,7 +21,7 @@ export const RateSearch = () => {
   const router = useRouter()
   const pathname = usePathname()
 
-  const { isLoading, refetch } = useQuery({
+  const { isLoading, refetch, isFetching } = useQuery({
     queryKey: ['rates', initialSourceCurrency, initialTargetCurrency],
     queryFn: async () => {
       try {
@@ -124,7 +124,7 @@ export const RateSearch = () => {
                 }}
                 className="w-full"
                 size="lg"
-                isLoading={isLoading}
+                isLoading={isLoading || isFetching}
                 disabled={disableSubmitButton()}
               >
                 Find best rates
