@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { MoveRight } from 'lucide-react'
-import { v4 as uuidv4 } from 'uuid'
 import { Button } from '@/components/ui/button/button'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
@@ -15,18 +14,26 @@ import {
 } from '@/components/ui/sheet/sheet'
 import { useAppContext } from '@/providers/app.provider'
 import { SignedIn } from '@clerk/nextjs'
+import { formatNumberWithCommas, removeCommas } from '@/lib/utils'
 
 const ResultCard = ({
   targetCurrency,
+  sourceCurrency,
   providerLogo,
   rate,
   bestRate,
+  amount,
 }: {
   targetCurrency: string
+  sourceCurrency: string
   providerLogo: string
   rate: string
   bestRate: boolean
+  amount: string
 }) => {
+  const totalAmount = parseFloat(removeCommas(amount || '1')) * parseFloat(rate)
+  const formattedAmount = formatNumberWithCommas(totalAmount.toFixed(2))
+
   return (
     <div className="relative mt-3">
       <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400">
@@ -40,13 +47,16 @@ const ResultCard = ({
             }}
           ></div>
           <div>
-            <p className="text-muted-foreground text-right text-sm">Rate</p>
             <p className="font-semibold">
-              {rate} {targetCurrency}
+              {formattedAmount} {targetCurrency}
             </p>
           </div>
         </div>
       </div>
+      <span className="absolute py-1 px-3 top-[-10px] left-3 text-[12px] bg-white rounded-2xl text-muted-foreground z-5">
+        1 {sourceCurrency} = {rate} {targetCurrency}
+      </span>
+
       {bestRate && (
         <span className="absolute py-1 px-3 top-[-10px] text-[12px] bg-[#40B270] rounded-2xl text-white z-5 right-3">
           Best rate
@@ -64,6 +74,7 @@ export function SearchResult() {
     targetCurrency,
     result,
     setShowCreateRateAlert,
+    amount,
   } = useAppContext()
 
   return (
@@ -111,22 +122,26 @@ export function SearchResult() {
               </div>
             </SheetTitle>
             <SheetDescription className="text-left">
-              Showing the mid market exchange rate from{' '}
-              <span className="text-gray-900 font-semibold">{sourceCurrency}</span> to{' '}
-              <span className="text-gray-900 font-semibold">{targetCurrency}</span>
+              Showing exchange rate from{' '}
+              <span className="text-gray-900 font-semibold">
+                {amount} {sourceCurrency}
+              </span>{' '}
+              to <span className="text-gray-900 font-semibold">{targetCurrency}</span>
             </SheetDescription>
           </SheetHeader>
 
           <ScrollArea className="px-4 pb-0 flex-1 overflow-y-auto">
-            <div className="mx-auto w-full max-w-3xl py-3">
+            <div className="mx-auto w-full max-w-3xl pt-3 pb-12">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {result.map((item, i) => (
                   <ResultCard
-                    key={uuidv4()}
+                    key={item.provider}
+                    sourceCurrency={sourceCurrency}
                     targetCurrency={item.target_currency}
                     providerLogo={item.provider_logo}
                     rate={item.rate}
                     bestRate={i === 0}
+                    amount={amount}
                   />
                 ))}
               </div>
@@ -145,7 +160,7 @@ export function SearchResult() {
                       setShowCreateRateAlert(true)
                     }}
                   >
-                    Setup rate watch
+                    Setup Rate Watch
                   </Button>
                 </div>
               </div>

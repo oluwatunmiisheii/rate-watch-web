@@ -29,3 +29,5 @@ export const formatNumberWithCommas = (value: string): string => {
     return parts[0]
   }
 }
+
+export const removeCommas = (value: string): string => value.replace(/,/g, '')
