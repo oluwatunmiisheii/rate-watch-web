@@ -1,3 +1,4 @@
+import { validateNumberInput } from '@/lib/utils'
 import { useSearchParams } from 'next/navigation'
 import React, { createContext, useContext, useMemo, useState } from 'react'
 
@@ -16,6 +17,8 @@ interface AppContextValue {
   setShowResult: (showResult: boolean) => void
   setShowCreateRateAlert: (showCreateRateAlert: boolean) => void
   setSelectedAlert: (selectedAlert: string | null) => void
+  setAmount: (amount: string) => void
+  amount: string
 }
 
 const AppContext = createContext<AppContextValue | undefined>(undefined)
@@ -24,9 +27,11 @@ export const AppProvider = ({ children }: any) => {
   const searchParams = useSearchParams()
   const initialSourceCurrency = searchParams.get('sourceCurrency')
   const initialTargetCurrency = searchParams.get('targetCurrency')
+  const initialAmount = validateNumberInput(searchParams.get('amount') ?? '')
 
   const [sourceCurrency, setSourceCurrency] = useState(initialSourceCurrency ?? 'GBP')
   const [targetCurrency, setTargetCurrency] = useState(initialTargetCurrency ?? 'NGN')
+  const [amount, setAmount] = useState(initialAmount ?? '')
   const [showResult, setShowResult] = useState(false)
   const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
   const [selectedAlert, setSelectedAlert] = useState<string | null>(null)
@@ -36,8 +41,10 @@ export const AppProvider = ({ children }: any) => {
     () => ({
       initialSourceCurrency,
       initialTargetCurrency,
+      initialAmount,
       sourceCurrency,
       targetCurrency,
+      amount,
       showResult,
       showCreateRateAlert,
       selectedAlert,
@@ -45,6 +52,7 @@ export const AppProvider = ({ children }: any) => {
       setResult,
       setSourceCurrency,
       setTargetCurrency,
+      setAmount,
       setShowResult,
       setShowCreateRateAlert,
       setSelectedAlert,
@@ -52,12 +60,14 @@ export const AppProvider = ({ children }: any) => {
     [
       initialSourceCurrency,
       initialTargetCurrency,
+      initialAmount,
       result,
       selectedAlert,
       showCreateRateAlert,
       showResult,
       sourceCurrency,
       targetCurrency,
+      amount,
     ],
   )
 

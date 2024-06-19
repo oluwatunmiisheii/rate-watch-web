@@ -6,11 +6,11 @@ import CircleLoader from 'react-spinners/ClipLoader'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-blue-300 transition-colors disabled:pointer-events-none disabled:opacity-50 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
   {
     variants: {
       variant: {
-        default: 'bg-[#1D4ED8] text-white hover:bg-[#1D4ED8]/90',
+        default: 'bg-[#1D4ED8] text-white hover:bg-[#1D4ED8]/90 focus-visible:outline-[#1D4ED8]',
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         light: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         outline:

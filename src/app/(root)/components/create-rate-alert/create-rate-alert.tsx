@@ -220,7 +220,7 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                 isLoading={createAlert.status === 'pending'}
                 disabled={shouldDisableCreateButton()}
               >
-                Create alert
+                Create Alert
               </Button>
             </div>
           </div>

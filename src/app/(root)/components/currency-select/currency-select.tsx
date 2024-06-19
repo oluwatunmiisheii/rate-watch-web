@@ -13,6 +13,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover/popover'
 import { twMerge } from 'tailwind-merge'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
+import { Label } from '@/components/ui/forms/label/label'
 
 const currencies = [
   {
@@ -40,7 +41,7 @@ const currencies = [
 interface CurrencySelectProps {
   selectedCurrency: string
   onCurrencySelect: (value: string) => void
-  labelProps: JSX.IntrinsicElements['p']
+  labelProps: Parameters<typeof Label>[0]
 }
 
 export const CurrencySelect = ({
@@ -56,16 +57,17 @@ export const CurrencySelect = ({
 
   return (
     <div className="relative w-full">
-      <p className={twMerge('absolute text-sm top-[-9px] left-[18px]', labelProps.className)}>
-        Currency {labelProps.children}
-      </p>
+      <Label
+        className={twMerge('absolute text-sm top-[-9px] left-[18px] px-1', labelProps.className)}
+      >
+        {labelProps.children}
+      </Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="light"
-            role="combobox"
             aria-expanded={open}
-            className="w-full justify-between h-14 border-gray-300"
+            className="w-full justify-between h-14 border-gray-300 !bg-transparent focus:ring-2 focus:ring-inset focus:ring-gray-50"
             type="button"
           >
             {selectedCurrency ? (
