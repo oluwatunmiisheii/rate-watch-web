@@ -1,4 +1,3 @@
-import React from 'react'
 import { CurrencySelect } from '../currency-select/currency-select'
 import { Button } from '@/components/ui/button/button'
 import { ArrowDownUp } from 'lucide-react'
@@ -6,6 +5,10 @@ import { useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 import { useAppContext } from '@/providers/app.provider'
 import { Container } from '@/components/ui/container/container'
+import { toast } from 'sonner'
+import { Input } from '@/components/ui/forms/input/input'
+import { Label } from '@radix-ui/react-dropdown-menu'
+import { formatNumberWithCommas, validateNumberInput, removeCommas } from '@/lib/utils'
 
 export const RateSearch = () => {
   const {
@@ -17,6 +20,8 @@ export const RateSearch = () => {
     setTargetCurrency,
     setResult,
     setShowResult,
+    amount,
+    setAmount,
   } = useAppContext()
   const router = useRouter()
   const pathname = usePathname()
@@ -29,6 +34,7 @@ export const RateSearch = () => {
           `/api/rates?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}`,
         )
         if (!response.ok) {
+          toast.error('Network response was not ok')
           throw new Error('Network response was not ok')
         }
         const data = await response.json()
@@ -54,6 +60,11 @@ export const RateSearch = () => {
     return false
   }
 
+  const updateTargetAmount = (value: string) => {
+    const validatedAmount = validateNumberInput(value)
+    setAmount(formatNumberWithCommas(validatedAmount))
+  }
+
   return (
     <Container
       containerProps={{
@@ -71,42 +82,52 @@ export const RateSearch = () => {
             for it in your local currency or any other currency you want to convert to.
           </p>
         </div>
-        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
-          <div className="pt-12 pb-8 px-8 w-full">
-            <CurrencySelect
-              selectedCurrency={sourceCurrency}
-              onCurrencySelect={setSourceCurrency}
-              labelProps={{
-                className: 'bg-zinc-50',
-                children: 'To',
-              }}
-            />
-          </div>
-
-          <div className="absolute top-[30%]">
-            <Button
-              variant="light"
-              className="rounded-full size-10 p-0 "
-              onClick={() => {
-                const temp = sourceCurrency
-                setSourceCurrency(targetCurrency)
-                setTargetCurrency(temp)
-              }}
-            >
-              <span className="sr-only">Click me</span>
-              <ArrowDownUp className="size-5" />
-            </Button>
-          </div>
-
-          <div className="bg-white w-full px-8 py-12">
-            <CurrencySelect
-              selectedCurrency={targetCurrency}
-              onCurrencySelect={setTargetCurrency}
-              labelProps={{
-                className: 'bg-white',
-                children: 'To',
-              }}
-            />
+        <div className="div space-y-4 flex items-center flex-col mt-6 lg:mt-0 border bg-white border-slate-50 shadow rounded-md relative overflow-hidden col-span-12 lg:col-span-7">
+          <div className="pt-12 pb-8 px-8 w-full space-y-8">
+            <div className="relative pb-2">
+              <Label className="absolute text-sm top-[-9px] left-[18px] z-50 bg-white px-1">
+                Amount
+              </Label>
+              <Input
+                type="text"
+                placeholder="0.00"
+                onPaste={(e) => e.preventDefault()}
+                className="h-14"
+                aria-label="target-amount"
+                value={amount}
+                onChange={(e) => updateTargetAmount(e.target.value)}
+              />
+            </div>
+            <div className="mt-8 flex flex-col items-start">
+              <CurrencySelect
+                selectedCurrency={sourceCurrency}
+                onCurrencySelect={setSourceCurrency}
+                labelProps={{
+                  className: 'bg-white',
+                  children: 'From',
+                }}
+              />
+              <Button
+                variant="ghost"
+                className="size-10 p-0 mb-4 mt-3.5 !bg-transparent text-foreground/80"
+                onClick={() => {
+                  const temp = sourceCurrency
+                  setSourceCurrency(targetCurrency)
+                  setTargetCurrency(temp)
+                }}
+              >
+                <span className="sr-only">Click me</span>
+                <ArrowDownUp className="size-5" />
+              </Button>
+              <CurrencySelect
+                selectedCurrency={targetCurrency}
+                onCurrencySelect={setTargetCurrency}
+                labelProps={{
+                  className: 'bg-white',
+                  children: 'To',
+                }}
+              />
+            </div>
             <div className="w-full mt-10">
               <Button
                 onClick={() => {
@@ -117,9 +138,15 @@ export const RateSearch = () => {
                     refetch()
                   }
 
+                  let newAmount = '1'
+                  if (!['', '0'].includes(amount)) {
+                    newAmount = removeCommas(amount)
+                  }
+
                   const params = new URLSearchParams()
                   params.append('sourceCurrency', sourceCurrency)
                   params.append('targetCurrency', targetCurrency)
+                  params.append('amount', newAmount)
                   router.push(`${pathname}?${params.toString()}`)
                 }}
                 className="w-full"
@@ -127,7 +154,7 @@ export const RateSearch = () => {
                 isLoading={isLoading || isFetching}
                 disabled={disableSubmitButton()}
               >
-                Find best rates
+                Compare Rates
               </Button>
             </div>
           </div>
