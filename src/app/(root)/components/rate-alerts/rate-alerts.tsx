@@ -45,9 +45,6 @@ export const RateAlerts = ({ alerts, isLoading }: RateAlertsProps) => {
           Rate watch help you keep track of the exchange rate between two currencies. Exchange rate
           changes frequently and the current rate might not be available for long. By creating a
           rate alert, you can get notified when the rate changes to a value you are interested in.{' '}
-          <span className="text-[#1D4ED8] border-b border-[#1D4ED8] border-dotted">
-            Terms of use
-          </span>
         </p>
       </div>
     </Container>

@@ -31,7 +31,7 @@ export const Footer = () => {
             <span className="sr-only">Smile icon</span>
             <Smile className="size-4" />
           </NextLink>
-          <NextLink className="inline-flex items-center space-x-1" href="#">
+          <NextLink className="inline-flex items-center space-x-1" href="privacy-policy">
             <span>Privacy Policy</span>
             <span className="sr-only">Privacy icon</span>
             <Cookie className="size-4" />
