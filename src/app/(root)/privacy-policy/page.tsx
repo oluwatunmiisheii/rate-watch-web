@@ -38,14 +38,7 @@ export default function PrivacyPolicy() {
             <li>To allow you to set up rate watch notifications (for signed-up users).</li>
           </ul>
 
-          <h2 className="text-lg font-bold mb-4">4. Data Security</h2>
-          <p className="mb-4">
-            We implement reasonable security measures to protect your personal information. However,
-            no security system is impenetrable, and we cannot guarantee the absolute security of
-            your data.
-          </p>
-
-          <h2 className="text-lg font-bold mb-4">5. Exchange Rate Disclaimer</h2>
+          <h2 className="text-lg font-bold mb-4">4. Exchange Rate Disclaimer</h2>
           <p className="mb-4">
             The exchange rates provided by our application are obtained from third-party providers.
             While we strive to provide accurate and up-to-date information, we do not guarantee that
@@ -53,13 +46,13 @@ export default function PrivacyPolicy() {
             providers services.
           </p>
 
-          <h2 className="text-lg font-bold mb-4">6. Your Rights</h2>
+          <h2 className="text-lg font-bold mb-4">5. Your Rights</h2>
           <p className="mb-4">
             You have the right to access, update, or delete your personal information. If you wish
             to exercise these rights, please contact us at [Your Contact Information].
           </p>
 
-          <h2 className="text-lg font-bold mb-4">7. Changes to This Privacy Policy</h2>
+          <h2 className="text-lg font-bold mb-4">6. Changes to This Privacy Policy</h2>
           <p className="mb-4">
             We may update this privacy policy from time to time. We will notify you of any changes
             by posting the new privacy policy on this page.
@@ -67,8 +60,8 @@ export default function PrivacyPolicy() {
 
           <h2 className="text-lg font-bold mb-4">. Contact Us</h2>
           <p>
-            If you have any questions about this privacy policy, please contact us at [Your Contact
-            Information].
+            If you have any questions about this privacy policy, please contact us at
+            ratewatchxyz.gmail.com
           </p>
         </div>
       </section>
