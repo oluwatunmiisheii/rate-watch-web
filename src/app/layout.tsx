@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <GoogleAnalytics gaId="G-WD7D0CCZXK" />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''} />
         <body className={inter.className}>
           <div className="flex flex-col justify-between w-full h-full min-h-screen">
             <Header />
