@@ -15,6 +15,7 @@ import {
 import { useAppContext } from '@/providers/app.provider'
 import { SignedIn } from '@clerk/nextjs'
 import { formatNumberWithCommas, removeCommas } from '@/lib/utils'
+import Link from 'next/link'
 
 const ResultCard = ({
   targetCurrency,
@@ -23,6 +24,7 @@ const ResultCard = ({
   rate,
   bestRate,
   amount,
+  provider_url,
 }: {
   targetCurrency: string
   sourceCurrency: string
@@ -30,12 +32,13 @@ const ResultCard = ({
   rate: string
   bestRate: boolean
   amount: string
+  provider_url: string
 }) => {
   const totalAmount = parseFloat(removeCommas(amount || '1')) * parseFloat(rate)
   const formattedAmount = formatNumberWithCommas(totalAmount.toFixed(2))
 
   return (
-    <div className="relative mt-3">
+    <Link className="relative mt-3" href={provider_url} target="_blank" rel="no referrer">
       <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400">
         <div className="flex justify-between items-center">
           <div
@@ -62,7 +65,7 @@ const ResultCard = ({
           Best rate
         </span>
       )}
-    </div>
+    </Link>
   )
 }
 
@@ -142,6 +145,7 @@ export function SearchResult() {
                     rate={item.rate}
                     bestRate={i === 0}
                     amount={amount}
+                    provider_url={item.provider_url}
                   />
                 ))}
               </div>
