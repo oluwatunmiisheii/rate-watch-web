@@ -58,7 +58,7 @@ export default function PrivacyPolicy() {
             by posting the new privacy policy on this page.
           </p>
 
-          <h2 className="text-lg font-bold mb-4">. Contact Us</h2>
+          <h2 className="text-lg font-bold mb-4">7. Contact Us</h2>
           <p>
             If you have any questions about this privacy policy, please contact us at
             ratewatchxyz.gmail.com
