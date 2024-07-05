@@ -51,6 +51,10 @@ export const useRateAlert = (email?: string) => {
   const deleteRateAlert = useMutation({
     mutationKey: ['delete-rate-alert'],
     mutationFn: async (id: string) => {
+      if (!id) {
+        throw new Error('Invalid rate alert id')
+      }
+
       const response = await fetch(`/api/rate-alert?id=${id}`, {
         method: 'DELETE',
       })
@@ -67,6 +71,10 @@ export const useRateAlert = (email?: string) => {
     onSuccess: () => {
       getRateAlerts.refetch()
       toast.success('Rate alert deleted successfully')
+    },
+    onError: (error) => {
+      const message = (error.cause as any)?.message || error?.message || 'An error occurred'
+      toast.error(message)
     },
   })
 
