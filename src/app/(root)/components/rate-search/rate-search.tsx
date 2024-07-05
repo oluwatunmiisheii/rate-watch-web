@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { Input } from '@/components/ui/forms/input/input'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { formatNumberWithCommas, validateNumberInput, removeCommas } from '@/lib/utils'
+import { sendGAEvent } from '@next/third-parties/google'
 
 export const RateSearch = () => {
   const {
@@ -138,16 +139,17 @@ export const RateSearch = () => {
                     refetch()
                   }
 
-                  let newAmount = '1'
-                  if (!['', '0'].includes(amount)) {
-                    newAmount = removeCommas(amount)
-                  }
+                  const formattedAmount = removeCommas(amount ?? '1')
 
                   const params = new URLSearchParams()
                   params.append('sourceCurrency', sourceCurrency)
                   params.append('targetCurrency', targetCurrency)
-                  params.append('amount', newAmount)
+                  params.append('amount', formattedAmount)
                   router.push(`${pathname}?${params.toString()}`)
+                  sendGAEvent({
+                    event: 'compare_rates',
+                    value: `${sourceCurrency}-${targetCurrency}`,
+                  })
                 }}
                 className="w-full"
                 size="lg"
