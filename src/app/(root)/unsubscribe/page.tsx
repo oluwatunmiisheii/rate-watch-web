@@ -25,7 +25,7 @@ export default function Unsubscribe() {
   return (
     <Container className="sm:my-5 h-[60vh] flex flex-col items-center justify-center">
       <Image src="/unsubscribe.svg" alt="Unsubscribe" width={200} height={200} className="mb-8" />
-      <h3 className="text-2xl">Are you sure about unsubscribing?</h3>
+      <h3 className="text-2xl text-center">Are you sure about unsubscribing?</h3>
       <p className="text-muted-foreground text-center">
         if you unsubscribe you will not receive any more daily alerts for {sourceCurrency} to{' '}
         {targetCurrency} exchange rate
