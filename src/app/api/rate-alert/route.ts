@@ -68,7 +68,6 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  auth().protect()
   const { searchParams } = new URL(req.url)
   const id = searchParams.get('id')
 
