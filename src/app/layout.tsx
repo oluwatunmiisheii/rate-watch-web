@@ -1,5 +1,4 @@
 import { GoogleAnalytics } from '@next/third-parties/google'
-import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Header } from './components/header/header'
 import './globals.css'
@@ -11,13 +10,13 @@ import { CookieBar } from './components/cookie-bar/cookie-bar'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Rate Watch',
   description: 'Get the best exchange rates from different providers in a single place',
   keywords: ['exchange rate', 'currency', 'rate watch', 'rate alert', 'foreign exchange'],
 }
 
-export const viewport: Viewport = {
+export const viewport = {
   width: 'device-width',
   initialScale: 1,
 }
