@@ -7,6 +7,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from '@/providers'
 import { Toaster } from '@/components/ui/sonner/sonner'
 import { CookieBar } from './components/cookie-bar/cookie-bar'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''} />
+        <GoogleTagManager gtmId="GTM-T54GCTKG" />
+        {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''} /> */}
         <body className={inter.className}>
           <div className="flex flex-col justify-between w-full h-full min-h-screen">
             <Header />

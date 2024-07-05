@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { Input } from '@/components/ui/forms/input/input'
 import { Label } from '@radix-ui/react-dropdown-menu'
 import { formatNumberWithCommas, validateNumberInput, removeCommas } from '@/lib/utils'
-import { sendGAEvent } from '@next/third-parties/google'
+// import { sendGAEvent } from '@next/third-parties/google'
 
 export const RateSearch = () => {
   const {
@@ -146,10 +146,10 @@ export const RateSearch = () => {
                   params.append('targetCurrency', targetCurrency)
                   params.append('amount', formattedAmount)
                   router.push(`${pathname}?${params.toString()}`)
-                  sendGAEvent({
-                    event: 'compare_rates',
-                    value: `${sourceCurrency}-${targetCurrency}`,
-                  })
+                  //   sendGAEvent({
+                  //     event: 'compare_rates',
+                  //     value: `${sourceCurrency}-${targetCurrency}`,
+                  //   })
                 }}
                 className="w-full"
                 size="lg"
