@@ -1,4 +1,3 @@
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { Inter } from 'next/font/google'
 import { Header } from './components/header/header'
 import './globals.css'
@@ -47,3 +46,5 @@ export default function RootLayout({
     </ClerkProvider>
   )
 }
+
+// CompareRates -- nam of event to send to Google Tag Manager
