@@ -26,11 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const trackAnalytics = !!process.env.NEXT_PUBLIC_GTM_ID
+  const analyticsKey = process.env.NEXT_PUBLIC_GTM_ID
   return (
     <ClerkProvider>
       <html lang="en">
-        {trackAnalytics && <GoogleTagManager gtmId="GTM-T54GCTKG" />}
+        {analyticsKey && <GoogleTagManager gtmId={analyticsKey} />}
         <body className={inter.className}>
           <div className="flex flex-col justify-between w-full h-full min-h-screen">
             <Header />
