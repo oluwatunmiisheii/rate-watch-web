@@ -36,6 +36,7 @@ export const RateSearch = () => {
         )
         if (!response.ok) {
           toast.error('Network response was not ok')
+          /* TODO: handle error properly */
           throw new Error('Network response was not ok')
         }
         const data = await response.json()
@@ -50,16 +51,13 @@ export const RateSearch = () => {
   })
 
   const disableSubmitButton = () => {
-    if (sourceCurrency === targetCurrency) {
-      return true
-    }
+    const isSameCurrency = sourceCurrency === targetCurrency
+    const isCurrencyEmpty = !sourceCurrency || !targetCurrency
 
-    if (sourceCurrency === '' || targetCurrency === '') {
-      return true
-    }
-
-    return false
+    return isSameCurrency || isCurrencyEmpty
   }
+
+  const trackAnalytics = !!process.env.NEXT_PUBLIC_GTM_ID
 
   const updateTargetAmount = (value: string) => {
     const validatedAmount = validateNumberInput(value)
@@ -137,19 +135,20 @@ export const RateSearch = () => {
                     targetCurrency === initialTargetCurrency
                   ) {
                     refetch()
+                  } else {
+                    const params = new URLSearchParams()
+                    params.append('sourceCurrency', sourceCurrency)
+                    params.append('targetCurrency', targetCurrency)
+                    params.append('amount', removeCommas(amount ?? '1'))
+                    router.push(`${pathname}?${params.toString()}`)
                   }
 
-                  const formattedAmount = removeCommas(amount ?? '1')
-
-                  const params = new URLSearchParams()
-                  params.append('sourceCurrency', sourceCurrency)
-                  params.append('targetCurrency', targetCurrency)
-                  params.append('amount', formattedAmount)
-                  router.push(`${pathname}?${params.toString()}`)
-                  sendGTMEvent({
-                    event: 'compareRates',
-                    rate: `${sourceCurrency}-${targetCurrency}`,
-                  })
+                  if (trackAnalytics) {
+                    sendGTMEvent({
+                      event: 'compareRates',
+                      rate: `${sourceCurrency}-${targetCurrency}`,
+                    })
+                  }
                 }}
                 className="w-full"
                 size="lg"

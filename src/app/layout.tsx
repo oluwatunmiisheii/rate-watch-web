@@ -26,11 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const trackAnalytics = !!process.env.NEXT_PUBLIC_GTM_ID
   return (
     <ClerkProvider>
       <html lang="en">
-        <GoogleTagManager gtmId="GTM-T54GCTKG" />
-        {/* <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ''} /> */}
+        {trackAnalytics && <GoogleTagManager gtmId="GTM-T54GCTKG" />}
         <body className={inter.className}>
           <div className="flex flex-col justify-between w-full h-full min-h-screen">
             <Header />
@@ -46,5 +46,3 @@ export default function RootLayout({
     </ClerkProvider>
   )
 }
-
-// CompareRates -- nam of event to send to Google Tag Manager
