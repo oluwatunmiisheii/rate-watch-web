@@ -52,11 +52,11 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
   }
 
   const shouldDisableCreateButton = () => {
-    if (!alertTypes.length || !sourceCurrency || !targetCurrency) return true
-    if (alertTypes.includes('threshold') && !targetAmount) return true
-    if (sourceCurrency === targetCurrency) return true
+    const isMissingRequiredFields = !alertTypes.length || !sourceCurrency || !targetCurrency
+    const isThresholdAlertMissingAmount = alertTypes.includes('threshold') && !targetAmount
+    const isSameCurrency = sourceCurrency === targetCurrency
 
-    return false
+    return isMissingRequiredFields || isThresholdAlertMissingAmount || isSameCurrency
   }
 
   const resetFormValues = () => {

@@ -6,11 +6,12 @@ import React from 'react'
 import { RateAlertTable } from './rate-alert-table/rate-alert-table'
 import { Plus } from 'lucide-react'
 import { useAppContext } from '@/providers/app.provider'
+import type { DailyRateAlert, ThresholdRateAlert } from '@/models/rate-alert.model'
 
 interface RateAlertsProps {
   alerts: {
-    daily: any[]
-    threshold: any[]
+    daily: DailyRateAlert[]
+    threshold: ThresholdRateAlert[]
   }
   isLoading: boolean
 }

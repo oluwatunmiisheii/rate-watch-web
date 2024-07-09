@@ -22,6 +22,7 @@ export async function GET(request: Request) {
         'Content-Type': 'application/json',
       },
     })
+
     const resp = await response.json()
 
     if (!response.ok) {

@@ -61,7 +61,7 @@ export const Notifications = () => {
 
   return (
     <DropdownMenu modal>
-      <DropdownMenuTrigger asChild disabled>
+      <DropdownMenuTrigger asChild disabled className="hidden">
         <Button
           variant="ghost"
           size="sm"
