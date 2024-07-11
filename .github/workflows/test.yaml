@@ -16,15 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          export PATH="$HOME/.bun/bin:$PATH"h
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: bun run build
-          start: bun start
+          build: npm run build
+          start: npm run start
           wait-on: 'http://localhost:3000'
           config: baseUrl=http://localhost:3000
         env:
