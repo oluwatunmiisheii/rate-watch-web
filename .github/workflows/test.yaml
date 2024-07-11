@@ -19,8 +19,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
-          start: npm start
+          build: bun run build
+          start: bun start
           wait-on: 'http://localhost:3000'
           config: baseUrl=http://localhost:3000
         env:
