@@ -21,6 +21,8 @@ export async function GET(request: Request) {
     })
     const resp = await response.json()
 
+    console.log('response', resp)
+
     if (!response.ok) {
       return Response.json(resp, { status: response.status })
     }
