@@ -1,1 +1,1 @@
-npx build
+npm run build
