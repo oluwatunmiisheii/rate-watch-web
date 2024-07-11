@@ -52,12 +52,12 @@ To set up Rate Watch with Next.js, follow these steps:
 Check out the live demo of Rate Watch [here](https://rate-watch-demo-url.com).
 
 <p align="center">
-  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/8d106adb-6eb5-4216-9452-2db239642d33" width="45%" height="300" />
-  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/d01d0a2c-bd2d-423b-a41b-b58c48a19b4e" width="45%" height="300" />
+  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/8d106adb-6eb5-4216-9452-2db239642d33" height="300" />
+  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/d01d0a2c-bd2d-423b-a41b-b58c48a19b4e" height="300" />
 </p>
 <p align="center">
-  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/3994264e-e88d-449a-94ba-fb187583b548" width="45%" height="300" />
-  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/92a711b3-e146-40e3-bac7-8c86da67b765" width="45%" height="300" />
+  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/3994264e-e88d-449a-94ba-fb187583b548" height="300" />
+  <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/92a711b3-e146-40e3-bac7-8c86da67b765" height="300" />
 </p>
 
 ## Contributing
