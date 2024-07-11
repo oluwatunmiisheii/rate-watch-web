@@ -1,0 +1,56 @@
+{
+  "code": 200,
+  "message": "Rates fetched successfully",
+  "success": true,
+  "data": [
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "rate": "1545.61",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1717513713/rate-watch/remitly_pkxoqj.png",
+      "provider": "Remitly",
+      "provider_url": "https://www.remitly.com/gb/en"
+    },
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "rate": "1524.89",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1717513356/rate-watch/instarem_zwsak6.png",
+      "provider": "Instarem",
+      "provider_url": "https://www.instarem.com/en-gb/"
+    },
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "rate": "1520.519",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1717513428/rate-watch/nala_p3izoh.svg",
+      "provider": "Nala",
+      "provider_url": "https://www.nala.com/"
+    },
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1719528100/rate-watch/62d519fe1b69726dbb0866e4_Afriex_Logo_p2fwld.svg",
+      "provider": "Afriex",
+      "rate": "1519.6319479999997",
+      "provider_url": "https://www.afriexapp.com/"
+    },
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "rate": "1519",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1717512996/rate-watch/lemfi_yay0xo.svg ",
+      "provider": "Lemfi",
+      "provider_url": "https://www.lemfi.com/gb/international-money-transfer/"
+    },
+    {
+      "source_currency": "USD",
+      "target_currency": "NGN",
+      "rate": "1519.00",
+      "provider_logo": "https://res.cloudinary.com/deu3xnay0/image/upload/v1717513191/rate-watch/tap-tap-send_uwacbh.png",
+      "provider": "TapTap Send",
+      "provider_url": "https://www.taptapsend.com/"
+    }
+  ],
+  "fromCache": true
+}

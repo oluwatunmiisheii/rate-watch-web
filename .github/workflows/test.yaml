@@ -1,0 +1,27 @@
+# .github/workflows/cypress-tests.yml
+
+name: Run Cypress Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm run start
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}}
+          CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
