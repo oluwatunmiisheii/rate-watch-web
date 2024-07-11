@@ -25,3 +25,5 @@ jobs:
           config: baseUrl=http://localhost:3000
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}}
+          CLERK_SECRET_KEY: ${{secrets.CLERK_SECRET_KEY}}
