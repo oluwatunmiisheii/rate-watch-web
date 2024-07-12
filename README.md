@@ -63,6 +63,6 @@ Check out the live demo of Rate Watch [here](https://rate-watch-demo-url.com).
 
 Looking for cool people 😎 to join and contribute!
 
-If you’re interested in collaborating to enhance Rate Watch and add more features, please reach out to me at [oluwatunmiseadenuga@gmail.com](mailto:oluwatunmiseadenuga@gmail.com). I’m excited to work with contributors to expand this project and make it more valuable for families who need it.
+If you’re interested in collaborating to enhance Rate Watch and add more features, please reach out to me at [oluwatunmiseadenuga@gmail.com](mailto:oluwatunmiseadenuga@gmail.com). I’m excited to work with contributors to expand this project.
 
 Thanks ❤️
