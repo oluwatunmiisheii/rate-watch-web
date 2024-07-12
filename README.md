@@ -20,7 +20,6 @@ Rate Watch helps you find the best exchange rates from various providers, all in
 - [Installation](#installation)
 - [Demo](#demo)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
