@@ -48,7 +48,7 @@ To set up Rate Watch with Next.js, follow these steps:
 
 ## Demo
 
-Check out the live demo of Rate Watch [here](https://rate-watch-demo-url.com).
+Check out the live demo of Rate Watch [here](https://ratewatch.xyz)
 
 <p align="center">
   <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/8d106adb-6eb5-4216-9452-2db239642d33" width="30%" />
