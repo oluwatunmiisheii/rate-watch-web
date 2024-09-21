@@ -39,13 +39,15 @@ const currencies = [
 
 interface CurrencySelectProps {
   selectedCurrency: string
-  onCurrencySelect: (value: string) => void
+  currencyToHide: string
+  onCurrencySelect(value: string): void
   labelProps: Parameters<typeof Label>[0]
 }
 
 export const CurrencySelect = ({
   selectedCurrency,
   onCurrencySelect,
+  currencyToHide,
   labelProps,
 }: CurrencySelectProps) => {
   const [open, setOpen] = React.useState(false)
@@ -97,29 +99,31 @@ export const CurrencySelect = ({
             <CommandInput placeholder="Search currency..." />
             <CommandEmpty>No currency found.</CommandEmpty>
             <CommandList>
-              {currencies.map(({ currencyCode, label }) => (
-                <CommandItem
-                  className="cursor-pointer flex items-center"
-                  key={currencyCode}
-                  value={currencyCode}
-                  onSelect={(currentValue) => {
-                    onCurrencySelect(currentValue === selectedCurrency ? '' : currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      'mr-2 h-4 w-4',
-                      selectedCurrency === currencyCode ? 'opacity-100' : 'opacity-0',
-                    )}
-                  />
-                  <span className="sr-only">Currency icon</span>
-                  <CurrencyIcon currency={currencyCode} className="mr-2" />
-                  {currencyCode}
-                  <span className="mx-3">-</span>
-                  <span className="text-sm  text-zinc-500 font-normal">{label}</span>
-                </CommandItem>
-              ))}
+              {currencies
+                .filter((c) => c.currencyCode !== currencyToHide)
+                .map(({ currencyCode, label }) => (
+                  <CommandItem
+                    className="cursor-pointer flex items-center"
+                    key={currencyCode}
+                    value={currencyCode}
+                    onSelect={(currentValue) => {
+                      onCurrencySelect(currentValue === selectedCurrency ? '' : currentValue)
+                      setOpen(false)
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        'mr-2 h-4 w-4',
+                        selectedCurrency === currencyCode ? 'opacity-100' : 'opacity-0',
+                      )}
+                    />
+                    <span className="sr-only">Currency icon</span>
+                    <CurrencyIcon currency={currencyCode} className="mr-2" />
+                    {currencyCode}
+                    <span className="mx-3">-</span>
+                    <span className="text-sm  text-zinc-500 font-normal">{label}</span>
+                  </CommandItem>
+                ))}
             </CommandList>
           </Command>
         </PopoverContent>
