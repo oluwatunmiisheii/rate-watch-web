@@ -46,6 +46,7 @@
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-smart-conditional": "^1.0.21",
     "react-spinners": "^0.13.8",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",

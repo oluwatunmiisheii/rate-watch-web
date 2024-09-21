@@ -100,6 +100,7 @@ export const RateSearch = () => {
             <div className="mt-8 flex flex-col items-start">
               <CurrencySelect
                 selectedCurrency={sourceCurrency}
+                currencyToHide={targetCurrency}
                 onCurrencySelect={setSourceCurrency}
                 labelProps={{
                   className: 'bg-white',
@@ -120,6 +121,7 @@ export const RateSearch = () => {
               </Button>
               <CurrencySelect
                 selectedCurrency={targetCurrency}
+                currencyToHide={sourceCurrency}
                 onCurrencySelect={setTargetCurrency}
                 labelProps={{
                   className: 'bg-white',

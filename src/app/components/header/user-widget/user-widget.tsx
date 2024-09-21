@@ -10,9 +10,17 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar/avatar'
 import { Button } from '@/components/ui/button/button'
 import { SignOutButton } from '@clerk/nextjs'
 import { currentUser } from '@clerk/nextjs/server'
+import { DeleteUser } from './delete-user'
 
 export const UserWidget = async () => {
-  const user = await currentUser()
+  const user = await currentUser().catch(() => null)
+
+  if (!user) {
+    return null
+  }
+
+  const email = user.emailAddresses[0].emailAddress
+  const id = user.id
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-gray-600">
@@ -39,6 +47,9 @@ export const UserWidget = async () => {
                 Logout
               </Button>
             </SignOutButton>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="focus:bg-transparent flex flex-col space-y-1">
+            <DeleteUser email={email ?? ''} id={id ?? ''} />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenuPortal>
