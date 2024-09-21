@@ -43,7 +43,8 @@ export const Footer = () => {
             <div className="pl-1" />
             <span className="sr-only">Love</span> ❤️ by
             <NextLink
-              href="#"
+              href="https://github.com/oluwatunmiisheii"
+              target="_blank"
               className=" ml-1 border-b border-dotted border-slate-900 font-semibold relative"
             >
               Wilson Adenuga
