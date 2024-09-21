@@ -20,7 +20,6 @@ Rate Watch helps you find the best exchange rates from various providers, all in
 - [Installation](#installation)
 - [Demo](#demo)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -49,7 +48,7 @@ To set up Rate Watch with Next.js, follow these steps:
 
 ## Demo
 
-Check out the live demo of Rate Watch [here](https://rate-watch-demo-url.com).
+Check out the live demo of Rate Watch [here](https://ratewatch.xyz)
 
 <p align="center">
   <img src="https://github.com/oluwatunmiisheii/rate-watch-web/assets/42435593/8d106adb-6eb5-4216-9452-2db239642d33" width="30%" />
@@ -64,6 +63,6 @@ Check out the live demo of Rate Watch [here](https://rate-watch-demo-url.com).
 
 Looking for cool people 😎 to join and contribute!
 
-If you’re interested in collaborating to enhance Rate Watch and add more features, please reach out to me at [oluwatunmiseadenuga@gmail.com](mailto:oluwatunmiseadenuga@gmail.com). I’m excited to work with contributors to expand this project and make it more valuable for families who need it.
+If you’re interested in collaborating to enhance Rate Watch and add more features, please reach out to me at [oluwatunmiseadenuga@gmail.com](mailto:oluwatunmiseadenuga@gmail.com). I’m excited to work with contributors to expand this project.
 
 Thanks ❤️

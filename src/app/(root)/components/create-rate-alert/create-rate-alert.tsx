@@ -99,6 +99,7 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
             <div className="flex flex-col items-center space-y-4 w-full">
               <CurrencySelect
                 selectedCurrency={sourceCurrency}
+                currencyToHide={targetCurrency}
                 onCurrencySelect={(currency) => setSourceCurrency(currency)}
                 labelProps={{
                   className: 'bg-white',
@@ -122,6 +123,7 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
 
               <CurrencySelect
                 selectedCurrency={targetCurrency}
+                currencyToHide={sourceCurrency}
                 onCurrencySelect={(currency) => setTargetCurrency(currency)}
                 labelProps={{
                   className: 'bg-white',

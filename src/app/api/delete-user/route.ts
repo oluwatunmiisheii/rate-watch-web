@@ -1,24 +1,27 @@
+import { auth } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+
 const BASE_URL = process.env.API_BASE_URL
 
-export async function GET(request: Request) {
+export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url)
-  const sourceCurrency = searchParams.get('sourceCurrency')
-  const targetCurrency = searchParams.get('targetCurrency')
+  const email = searchParams.get('email')
+  const userId = searchParams.get('user_id')
 
-  if (!sourceCurrency || !targetCurrency) {
-    return Response.json({ message: 'Invalid Request' }, { status: 400 })
+  if (!userId || !email) {
+    return NextResponse.json({ error: 'User not found' }, { status: 404 })
   }
 
-  let url = `${BASE_URL}/v1/rates?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}`
+  let url = `${BASE_URL}/v1/users/delete?email=${email}&user_id=${userId}`
 
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      cache: 'no-store',
     })
+
     const resp = await response.json()
 
     if (!response.ok) {
