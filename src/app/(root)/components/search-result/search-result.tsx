@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { MoveRight } from 'lucide-react'
+import { AudioLines, MoveRight } from 'lucide-react'
 import { Button } from '@/components/ui/button/button'
 import { ScrollArea } from '@/components/ui/scroll-area/scroll-area'
 import { CurrencyIcon } from '@/components/ui/currency-icon/currency-icon'
@@ -25,6 +25,7 @@ const ResultCard = ({
   bestRate,
   amount,
   provider_url,
+  flat_rate,
 }: {
   targetCurrency: string
   sourceCurrency: string
@@ -33,13 +34,14 @@ const ResultCard = ({
   bestRate: boolean
   amount: string
   provider_url: string
+  flat_rate: boolean
 }) => {
   const totalAmount = parseFloat(removeCommas(amount || '1')) * parseFloat(rate)
   const formattedAmount = formatNumberWithCommas(totalAmount.toFixed(2))
 
   return (
     <Link className="relative mt-3" href={provider_url} target="_blank" rel="no referrer">
-      <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400">
+      <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400 transition-all duration-300">
         <div className="flex justify-between items-center">
           <div
             className="bg-center bg-contain bg-no-repeat"
@@ -48,18 +50,25 @@ const ResultCard = ({
               width: '110px',
               height: '65px',
             }}
-          ></div>
+          />
           <div>
             <p className="font-semibold">
               {formattedAmount} {targetCurrency}
             </p>
           </div>
         </div>
+        <div className="bg-gray-50 px-2 py-1 rounded-2xl text-xs text-muted-foreground flex items-center w-fit">
+          <span className="flex-shrink-0 mr-1">
+            <AudioLines size={12} />
+          </span>
+          {flat_rate
+            ? 'Fixed rate for new and returning users'
+            : 'Rates might be slightly lower for returning users'}
+        </div>
       </div>
       <span className="absolute py-1 px-3 top-[-10px] left-3 text-[12px] bg-white rounded-2xl text-muted-foreground z-5">
         1 {sourceCurrency} = {rate} {targetCurrency}
       </span>
-
       {bestRate && (
         <span className="absolute py-1 px-3 top-[-10px] text-[12px] bg-[#40B270] rounded-2xl text-white z-5 right-3">
           Best rate
@@ -127,7 +136,7 @@ export function SearchResult() {
             <SheetDescription className="text-left">
               Showing exchange rate from{' '}
               <span className="text-gray-900 font-semibold">
-                {amount} {sourceCurrency}
+                {amount || 1} {sourceCurrency}
               </span>{' '}
               to <span className="text-gray-900 font-semibold">{targetCurrency}</span>
             </SheetDescription>
@@ -146,6 +155,7 @@ export function SearchResult() {
                     bestRate={i === 0}
                     amount={amount}
                     provider_url={item.provider_url}
+                    flat_rate={item.flat_rate}
                   />
                 ))}
               </div>
