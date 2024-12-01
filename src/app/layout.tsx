@@ -32,7 +32,7 @@ export default function RootLayout({
       <html lang="en">
         {analyticsKey && <GoogleTagManager gtmId={analyticsKey} />}
         <body className={inter.className}>
-          <div className="flex flex-col justify-between w-full h-full min-h-screen">
+          <div className="flex flex-col justify-between w-full h-screen min-h-screen overflow-auto">
             <Header />
             <main className="flex-auto">
               <Providers>{children}</Providers>
