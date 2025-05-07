@@ -1,12 +1,13 @@
 import { Inter } from 'next/font/google'
-import { Header } from './components/header/header'
+import { Header } from './_components/layout/header/header'
 import './globals.css'
-import { Footer } from './components/footer/footer'
+import { Footer } from './_components/layout/footer/footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Providers } from '@/providers'
 import { Toaster } from '@/components/ui/sonner/sonner'
-import { CookieBar } from './components/cookie-bar/cookie-bar'
+import { CookieBar } from './_components/cookie-bar/cookie-bar'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { InstallPrompt } from './_components/install-prompt/install-prompt'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -41,6 +42,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <CookieBar />
+          <InstallPrompt />
         </body>
       </html>
     </ClerkProvider>
