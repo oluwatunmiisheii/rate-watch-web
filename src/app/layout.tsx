@@ -33,16 +33,16 @@ export default function RootLayout({
       <html lang="en">
         {analyticsKey && <GoogleTagManager gtmId={analyticsKey} />}
         <body className={inter.className}>
-          <div className="flex flex-col justify-between w-full h-screen min-h-screen overflow-auto">
-            <Header />
-            <main className="flex-auto">
-              <Providers>{children}</Providers>
-            </main>
-            <Toaster richColors position="top-right" />
-            <Footer />
-          </div>
-          <CookieBar />
-          <InstallPrompt />
+          <Providers>
+            <div className="flex flex-col justify-between w-full h-screen min-h-screen overflow-auto">
+              <Header />
+              <main className="flex-auto">{children}</main>
+              <Toaster richColors position="top-right" />
+              <Footer />
+            </div>
+            <CookieBar />
+            <InstallPrompt />
+          </Providers>
         </body>
       </html>
     </ClerkProvider>

@@ -4,11 +4,13 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Rate Watch',
     short_name: 'RateWatch',
-    description: 'A tool to monitor and alert on rate changes',
+    description: 'Find and compare exchange rates for your favorite currencies.',
     start_url: '/',
+    scope: '/',
+    id: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#000000',
+    theme_color: '#1D4ED8',
     icons: [
       {
         src: '/icon-192x192.png',
