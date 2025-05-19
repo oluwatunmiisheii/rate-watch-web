@@ -20,10 +20,14 @@ export const CookieBar = () => {
   const cookieConsent = getFromCookies('rw-cookie-consent')
 
   useEffect(() => {
+    let timeout: NodeJS.Timeout | null = null
     if (cookieConsent == undefined) {
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         setOpen(true)
-      }, 1000)
+      }, 300)
+    }
+    return () => {
+      timeout && clearTimeout(timeout)
     }
   }, [cookieConsent])
 
@@ -57,7 +61,7 @@ export const CookieBar = () => {
                 >
                   Accept
                 </Button>
-                <SheetClose>
+                <SheetClose asChild>
                   <Button
                     size="lg"
                     variant="outline"
