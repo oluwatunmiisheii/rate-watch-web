@@ -9,13 +9,21 @@ export function InstallPrompt() {
   const [open, setOpen] = useState(false)
   const [isStandalone, setIsStandalone] = useState(false)
   const [installPrompt, setInstallPrompt] = useState<any>(null)
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+
+  let isIOS = true
+  if (typeof window !== 'undefined' && 'navigator' in window) {
+    isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+  }
 
   useEffect(() => {
-    setIsStandalone(
-      window.matchMedia('(display-mode: standalone)').matches ||
-        (window.navigator as any).standalone,
-    )
+    try {
+      setIsStandalone(
+        window.matchMedia('(display-mode: standalone)').matches ||
+          (window.navigator as any).standalone,
+      )
+    } catch (error) {
+      console.error('Error checking standalone mode:', error)
+    }
   }, [])
 
   useEffect(() => {

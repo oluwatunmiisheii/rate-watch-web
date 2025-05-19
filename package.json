@@ -9,7 +9,7 @@
     "lint": "next lint",
     "prepare": "husky",
     "cypress:open": "cypress open",
-    "cypres:run": "cypress run"
+    "cypress:run": "cypress run"
   },
   "repository": {
     "type": "git",
