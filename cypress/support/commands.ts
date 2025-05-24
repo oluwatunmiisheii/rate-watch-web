@@ -18,6 +18,7 @@ declare namespace Cypress {
         json: object
         alias: string
         type?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+        statusCode?: number
       },
     ): Chainable<object>
     setCookiesPolicy(): void
@@ -43,12 +44,13 @@ Cypress.Commands.add(
       json: object
       alias?: string
       type?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+      statusCode?: number
     },
   ) => {
-    const { json, type = 'GET', alias } = options
+    const { json, type = 'GET', alias, statusCode = 200 } = options
 
     cy.intercept(type, url, {
-      statusCode: 200,
+      statusCode,
       body: json,
     }).as(alias ?? 'mockedRequest')
   },
