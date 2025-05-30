@@ -26,10 +26,8 @@ interface CreateRateAlertProps {
 
 export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) => {
   const {
-    sourceCurrency,
-    targetCurrency,
-    setSourceCurrency,
-    setTargetCurrency,
+    selectedCurrency: { source, target },
+    updateCurrency,
     showCreateRateAlert,
     setShowCreateRateAlert,
   } = useAppContext()
@@ -52,9 +50,9 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
   }
 
   const shouldDisableCreateButton = () => {
-    const isMissingRequiredFields = !alertTypes.length || !sourceCurrency || !targetCurrency
+    const isMissingRequiredFields = !alertTypes.length || !source || !target
     const isThresholdAlertMissingAmount = alertTypes.includes('threshold') && !targetAmount
-    const isSameCurrency = sourceCurrency === targetCurrency
+    const isSameCurrency = source === target
 
     return isMissingRequiredFields || isThresholdAlertMissingAmount || isSameCurrency
   }
@@ -98,9 +96,9 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
           <div className="mx-auto w-full max-w-3xl py-8">
             <div className="flex flex-col items-center space-y-4 w-full">
               <CurrencySelect
-                selectedCurrency={sourceCurrency}
-                currencyToHide={targetCurrency}
-                onCurrencySelect={(currency) => setSourceCurrency(currency)}
+                selectedCurrency={source}
+                currencyToHide={target}
+                onCurrencySelect={(currency) => updateCurrency('source', currency)}
                 labelProps={{
                   className: 'bg-white',
                   children: 'From',
@@ -111,9 +109,9 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                 variant="light"
                 className="rounded-full size-10 p-0 flex-shrink-0"
                 onClick={() => {
-                  const temp = sourceCurrency
-                  setSourceCurrency(targetCurrency)
-                  setTargetCurrency(temp)
+                  const temp = source
+                  updateCurrency('source', target)
+                  updateCurrency('target', temp)
                 }}
                 type="button"
               >
@@ -122,9 +120,9 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
               </Button>
 
               <CurrencySelect
-                selectedCurrency={targetCurrency}
-                currencyToHide={sourceCurrency}
-                onCurrencySelect={(currency) => setTargetCurrency(currency)}
+                selectedCurrency={target}
+                currencyToHide={source}
+                onCurrencySelect={(currency) => updateCurrency('target', currency)}
                 labelProps={{
                   className: 'bg-white',
                   children: 'To',
@@ -170,11 +168,8 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                   <div className="flex space-x-12 items-center mt-0.5">
                     <div className="flex-shrink-0">
                       <div className="flex items-center">
-                        <CurrencyIcon
-                          currency={sourceCurrency}
-                          className="mr-2 flex items-center"
-                        />
-                        <h4>1 {sourceCurrency} =</h4>
+                        <CurrencyIcon currency={source} className="mr-2 flex items-center" />
+                        <h4>1 {source} =</h4>
                       </div>
                     </div>
                     <div className="relative flex-1">
@@ -187,8 +182,8 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                         value={targetAmount}
                       />
                       <div className="absolute top-1/3 right-6 flex items-center">
-                        <CurrencyIcon currency={targetCurrency} size="sm" />
-                        <span className="text-xs pl-2">{targetCurrency}</span>
+                        <CurrencyIcon currency={target} size="sm" />
+                        <span className="text-xs pl-2">{target}</span>
                       </div>
                     </div>
                   </div>
@@ -210,8 +205,8 @@ export const CreateRateAlert = ({ createAlert, email }: CreateRateAlertProps) =>
                     .mutateAsync({
                       alertTypes,
                       targetAmount: parseFloat(targetAmount.replace(/,/g, '')),
-                      sourceCurrency,
-                      targetCurrency,
+                      source,
+                      target,
                       email,
                     })
                     .then(() => {

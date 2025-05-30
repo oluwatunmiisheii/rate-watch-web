@@ -13,12 +13,10 @@ import { sendGTMEvent } from '@next/third-parties/google'
 
 export const RateSearch = () => {
   const {
-    sourceCurrency,
     initialSourceCurrency,
-    targetCurrency,
+    selectedCurrency: { source, target },
     initialTargetCurrency,
-    setSourceCurrency,
-    setTargetCurrency,
+    updateCurrency,
     setResult,
     setShowResult,
     amount,
@@ -31,13 +29,10 @@ export const RateSearch = () => {
     queryKey: ['rates', initialSourceCurrency, initialTargetCurrency],
     queryFn: async () => {
       try {
-        const response = await fetch(
-          `/api/rates?sourceCurrency=${sourceCurrency}&targetCurrency=${targetCurrency}`,
-        )
+        const response = await fetch(`/api/rates?sourceCurrency=${source}&targetCurrency=${target}`)
         if (!response.ok) {
           toast.error('Network response was not ok')
-          /* TODO: handle error properly */
-          throw new Error('Network response was not ok')
+          return null
         }
         const data = await response.json()
         setResult(data.data ?? [])
@@ -51,8 +46,8 @@ export const RateSearch = () => {
   })
 
   const disableSubmitButton = () => {
-    const isSameCurrency = sourceCurrency === targetCurrency
-    const isCurrencyEmpty = !sourceCurrency || !targetCurrency
+    const isSameCurrency = source === target
+    const isCurrencyEmpty = !(source && target)
 
     return isSameCurrency || isCurrencyEmpty
   }
@@ -99,9 +94,9 @@ export const RateSearch = () => {
             </div>
             <div className="mt-8 flex flex-col items-start">
               <CurrencySelect
-                selectedCurrency={sourceCurrency}
-                currencyToHide={targetCurrency}
-                onCurrencySelect={setSourceCurrency}
+                selectedCurrency={source}
+                currencyToHide={target}
+                onCurrencySelect={(value) => updateCurrency('source', value)}
                 labelProps={{
                   className: 'bg-white',
                   children: 'From',
@@ -111,18 +106,18 @@ export const RateSearch = () => {
                 variant="ghost"
                 className="size-10 p-0 mb-4 mt-3.5 !bg-transparent text-foreground/80"
                 onClick={() => {
-                  const temp = sourceCurrency
-                  setSourceCurrency(targetCurrency)
-                  setTargetCurrency(temp)
+                  const temp = source
+                  updateCurrency('source', target)
+                  updateCurrency('target', temp)
                 }}
               >
                 <span className="sr-only">Click me</span>
                 <ArrowDownUp className="size-5" />
               </Button>
               <CurrencySelect
-                selectedCurrency={targetCurrency}
-                currencyToHide={sourceCurrency}
-                onCurrencySelect={setTargetCurrency}
+                selectedCurrency={target}
+                currencyToHide={source}
+                onCurrencySelect={(value) => updateCurrency('target', value)}
                 labelProps={{
                   className: 'bg-white',
                   children: 'To',
@@ -132,23 +127,20 @@ export const RateSearch = () => {
             <div className="w-full mt-10">
               <Button
                 onClick={() => {
-                  if (
-                    sourceCurrency === initialSourceCurrency &&
-                    targetCurrency === initialTargetCurrency
-                  ) {
+                  if (source === initialSourceCurrency && target === initialTargetCurrency) {
                     refetch()
                   } else {
                     const params = new URLSearchParams()
-                    params.append('sourceCurrency', sourceCurrency)
-                    params.append('targetCurrency', targetCurrency)
-                    params.append('amount', removeCommas(amount ?? '1'))
+                    params.append('from', source)
+                    params.append('to', target)
+                    params.append('amount', removeCommas(amount || '1'))
                     router.push(`${pathname}?${params.toString()}`)
                   }
 
                   if (trackAnalytics) {
                     sendGTMEvent({
                       event: 'compareRates',
-                      rate: `${sourceCurrency}-${targetCurrency}`,
+                      rate: `${source}-${target}`,
                     })
                   }
                 }}

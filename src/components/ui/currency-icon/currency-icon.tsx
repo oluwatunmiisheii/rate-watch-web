@@ -6,7 +6,7 @@ type CurrencyIconProps = JSX.IntrinsicElements['div'] & {
   size?: 'sm' | 'lg'
 }
 
-export const CurrencyIcon = ({ currency, className, size, ...props }: CurrencyIconProps) => {
+export const CurrencyIcon = ({ currency, className, size }: CurrencyIconProps) => {
   return (
     <div className="np-theme-personal leading-[0]">
       <div

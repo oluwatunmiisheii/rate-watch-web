@@ -5,15 +5,16 @@ import React, { createContext, useContext, useMemo, useState } from 'react'
 interface AppContextValue {
   initialSourceCurrency: string | null
   initialTargetCurrency: string | null
-  sourceCurrency: string
-  targetCurrency: string
   showResult: boolean
   showCreateRateAlert: boolean
   selectedAlert: string | null
+  selectedCurrency: {
+    source: string
+    target: string
+  }
   result: any[]
   setResult: (result: any[]) => void
-  setSourceCurrency: (sourceCurrency: string) => void
-  setTargetCurrency: (targetCurrency: string) => void
+  updateCurrency: (field: 'target' | 'source', value: string) => void
   setShowResult: (showResult: boolean) => void
   setShowCreateRateAlert: (showCreateRateAlert: boolean) => void
   setSelectedAlert: (selectedAlert: string | null) => void
@@ -25,48 +26,51 @@ const AppContext = createContext<AppContextValue | undefined>(undefined)
 
 export const AppProvider = ({ children }: any) => {
   const searchParams = useSearchParams()
-  const initialSourceCurrency = searchParams.get('sourceCurrency')
-  const initialTargetCurrency = searchParams.get('targetCurrency')
+  const initialSourceCurrency = searchParams.get('from')
+  const initialTargetCurrency = searchParams.get('to')
   const initialAmount = validateNumberInput(searchParams.get('amount') ?? '')
 
-  const [sourceCurrency, setSourceCurrency] = useState(initialSourceCurrency ?? 'GBP')
-  const [targetCurrency, setTargetCurrency] = useState(initialTargetCurrency ?? 'NGN')
+  //todo: rename this to current, also export initial as an object so as to reduce the export from the context
+  const [selectedCurrency, setSelectedCurrency] = useState({
+    source: initialSourceCurrency ?? 'GBP',
+    target: initialTargetCurrency ?? 'NGN',
+  })
   const [amount, setAmount] = useState(initialAmount ?? '')
+
   const [showResult, setShowResult] = useState(false)
   const [showCreateRateAlert, setShowCreateRateAlert] = useState(false)
   const [selectedAlert, setSelectedAlert] = useState<string | null>(null)
   const [result, setResult] = useState<any[]>([])
 
+  const updateCurrency = (field: 'target' | 'source', value: string) => {
+    setSelectedCurrency((prev) => ({ ...prev, [field]: value }))
+  }
+
   const value = useMemo(
     () => ({
       initialSourceCurrency,
       initialTargetCurrency,
-      initialAmount,
-      sourceCurrency,
-      targetCurrency,
+      selectedCurrency,
       amount,
       showResult,
       showCreateRateAlert,
       selectedAlert,
       result,
       setResult,
-      setSourceCurrency,
-      setTargetCurrency,
       setAmount,
       setShowResult,
       setShowCreateRateAlert,
       setSelectedAlert,
+      updateCurrency,
     }),
     [
       initialSourceCurrency,
       initialTargetCurrency,
-      initialAmount,
+      selectedCurrency,
       result,
       selectedAlert,
       showCreateRateAlert,
       showResult,
-      sourceCurrency,
-      targetCurrency,
       amount,
     ],
   )

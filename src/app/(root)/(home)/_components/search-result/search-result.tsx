@@ -14,76 +14,14 @@ import {
 } from '@/components/ui/sheet/sheet'
 import { useAppContext } from '@/providers/app.provider'
 import { SignedIn } from '@clerk/nextjs'
-import { formatNumberWithCommas, removeCommas } from '@/lib/utils'
-import Link from 'next/link'
 
-const ResultCard = ({
-  targetCurrency,
-  sourceCurrency,
-  providerLogo,
-  rate,
-  bestRate,
-  amount,
-  provider_url,
-  flat_rate,
-}: {
-  targetCurrency: string
-  sourceCurrency: string
-  providerLogo: string
-  rate: string
-  bestRate: boolean
-  amount: string
-  provider_url: string
-  flat_rate: boolean
-}) => {
-  const totalAmount = parseFloat(removeCommas(amount || '1')) * parseFloat(rate)
-  const formattedAmount = formatNumberWithCommas(totalAmount.toFixed(2))
-
-  return (
-    <Link className="relative mt-3" href={provider_url} target="_blank" rel="no referrer">
-      <div className="rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm hover:border-gray-400 transition-all duration-300">
-        <div className="flex justify-between items-center">
-          <div
-            className="bg-center bg-contain bg-no-repeat"
-            style={{
-              backgroundImage: `url(${providerLogo})`,
-              width: '110px',
-              height: '65px',
-            }}
-          />
-          <div>
-            <p className="font-semibold">
-              {formattedAmount} {targetCurrency}
-            </p>
-          </div>
-        </div>
-        <div className="bg-gray-50 px-2 py-1 rounded-2xl text-xs text-muted-foreground flex items-center w-fit">
-          <span className="flex-shrink-0 mr-1">
-            <AudioLines size={12} />
-          </span>
-          {flat_rate
-            ? 'Fixed rate for new and returning users'
-            : 'Rates might be slightly lower for returning users'}
-        </div>
-      </div>
-      <span className="absolute py-1 px-3 top-[-10px] left-3 text-[12px] bg-white rounded-2xl text-muted-foreground z-5">
-        1 {sourceCurrency} = {rate} {targetCurrency}
-      </span>
-      {bestRate && (
-        <span className="absolute py-1 px-3 top-[-10px] text-[12px] bg-[#40B270] rounded-2xl text-white z-5 right-3">
-          Best rate
-        </span>
-      )}
-    </Link>
-  )
-}
+import { SearchesultCard } from './result-card'
 
 export function SearchResult() {
   const {
     showResult,
     setShowResult,
-    sourceCurrency,
-    targetCurrency,
+    selectedCurrency: { source: sourceCurrency, target: targetCurrency },
     result,
     setShowCreateRateAlert,
     amount,
@@ -146,16 +84,11 @@ export function SearchResult() {
             <div className="mx-auto w-full max-w-3xl pt-3 pb-12">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {result.map((item, i) => (
-                  <ResultCard
+                  <SearchesultCard
                     key={item.provider}
-                    sourceCurrency={sourceCurrency}
-                    targetCurrency={item.target_currency}
-                    providerLogo={item.provider_logo}
-                    rate={item.rate}
+                    {...item}
                     bestRate={i === 0}
                     amount={amount}
-                    provider_url={item.provider_url}
-                    flat_rate={item.flat_rate}
                   />
                 ))}
               </div>
