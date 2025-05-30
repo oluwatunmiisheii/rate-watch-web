@@ -97,12 +97,11 @@ export function InstallPrompt() {
             className="cursor-pointer"
             onClick={() => installApp()}
           >
-            <div className="relative bg-gradient-to-br from-primary to-primary/80 size-14 rounded-full shadow-lg flex items-center justify-center text-white">
-              <div className="absolute inset-0 rounded-full bg-[#1D4ED8] flex items-center justify-center">
-                <div className="mt-1">
-                  <AppWindow className="size-7" />
-                  <Plus className="size-3 absolute bottom-4 right-4 bg-white text-primary rounded-full p-[1px]" />
-                </div>
+            <div className="relative h-11 w-32 rounded-3xl flex items-center justify-center bg-[#1D4ED8] text-white">
+              Install
+              <div className="mt-1 relative ml-2">
+                <AppWindow className="size-6" />
+                <Plus className="size-3 absolute top-4 left-4 bg-white text-primary rounded-full p-[1px]" />
               </div>
             </div>
           </motion.button>
